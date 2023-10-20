@@ -27,7 +27,8 @@ $(document).ready(function () {
 
     getLocation();
     function getLocation() {
-        const apiUrl = "http://share-localtion-laravel.test/api/location";
+        const host = window.location.href;
+        const apiUrl = host + "api/location";
         const data = { userId: "user_id_xxx" };
         $.ajax({
             url: apiUrl,
