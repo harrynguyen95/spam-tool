@@ -7,11 +7,16 @@ $(document).ready(function () {
     var inscrease = 0;
     var zoom = 13;
     var marker = null;
+    var layer = null;
 
     var map = L.map("map").setView(initLatLng, zoom);
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+
+    layer = L.tileLayer('https://tile.osm.ch/switzerland/{z}/{x}/{y}.png', {
+        minZoom: 0,
         maxZoom: 19,
-    }).addTo(map);
+    });
+
+    layer.addTo(map);
     map.on("zoomend", function () {
         zoom = map.getZoom();
     });
@@ -23,7 +28,7 @@ $(document).ready(function () {
 
     const getLocationInterval = setInterval(function () {
         getLocation();
-    }, 20000); // 20 seconds
+    }, 60000); // 60 seconds
 
     getLocation();
     function getLocation() {
