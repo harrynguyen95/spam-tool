@@ -28,7 +28,7 @@ Route::post('/location', function () {
                 'lng' => -0.09,
                 'time' => 'xxx'
             ],
-            'expired_at' => '1697796720'
+            'expired_at' => '1697829693'
         ],
         'code' => 200
     ], 200);
