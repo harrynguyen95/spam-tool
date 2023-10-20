@@ -1,0 +1,121 @@
+body {
+  color: #1F2937;
+  background: #FFFFFF;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+}
+
+.header {
+  padding: 24px 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+.logo-wrapper {
+  text-align: center;
+  margin-right: 40px;
+  min-width: 90px;
+}
+
+.logo-img {
+  padding-top: 10px;
+  padding: 15px 0 10px;
+}
+
+.site-title p {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  color: #1F2937;
+}
+
+.ads-img {
+  min-width: 830px;
+  min-height: 85px;
+}
+
+.content {
+  height: calc(100vh - 320px);
+}
+
+.map {
+  background-color: #f2f2f2;
+  height: 100%;
+}
+
+.footer {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 30px 10px;
+}
+
+.infor {
+  margin-bottom: 20px;
+}
+
+.avt {
+  margin-right: 20px;
+}
+
+.time span {
+  color: var(--blue-blue-05, #3B82F6);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  margin: 0 0 10px 7px;
+}
+
+.clock {
+  margin-bottom: 3px;
+}
+
+.intro {
+  color: var(--gray-gray-08, #1F2937);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  /* 137.5% */
+}
+.btn-download {
+  padding: 2px 50px 6px;
+  border-radius: 8px;
+  background: var(--blue-blue-05, #3B82F6);
+}
+.btn-download span {
+  color: var(--White, #FFF);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-left: 5px;
+}
+
+.leaflet-marker-icon.leaflet-div-icon {
+  width: 1px !important;
+  height: 1px !important;
+}
+.avatar-marker {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: -40px;
+  left: -15px;
+  padding: 3px;
+}
+.avatar-marker:after {
+  content: '';
+  position: absolute;
+  margin-left: 9px;
+  width: 0;
+  height: 0;
+  border-top: solid 12px #fff;
+  border-left: solid 8px transparent;
+  border-right: solid 8px transparent;
+}
+
+.avatar-marker img {
+  width: 100% !important;
+}
