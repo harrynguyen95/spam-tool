@@ -63,7 +63,7 @@ $(document).ready(function () {
                                 <img src="https://lh3.googleusercontent.com/a/ACg8ocLLnhUp3Ns-5em4ymK-tqYC8Ag3MZI6glTApRY0Hx3L0WE=s96-c"/>
                             </div>
                         </div>
-                        <div class="vector">
+                        <div class="battery">
                             <img src="/images/battery-green.png" />
                             <span>80%</span>
                         </div>

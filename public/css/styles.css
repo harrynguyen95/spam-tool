@@ -129,6 +129,43 @@ body {
   display: none;
 }
 
+.vector {
+  position: absolute;
+  top: -60px;
+  left: -20px;
+  background: #fff;
+  border-radius: 5px;
+  padding: 1px 5px;
+  display: flex;
+  align-items: center;
+}
+.vector img {
+  height: 10px;
+  margin-right: 3px;
+}
+.vector span {
+  font-size: 10px;
+}
+
+.battery {
+  position: absolute;
+  bottom: -25px;
+  left: -15px;
+  background: #fff;
+  border-radius: 5px;
+  padding: 1px 3px;
+  display: flex;
+  align-items: center;
+}
+.battery img {
+  height: 7px;
+  margin-right: 3px;
+}
+.battery span {
+  font-size: 7px;
+}
+
+
 @media only screen and (max-width: 600px) {
   .d-pc {
     display: none;
