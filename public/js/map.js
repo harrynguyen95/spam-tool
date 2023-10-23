@@ -44,30 +44,36 @@ $(document).ready(function () {
             cache: false,
             processData: false,
             success: function (res) {
-                console.log("getLocation() success", res);
+                // console.log("getLocation() success", res);
 
                 nameEle.text(res.data.userName);
                 avatarEle.attr("src", res.data.avatarImageId);
-                // const htmlIcon =
-                //     '<div class="avatar-marker"><div><img src="' +
-                //     res.data.avatarImageId +
-                //     '"/></div></div>';
-
-                const htmlIcon = `<div class="mr-maker">
-                        <div class="vector">
-                            <img src="/images/vector.png" />
-                            <span>30km/h</span>
-                        </div>
-                        <div class="avatar-marker">
-                            <div>
-                                <img src="https://lh3.googleusercontent.com/a/ACg8ocLLnhUp3Ns-5em4ymK-tqYC8Ag3MZI6glTApRY0Hx3L0WE=s96-c"/>
-                            </div>
-                        </div>
-                        <div class="battery">
-                            <img src="/images/battery-green.png" />
-                            <span>80%</span>
-                        </div>
+                let htmlIcon = `<div class="mr-maker">`;
+                if (res.data.velocity && res.data.velocity > 0) {
+                    htmlIcon += `<div class="vector">
+                        <img src="/images/vector.png" />
+                        <span>`+ res.data.velocity +`km/h</span>
                     </div>`;
+                }
+                htmlIcon += `<div class="avatar-marker">
+                    <div>
+                        <img src="`+ res.data.avatarImageId +`"/>
+                    </div>
+                </div>`;
+                if (res.data.batteryLevel && res.data.batteryLevel > 0) {
+                    if (res.data.batteryLevel >= 20) {
+                        htmlIcon += `<div class="battery">
+                            <img src="/images/battery-green.png" />
+                            <span>`+ res.data.batteryLevel +`%</span>
+                        </div>`;
+                    } else {
+                        htmlIcon += `<div class="battery">
+                            <img src="/images/battery-red.png" />
+                            <span>`+ res.data.batteryLevel +`%</span>
+                        </div>`;
+                    }
+                }
+                htmlIcon += `</div>`;
 
                 const position = res.data.latestPosition;
                 const LatLng = [
@@ -119,13 +125,15 @@ $(document).ready(function () {
             error: function (err) {
                 const error = err.responseJSON
                 if (error.code == 400 || error.error == 'INVALID_INPUT' || error.error == 'DATA_NOT_FOUND' ) {
-                    // window.location.href =  host + '/404'
-                    console.log('error 404', error)
+                    console.log('error 400', error)
+                    window.location.href =  host + '/404'
                 }
 
                 if (error.error == 'LIVE_TRACKING_TIMEOUT' ) {
+                    console.log("The shared location is expired now.");
                     clearInterval(getLocationInterval);
                     timeRemainingEle.text("Expired!");
+                    window.location.href =  host + '/404'
                 }
             },
         });

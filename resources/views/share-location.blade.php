@@ -45,22 +45,6 @@
             </div>
         </div>
 
-        <div class="mr-maker">
-            <div class="vector">
-                <img src="/images/vector.png" />
-                <span>30km/h</span>
-            </div>
-            <div class="avatar-marker">
-                <div>
-                    <img src="https://lh3.googleusercontent.com/a/ACg8ocLLnhUp3Ns-5em4ymK-tqYC8Ag3MZI6glTApRY0Hx3L0WE=s96-c"/>
-                </div>
-            </div>
-            <div class="vector">
-                <img src="/images/battery-green.png" />
-                <span>80%</span>
-            </div>
-        </div>
-
         <div class="content">
             <div class="container-fluid map" id="map">
             </div>
@@ -86,7 +70,7 @@
                     <img class="d-inline" width="24px" height="24px" src="{{ url('/images/download.png') }}" />
                     <span>Get the app on Google play</span>
                 </a>
-                <button class="btn btn-outline-dark" id="btn-get">Get</button>
+                <button hidden class="btn btn-outline-dark" id="btn-get">Get</button>
             </div>
         </div>
 
