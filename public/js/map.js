@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    const host = window.location.origin;
+    // const apiUrl = host + "/api/location";
+
     var nameEle = $("#name");
     var avatarEle = $("#avatar");
     var timeRemainingEle = $("#time-remaining");
@@ -32,34 +35,45 @@ $(document).ready(function () {
 
     getLocation();
     function getLocation() {
-        const host = window.location.href;
-        const apiUrl = host + "api/location";
-        const data = { userId: "user_id_xxx" };
+        const apiUrl = 'http://207.148.120.11:8090/sharinglocation/api/v0/public/live-tracking/' + userId
         $.ajax({
             url: apiUrl,
-            method: "POST",
-            data: JSON.stringify(data),
+            method: "GET",
             dataType: "JSON",
             contentType: false,
             cache: false,
             processData: false,
             success: function (res) {
-                inscrease = inscrease + 0.001;
-
-                nameEle.text(res.data.name);
-                avatarEle.attr("src", res.data.avatar);
-                const htmlIcon =
-                    '<div class="avatar-marker"><div><img src="' +
-                    res.data.avatar +
-                    '"/></div></div>';
-
-                const position = res.data.position;
-                const LatLng = [
-                    position.lat + inscrease,
-                    position.lng + inscrease,
-                ];
                 console.log("getLocation() success", res);
 
+                nameEle.text(res.data.userName);
+                avatarEle.attr("src", res.data.avatarImageId);
+                // const htmlIcon =
+                //     '<div class="avatar-marker"><div><img src="' +
+                //     res.data.avatarImageId +
+                //     '"/></div></div>';
+
+                const htmlIcon = `<div class="mr-maker">
+                        <div class="vector">
+                            <img src="/images/vector.png" />
+                            <span>30km/h</span>
+                        </div>
+                        <div class="avatar-marker">
+                            <div>
+                                <img src="https://lh3.googleusercontent.com/a/ACg8ocLLnhUp3Ns-5em4ymK-tqYC8Ag3MZI6glTApRY0Hx3L0WE=s96-c"/>
+                            </div>
+                        </div>
+                        <div class="vector">
+                            <img src="/images/battery-green.png" />
+                            <span>80%</span>
+                        </div>
+                    </div>`;
+
+                const position = res.data.latestPosition;
+                const LatLng = [
+                    position.latitude,
+                    position.longitude,
+                ];
                 map.setView(LatLng, zoom);
 
                 if (marker) {
@@ -71,7 +85,7 @@ $(document).ready(function () {
                 }
 
                 const now = Date.now();
-                const expiredAt = parseFloat(res.data.expired_at) * 1000; // unix time to js time
+                const expiredAt = parseFloat(res.data.startTime + res.data.duration) * 1000; // unix time to js time
                 if (now >= expiredAt) {
                     console.log("The shared location is expired now.");
                     clearInterval(getLocationInterval);
@@ -103,7 +117,16 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log("err: ", err);
+                const error = err.responseJSON
+                if (error.code == 400 || error.error == 'INVALID_INPUT' || error.error == 'DATA_NOT_FOUND' ) {
+                    // window.location.href =  host + '/404'
+                    console.log('error 404', error)
+                }
+
+                if (error.error == 'LIVE_TRACKING_TIMEOUT' ) {
+                    clearInterval(getLocationInterval);
+                    timeRemainingEle.text("Expired!");
+                }
             },
         });
     }

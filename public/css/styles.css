@@ -57,6 +57,9 @@ body {
 .avt {
   margin-right: 20px;
 }
+.avt img {
+  border-radius: 50%;
+}
 
 .time span {
   color: var(--blue-blue-05, #3B82F6);
@@ -102,7 +105,7 @@ body {
   position: absolute;
   top: -40px;
   left: -15px;
-  padding: 3px;
+  padding: 2px;
 }
 .avatar-marker:after {
   content: '';
@@ -117,6 +120,7 @@ body {
 
 .avatar-marker img {
   width: 100% !important;
+  border-radius: 50%;
 }
 .d-pc {
   display: block;
