@@ -29,6 +29,9 @@ body {
   line-height: 20px;
   color: #1F2937;
 }
+.logo-wrapper a {
+  text-decoration: none;
+}
 
 .ads-img {
   min-width: 830px;
