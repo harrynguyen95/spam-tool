@@ -1,13 +1,12 @@
 $(document).ready(function () {
     const host = window.location.origin;
-    // const apiUrl = host + "/api/location";
+    const apiUrl = 'https://share-location.merryblue.llc/sharinglocation/api/v0/public/live-tracking/' + userId
 
     var nameEle = $("#name");
     var avatarEle = $("#avatar");
     var timeRemainingEle = $("#time-remaining");
 
     var initLatLng = [0, 0];
-    var inscrease = 0;
     var zoom = 13;
     var marker = null;
     var layer = null;
@@ -35,7 +34,6 @@ $(document).ready(function () {
 
     getLocation();
     function getLocation() {
-        const apiUrl = 'http://207.148.120.11:8090/sharinglocation/api/v0/public/live-tracking/' + userId
         $.ajax({
             url: apiUrl,
             method: "GET",
@@ -126,14 +124,14 @@ $(document).ready(function () {
                 const error = err.responseJSON
                 if (error.code == 400 || error.error == 'INVALID_INPUT' || error.error == 'DATA_NOT_FOUND' ) {
                     console.log('error 400', error)
-                    window.location.href =  host + '/404'
+                    // window.location.href =  host + '/404'
                 }
 
                 if (error.error == 'LIVE_TRACKING_TIMEOUT' ) {
                     console.log("The shared location is expired now.");
                     clearInterval(getLocationInterval);
                     timeRemainingEle.text("Expired!");
-                    window.location.href =  host + '/404'
+                    // window.location.href =  host + '/404'
                 }
             },
         });
