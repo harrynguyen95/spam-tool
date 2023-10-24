@@ -124,14 +124,16 @@ $(document).ready(function () {
                 const error = err.responseJSON
                 if (error.code == 400 || error.error == 'INVALID_INPUT' || error.error == 'DATA_NOT_FOUND' ) {
                     console.log('error 400', error)
-                    // window.location.href =  host + '/404'
+                    clearInterval(getLocationInterval);
+                    timeRemainingEle.text("Expired!");
+                    window.location.href =  host + '/404'
                 }
 
                 if (error.error == 'LIVE_TRACKING_TIMEOUT' ) {
                     console.log("The shared location is expired now.");
                     clearInterval(getLocationInterval);
                     timeRemainingEle.text("Expired!");
-                    // window.location.href =  host + '/404'
+                    window.location.href =  host + '/404'
                 }
             },
         });
