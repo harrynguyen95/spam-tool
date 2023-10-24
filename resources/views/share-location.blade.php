@@ -43,7 +43,7 @@
                             real-time location</p>
                     </div>
                 </div>
-                <a href="#" class="btn btn-primary btn-download">
+                <a href="https://play.google.com/store/apps/details?id=share.location.decide" class="btn btn-primary btn-download">
                     <img class="d-inline" width="24px" height="24px" src="{{ url('/images/download.png') }}" />
                     <span>Get the app on Google play</span>
                 </a>
