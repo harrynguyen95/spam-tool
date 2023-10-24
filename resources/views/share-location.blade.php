@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" href="{{ url('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('/css/leaflet.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/styles.css') . '?v=' . time() }}">
 </head>
 
 <body class="share-location">
@@ -47,7 +47,7 @@
                     <img class="d-inline" width="24px" height="24px" src="{{ url('/images/download.png') }}" />
                     <span>Get the app on Google play</span>
                 </a>
-                <button hidden class="btn btn-outline-dark" id="btn-get">Get</button>
+                <button class="btn btn-outline-dark" id="btn-get">Get</button>
             </div>
         </div>
 
@@ -61,7 +61,7 @@
     <script src="{{ url('/js/jquery-3.7.1.min.js') }}"></script>
 
     <script src="{{ url('/js/leaflet.js') }}"></script>
-    <script src="{{ url('/js/map.js') }}"></script>
+    <script src="{{ url('/js/map.js') . '?v=' . time() }}"></script>
 </body>
 
 </html>

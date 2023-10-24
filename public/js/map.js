@@ -30,7 +30,7 @@ $(document).ready(function () {
 
     const getLocationInterval = setInterval(function () {
         getLocation();
-    }, 60000); // 60 seconds
+    }, 20000); // 20 seconds
 
     getLocation();
     function getLocation() {
@@ -46,18 +46,17 @@ $(document).ready(function () {
 
                 nameEle.text(res.data.userName);
                 avatarEle.attr("src", res.data.avatarImageId);
+                const velocity = res.data.velocity ?? 0
                 let htmlIcon = `<div class="mr-maker">`;
-                if (res.data.velocity && res.data.velocity > 0) {
                     htmlIcon += `<div class="vector">
                         <img src="/images/vector.png" />
-                        <span>`+ res.data.velocity +`km/h</span>
+                        <span>`+ velocity +`km/h</span>
                     </div>`;
-                }
-                htmlIcon += `<div class="avatar-marker">
-                    <div>
-                        <img src="`+ res.data.avatarImageId +`"/>
-                    </div>
-                </div>`;
+                    htmlIcon += `<div class="avatar-marker">
+                        <div>
+                            <img src="`+ res.data.avatarImageId +`"/>
+                        </div>
+                    </div>`;
                 if (res.data.batteryLevel && res.data.batteryLevel > 0) {
                     if (res.data.batteryLevel >= 20) {
                         htmlIcon += `<div class="battery">
@@ -95,14 +94,12 @@ $(document).ready(function () {
                     clearInterval(getLocationInterval);
                     timeRemainingEle.text("Expired!");
                 } else {
-                    const timeleft = expiredAt - now;
+                    const timeleft = expiredAt - now ; // miliseconds
 
-                    // convert milliseconds to seconds / minutes / hours etc.
                     const msPerSecond = 1000;
                     const msPerMinute = msPerSecond * 60;
                     const msPerHour = msPerMinute * 60;
 
-                    // calculate remaining time
                     const hours = String(
                         Math.floor(
                             (timeleft % (1000 * 60 * 60 * 24)) / msPerHour
@@ -115,9 +112,7 @@ $(document).ready(function () {
                         Math.floor((timeleft % (1000 * 60)) / msPerSecond)
                     ).padStart(2, "0");
 
-                    timeRemainingEle.text(
-                        "Expired in " + hours + ":" + minutes + ":" + seconds
-                    );
+                    countdown(hours, minutes, seconds, timeRemainingEle)
                 }
             },
             error: function (err) {
@@ -126,16 +121,41 @@ $(document).ready(function () {
                     console.log('error 400', error)
                     clearInterval(getLocationInterval);
                     timeRemainingEle.text("Expired!");
-                    window.location.href =  host + '/404'
+                    // window.location.href =  host + '/404'
                 }
 
                 if (error.error == 'LIVE_TRACKING_TIMEOUT' ) {
                     console.log("The shared location is expired now.");
                     clearInterval(getLocationInterval);
                     timeRemainingEle.text("Expired!");
-                    window.location.href =  host + '/404'
+                    // window.location.href =  host + '/404'
                 }
             },
         });
     }
+
+    function countdown(hr,mm,ss, element)
+    {
+        var interval = setInterval(function(){
+
+            if(hr == 0 && mm == 0 && ss == 0)clearInterval(interval);
+            ss--;
+            if(ss == 0)
+            {
+                ss = 59;
+                mm--;
+                if(mm == 0)
+                {
+                    mm = 59;
+                    hr--;
+                }
+            }
+
+            if(hr.toString().length < 2) hr = "0"+hr;
+            if(mm.toString().length < 2) mm = "0"+mm;
+            if(ss.toString().length < 2) ss = "0"+ss;
+            element.html(hr+":"+mm+":"+ss);
+        },1000)
+    }
+
 });
