@@ -43,7 +43,7 @@ $(document).ready(function () {
             cache: false,
             processData: false,
             success: function (res) {
-                // console.log("getLocation() success", res);
+                console.log("getLocation() api", res);
 
                 nameEle.text(res.data.userName);
                 avatarEle.attr("src", res.data.avatarImageId);
@@ -81,7 +81,7 @@ $(document).ready(function () {
                 map.setView(LatLng, zoom);
 
                 if (marker) {
-                    marker.setLatLng(LatLng);
+                    marker.setLatLng(LatLng).setIcon(L.divIcon({ html: htmlIcon }));
                 } else {
                     marker = L.marker(LatLng, {
                         icon: L.divIcon({ html: htmlIcon }),
@@ -156,7 +156,7 @@ $(document).ready(function () {
             if (hr.toString().length < 2) hr = "0" + hr;
             if (mm.toString().length < 2) mm = "0" + mm;
             if (ss.toString().length < 2) ss = "0" + ss;
-            element.html(hr + ":" + mm + ":" + ss);
+            element.html("Expired in " + hr + ":" + mm + ":" + ss);
         }, 1000)
     }
 

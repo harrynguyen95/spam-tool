@@ -10,6 +10,8 @@ if ('function' === typeof importScripts) {
     console.log('onMessage: ', e)
   }
 
+  let self
+
   // Initialize the Firebase app in the service worker by passing in the
   // messagingSenderId.
   const firebaseConfig = {
@@ -30,8 +32,9 @@ if ('function' === typeof importScripts) {
 
   messaging.onBackgroundMessage(function (payload) {
     // do some work here
-    console.log('onBackgroundMessage: ', payload)
-
+    console.log('onBackgroundMessage listen: ', payload)
+    console.log('window: ', window)
+    
     if (!payload.notification && payload.webpush && payload.webpush.notification) {
       const notificationTitle = payload.webpush.notification.title;
       const notificationOptions = payload.webpush.notification;
