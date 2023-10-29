@@ -10,7 +10,9 @@
 
     <link rel="icon" type="image/x-icon" href="{{ url('/favicon.ico') }}" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('/favicon.ico') }}" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"> -->
+    <link rel="stylesheet" href="{{ url('/css/fonts.css') }}">
 
     <link rel="stylesheet" href="{{ url('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('/css/leaflet.css') }}">
@@ -54,7 +56,7 @@
     </main>
 
     <script type="text/javascript">
-        const userId = @json(request()->get('key'));
+        const sharingId = @json(request()->get('key'));
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>

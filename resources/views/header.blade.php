@@ -13,11 +13,11 @@
             </div>
             <div class="ads-area">
                 <a class="d-pc" href="#">
-                    <img class="d-inline" width="830px" height="85px" src="{{ url('/images/ads.png') }}" />
+                    <img class="d-inline" width="830px" height="85px" src="{{ url('/images/qc.png') }}" />
                 </a>
                 <div class="d-mb avatar-mb">
                     <a href="#">
-                        <div class="img-mb" style="background-image: url('{{ url('/images/ads.png') }}')"></div>
+                        <div class="img-mb" style="background-image: url('{{ url('/images/qc.png') }}')"></div>
                     </a>
                 </div>
             </div>

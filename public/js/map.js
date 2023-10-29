@@ -1,6 +1,6 @@
 $(document).ready(function () {
     const host = window.location.origin;
-    const apiUrl = 'https://share-location.merryblue.llc/sharinglocation/api/v0/public/live-tracking/' + userId
+    const apiUrl = 'https://share-location.merryblue.llc/sharinglocation/api/v0/public/live-tracking/' + sharingId
 
     var nameEle = $("#name");
     var avatarEle = $("#avatar");

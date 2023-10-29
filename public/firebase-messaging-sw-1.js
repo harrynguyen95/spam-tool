@@ -5,6 +5,8 @@ if ('function' === typeof importScripts) {
   importScripts("https://www.gstatic.com/firebasejs/" + firebaseVersion + "/firebase-messaging.js");
   addEventListener('message', onMessage);
 
+  console.log(123)
+
   function onMessage(e) {
     // do some work here
     console.log('onMessage: ', e)
@@ -31,9 +33,10 @@ if ('function' === typeof importScripts) {
   const messaging = firebase.messaging();
 
   messaging.onBackgroundMessage(function (payload) {
-    // do some work here
+
+    console.log('123456')
     console.log('onBackgroundMessage listen: ', payload)
-    console.log('window: ', window)
+    console.log('self: ', self)
     
     if (!payload.notification && payload.webpush && payload.webpush.notification) {
       const notificationTitle = payload.webpush.notification.title;

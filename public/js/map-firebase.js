@@ -1,6 +1,6 @@
 $(document).ready(function () {
   const host = window.location.origin;
-  const apiUrl = 'https://share-location.merryblue.llc/sharinglocation/api/v0/public/live-tracking/' + userId
+  const apiUrl = 'https://share-location.merryblue.llc/sharinglocation/api/v0/public/live-tracking/' + sharingId
   const firebaseConfig = {
     apiKey: "AIzaSyDO6esatJ8i14whnx7jzdevf37N9X4bRes",
     authDomain: "location-sharing-abdc2.firebaseapp.com",
@@ -36,12 +36,13 @@ $(document).ready(function () {
 
   firebase.initializeApp(firebaseConfig);
   const messaging = firebase.messaging();
+
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
-      messaging.getToken({ vapidKey: publicKey }).then((currentToken) => {
-        if (currentToken) {
-          // console.log('currentToken: ', currentToken)
-          subscribeTokenToTopic(currentToken, userId)
+      messaging.getToken({ vapidKey: publicKey }).then((token) => {
+        if (token) {
+          console.log('fcmToken: ', token)
+          subscribeTokenToTopic(token, sharingId)
         } else {
           console.log('No registration token available. Request permission to generate one.');
         }
@@ -51,6 +52,7 @@ $(document).ready(function () {
     }
   })
 
+  // deleteToken()
   messaging.onMessage((payload) => {
     console.log('Message received: ', payload);
     let data = {
@@ -198,6 +200,17 @@ $(document).ready(function () {
     }, 1000)
   }
 
+  function deleteToken() {
+    // [START messaging_delete_token]
+      messaging.deleteToken().then(() => {
+        console.log('Token deleted.');
+          // ...
+      }).catch((err) => {
+          console.log('Unable to delete token. ', err);
+      });
+    // [END messaging_delete_token]
+  }
+
   function subscribeTokenToTopic(token, topic) {
     fetch(`https://iid.googleapis.com/iid/v1/${token}/rel/topics/${topic}`, {
       method: 'POST',
@@ -209,7 +222,7 @@ $(document).ready(function () {
         if (response.status < 200 || response.status >= 400) {
           console.log(response.status, response);
         }
-        console.log(`"${topic}" is subscribed.`);
+        console.log(`"${topic}" is subscribed.`, response);
       })
       .catch((error) => {
         console.error(error.result);
