@@ -72,6 +72,7 @@ $(document).ready(function () {
 
   navigator.serviceWorker.addEventListener('message', function (event) {
     // console.log('ServiceWorker listener: ', event);
+
     const data = sampleData(event.data.data ?? (event.data ?? {}))
     updateUI(data);
   });
@@ -256,7 +257,6 @@ $(document).ready(function () {
         },
         "duration": 200000,
         "startTime": 1698581208,
-        "avatarImageId": data.avatar,
       }
     }
   }

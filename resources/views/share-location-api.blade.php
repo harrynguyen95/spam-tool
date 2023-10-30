@@ -59,14 +59,11 @@
         const sharingId = @json(request()->get('key'));
     </script>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
-
     <script src="{{ url('/js/bootstrap.min.js') }}"></script>
     <script src="{{ url('/js/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ url('/js/leaflet.js') }}"></script>
 
-    <script src="{{ url('/js/map-firebase.js') . '?v=' . time() }}"></script>
+    <script src="{{ url('/js/leaflet.js') }}"></script>
+    <script src="{{ url('/js/map-api.js') . '?v=' . time() }}"></script>
 </body>
 
 </html>
