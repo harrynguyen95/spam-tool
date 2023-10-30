@@ -17,7 +17,7 @@
                 </a>
                 <div class="d-mb avatar-mb">
                     <a href="#">
-                        <div class="img-mb" style="background-image: url('{{ url('/images/qc.png') }}')"></div>
+                        <div class="img-mb" style="background-image: url('/images/qc.png')"></div>
                     </a>
                 </div>
             </div>

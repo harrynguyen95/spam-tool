@@ -218,6 +218,6 @@ body {
     width: 100%;
   }
   .content {
-    height: calc(100vh - 215px);
+    height: calc(100vh - 260px);
   }
 }

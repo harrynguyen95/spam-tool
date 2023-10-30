@@ -31,7 +31,7 @@ $(document).ready(function () {
 
     const getLocationInterval = setInterval(function () {
         getLocation();
-    }, 20000); // 20 seconds
+    }, 30000); // 30 seconds
 
     getLocation();
     function getLocation() {

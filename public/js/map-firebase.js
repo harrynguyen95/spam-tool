@@ -22,6 +22,7 @@ $(document).ready(function () {
   var marker = null;
   var layer = null;
   var countdownInterval = null;
+  var getLocationInterval = null;
 
   var map = L.map("map").setView(initLatLng, zoom);
   layer = L.tileLayer('https://tile.osm.ch/switzerland/{z}/{x}/{y}.png', {
@@ -37,37 +38,41 @@ $(document).ready(function () {
   firebase.initializeApp(firebaseConfig);
   const messaging = firebase.messaging();
 
-  Notification.requestPermission().then((permission) => {
-    if (permission === 'granted') {
-      messaging.getToken({ vapidKey: publicKey }).then((token) => {
-        if (token) {
-          console.log('fcmToken: ', token)
-          subscribeTokenToTopic(token, sharingId)
-        } else {
-          console.log('No registration token available. Request permission to generate one.');
-        }
-      }).catch((err) => {
-        console.log('An error occurred while retrieving token. ', err);
-      });
-    }
-  })
-
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  } else {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        messaging.getToken({ vapidKey: publicKey }).then((token) => {
+          if (token) {
+            // console.log('fcmToken: ', token)
+            subscribeTokenToTopic(token, sharingId)
+          } else {
+            setApiCalling()
+            console.log('No registration token available. Request permission to generate one.');
+          }
+        }).catch((err) => {
+          setApiCalling()
+          console.log('An error occurred while retrieving token. ', err);
+        });
+      }
+    }).catch((err) => {
+      setApiCalling()
+      console.log('An error occurred Notification requestPermission. ', err);
+    });
+  }
+  
   // deleteToken()
   messaging.onMessage((payload) => {
-    console.log('Message received: ', payload);
-    let data = {
-      ...payload.data,
-      ...{ 
-        "latestPosition": {
-          "latitude": payload.data.latitude,
-          "longitude": payload.data.longitude,
-        },
-        "duration": 170000,
-        "startTime": 1698410285,
-        "avatarImageId": payload.data.avatar,
-      }
-    }
+    // console.log('Message received: ', payload);
 
+    const data = sampleData(payload.data)
+    updateUI(data);
+  });
+
+  navigator.serviceWorker.addEventListener('message', function (event) {
+    // console.log('ServiceWorker listener: ', event);
+    const data = sampleData(event.data.data ?? (event.data ?? {}))
     updateUI(data);
   });
 
@@ -86,19 +91,21 @@ $(document).ready(function () {
       cache: false,
       processData: false,
       success: function (res) {
-        console.log("getLocation() api", res);
+        // console.log("getLocation() api", res);
         updateUI(res.data)
       },
       error: function (err) {
         const error = err.responseJSON
         if (error.code == 400 || error.error == 'INVALID_INPUT' || error.error == 'DATA_NOT_FOUND') {
           console.log('Error 400', error)
+          clearInterval(getLocationInterval);
           clearInterval(countdownInterval);
           timeRemainingEle.text("Expired!");
           // window.location.href =  host + '/404'
         }
         if (error.error == 'LIVE_TRACKING_TIMEOUT') {
           console.log("The shared location is expired now.");
+          clearInterval(getLocationInterval);
           clearInterval(countdownInterval);
           timeRemainingEle.text("Expired!");
           // window.location.href =  host + '/404'
@@ -155,6 +162,8 @@ $(document).ready(function () {
     const expiredAt = parseFloat(data.startTime + data.duration) * 1000; // unix time to js time
     if (now >= expiredAt) {
       console.log("The shared location is expired now.");
+      clearInterval(getLocationInterval);
+      clearInterval(countdownInterval);
       timeRemainingEle.text("Expired!");
     } else {
       const timeleft = expiredAt - now; // miliseconds
@@ -219,15 +228,37 @@ $(document).ready(function () {
       })
     })
       .then((response) => {
-        if (response.status < 200 || response.status >= 400) {
+        if (response.status == 200) {
+          // console.log(`"${topic}" is subscribed.`);
+        } else {
           console.log(response.status, response);
         }
-        console.log(`"${topic}" is subscribed.`, response);
       })
       .catch((error) => {
         console.error(error.result);
       });
     return true;
+  }
+
+  function setApiCalling() {
+    getLocationInterval = setInterval(function () {
+      getLocation();
+    }, 10000); // 10 seconds
+  }
+
+  function sampleData(data) {
+    return {
+      ...data,
+      ...{ 
+        "latestPosition": {
+          "latitude": data.latitude,
+          "longitude": data.longitude,
+        },
+        "duration": 200000,
+        "startTime": 1698581208,
+        "avatarImageId": data.avatar,
+      }
+    }
   }
 
 });
