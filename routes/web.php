@@ -21,10 +21,10 @@ Route::get('/share-location', function () {
     return view('share-location');
 });
 
-Route::get('/share-location-firebase', function () {
-    return view('share-location-firebase');
+Route::get('/share-location-dev', function () {
+    return view('share-location-dev');
 });
 
-Route::get('/share-location-firebase-hiennd', function () {
-    return view('share-location-firebase-hiennd');
+Route::get('/share-location-api', function () {
+    return view('share-location-api');
 });

@@ -13,6 +13,10 @@ $(document).ready(function () {
   const publicKey = 'BKP-3EWy-hmqgx35du99Er41ert3GwRaL_ZF2T_IoJnVJ6MoCeiGp6um2C-Qnnt9MI2S5Q5PXlqfT_cwkV0GCvc'
   const serverKey = 'AAAApHgAnUM:APA91bGtlcRkEPXTwhUpxEHbU6qyafHTcZoH_elqjsIIii9KNICsDvhX7nLFLb_rQaXhXLUCkUon5oKe8ELxGizFSoo5-ZlhelBEmJyLHX0-DsPLDRTuzxfUvPS9nD4A0F4Eg_xa_qtZ'
 
+  const msPerSecond = 1000;
+  const msPerMinute = msPerSecond * 60;
+  const msPerHour = msPerMinute * 60;
+
   var nameEle = $("#name");
   var avatarEle = $("#avatar");
   var timeRemainingEle = $("#time-remaining");
@@ -72,7 +76,7 @@ $(document).ready(function () {
   // });
 
   navigator.serviceWorker.addEventListener('message', function (event) {
-    // console.log('ServiceWorker listener: ', event);
+    console.log('ServiceWorker listener: ', event);
 
     const data = formatData(event.data.data ?? (event.data ?? {}))
     updateUI(data);
@@ -117,34 +121,12 @@ $(document).ready(function () {
   }
 
   function updateUI(data) {
-    // console.log('updateUI: ', data)
+    console.log('updateUI: ', data)
+
     nameEle.text(data.userName);
     avatarEle.attr("src", data.avatarImageId);
-    const velocity = data.velocity ?? 0
-    let htmlIcon = `<div class="mr-maker">`;
-    htmlIcon += `<div class="vector">
-                    <img src="/images/vector.png" />
-                    <span>`+ velocity + `km/h</span>
-                </div>`;
-    htmlIcon += `<div class="avatar-marker">
-                    <div>
-                        <img src="`+ data.avatarImageId + `"/>
-                    </div>
-                </div>`;
-    if (data.batteryLevel && data.batteryLevel > 0) {
-      if (data.batteryLevel >= 20) {
-        htmlIcon += `<div class="battery">
-                        <img src="/images/battery-green.png" />
-                        <span>`+ data.batteryLevel + `%</span>
-                    </div>`;
-      } else {
-        htmlIcon += `<div class="battery">
-                        <img src="/images/battery-red.png" />
-                        <span>`+ data.batteryLevel + `%</span>
-                    </div>`;
-      }
-    }
-    htmlIcon += `</div>`;
+    
+    const htmlIcon = getMarkerDiv(data);
 
     const position = data.latestPosition;
     const LatLng = [
@@ -170,29 +152,95 @@ $(document).ready(function () {
       timeRemainingEle.text("Expired!");
     } else {
       const timeleft = expiredAt - now; // miliseconds
-
-      const msPerSecond = 1000;
-      const msPerMinute = msPerSecond * 60;
-      const msPerHour = msPerMinute * 60;
-
-      const hours = String(
-        Math.floor(
-          (timeleft % (1000 * 60 * 60 * 24)) / msPerHour
-        )
-      ).padStart(2, "0");
-      const minutes = String(
-        Math.floor((timeleft % (1000 * 60 * 60)) / msPerMinute)
-      ).padStart(2, "0");
-      const seconds = String(
-        Math.floor((timeleft % (1000 * 60)) / msPerSecond)
-      ).padStart(2, "0");
-
-      clearInterval(countdownInterval);
-      countdown(hours, minutes, seconds, timeRemainingEle)
+      setExpiredIn(timeleft)
     }
   }
 
-  function countdown(hr, mm, ss, element) {
+  function getMarkerDiv(data) {
+    const now = Date.now();
+
+    let htmlIcon = `<div class="mr-maker">`;
+
+
+    const velocity = parseFloat(data.velocity ?? 0)
+
+    const updatedTime = parseFloat(data.updatedTime) * 1000; // unix time to js time
+    const updatedSince = now - updatedTime; // miliseconds
+
+    const hours = Math.floor((updatedSince % (1000 * 60 * 60 * 24)) / msPerHour)
+    const minutes =  Math.floor((updatedSince % (1000 * 60 * 60)) / msPerMinute)
+    console.log('updatedSince: ', hours, minutes)
+
+    if (velocity > 0) {
+      htmlIcon += `<div class="vector">
+        <img src="/images/vector.png" />
+        <span>`+ velocity + `km/h</span>
+      </div>`;
+    } else {
+      if (hours == 0) {
+        if (minutes <= 2) { // now
+          htmlIcon += `<div class="vector">
+            <img src="/images/clock.png" />
+            <span>Now</span>
+          </div>`;
+        } else if (2 < minutes <= 10) { // 10'
+
+        } else if (10 < minutes <= 20) { // 20'
+
+        } else if (20 < minutes <= 30) { // 30'
+
+        } else if (30 < minutes <= 40) { // 40'
+
+        } else if (40 < minutes <= 50) { // 50'
+
+        } else {
+
+        }
+      } else {
+
+      }
+    }
+    
+    htmlIcon += `<div class="avatar-marker">
+                    <div>
+                        <img src="`+ data.avatarImageId + `"/>
+                    </div>
+                </div>`;
+    if (data.batteryLevel && data.batteryLevel > 0) {
+      if (data.batteryLevel >= 20) {
+        htmlIcon += `<div class="battery">
+                        <img src="/images/battery-green.png" />
+                        <span>`+ data.batteryLevel + `%</span>
+                    </div>`;
+      } else {
+        htmlIcon += `<div class="battery">
+                        <img src="/images/battery-red.png" />
+                        <span>`+ data.batteryLevel + `%</span>
+                    </div>`;
+      }
+    }
+    htmlIcon += `</div>`;
+    return htmlIcon
+  }
+
+  function setExpiredIn(timeleft) {
+    const hours = String(
+      Math.floor(
+        (timeleft % (1000 * 60 * 60 * 24)) / msPerHour
+      )
+    ).padStart(2, "0");
+    const minutes = String(
+      Math.floor((timeleft % (1000 * 60 * 60)) / msPerMinute)
+    ).padStart(2, "0");
+    const seconds = String(
+      Math.floor((timeleft % (1000 * 60)) / msPerSecond)
+    ).padStart(2, "0");
+
+    clearInterval(countdownInterval);
+    countdownExpiredIn(hours, minutes, seconds, timeRemainingEle)
+  }
+
+  function countdownExpiredIn(hr, mm, ss, element) {
     countdownInterval = setInterval(function () {
       if (hr == 0 && mm == 0 && ss == 0) clearInterval(countdownInterval);
       ss--;
@@ -256,6 +304,7 @@ $(document).ready(function () {
         "latestPosition": {
           "latitude": data.latitude,
           "longitude": data.longitude,
+          "updatedTime": data.updatedTime,
         },
       }
     }
