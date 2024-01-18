@@ -1,0 +1,96 @@
+.required {
+    color: red;
+    margin-left: 10px;
+}
+
+#datatables form button {
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+#datatables form .glyphicon {
+    padding: 0 3px;
+    font-size: 15px;
+    color: #0a95da;
+}
+
+#datatables img {
+    max-width: 120px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+.show-images {
+    max-width: 500px;
+}
+
+.nav-tabs-custom {
+    box-shadow: none;
+}
+
+.radio-block {
+    display: block;
+}
+
+.fb-id {
+    display: block;
+    font-size: 11px;
+    color: #bbb;
+}
+.video-title {
+    display: block;
+    font-size: 21px;
+    font-weight: 600;
+}
+.updated-at {
+    display: block;
+    font-size: 12px;
+}
+.social-actions {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 2px 10px;
+    margin-top: 10px;
+    background: #f6f6f647;
+    display: flex;
+}
+.social-actions span {
+    margin-right: 40px;
+}
+
+
+#loading{	
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height:100%;
+    display: none;
+    background: rgba(0,0,0,0.6);
+}
+.cv-spinner {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+  }
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px #ddd solid;
+    border-top: 4px #2e93e6 solid;
+    border-radius: 50%;
+    animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+    100% { 
+        transform: rotate(360deg); 
+    }
+}
+.is-hide{
+    display:none;
+}
