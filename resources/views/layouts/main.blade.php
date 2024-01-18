@@ -14,7 +14,7 @@
     <style>
         .content-wrapper {
             background-color: #fff;
-            /* min-height: calc(100vh - 50px) !important; */
+            min-height: calc(100vh - 50px) !important;
         }
     </style>
 

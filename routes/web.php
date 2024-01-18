@@ -20,17 +20,23 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
     Route::get('/logout', 'AuthController@logout')->name('logout');
 
     Route::group(['middleware' => ['auth']], function() {
-        Route::get('/', 'MainController@dashboard')->name('dashboard');
+        Route::get('/', 'FolderController@dashboard')->name('dashboard');
+        Route::post('/upload/folder', 'FolderController@upload')->name('upload');
 
-        Route::post('/upload/folder', 'MainController@upload')->name('upload');
+        Route::get('/merge/file', 'MergeController@index')->name('merge.index');
+        Route::post('/merge/file', 'MergeController@merge')->name('merge');
 
-        Route::get('/folders', 'MainController@index')->name('folder.index');
-        Route::get('/folders/create', 'MainController@create')->name('folder.create');
-        Route::post('/folders', 'MainController@store')->name('folder.store');
-        Route::get('/folders/view/{id}', 'MainController@show')->name('folder.show');
-        Route::get('/folders/update/{id}', 'MainController@edit')->name('folder.edit');
-        Route::put('/folders/update/{id}', 'MainController@update')->name('folder.update');
-        Route::delete('/folders/delete/{id}', 'MainController@destroy')->name('folder.destroy');
+
+        Route::get('/folders/{id}/compare/nick', 'FolderController@compareNick')->name('folder.compare.nick');
+        Route::get('/folders/{id}/compare/group', 'FolderController@compareGroup')->name('folder.compare.group');
+
+        Route::get('/folders', 'FolderController@index')->name('folder.index');
+        Route::get('/folders/create', 'FolderController@create')->name('folder.create');
+        Route::post('/folders', 'FolderController@store')->name('folder.store');
+        Route::get('/folders/view/{id}', 'FolderController@show')->name('folder.show');
+        Route::get('/folders/update/{id}', 'FolderController@edit')->name('folder.edit');
+        Route::put('/folders/update/{id}', 'FolderController@update')->name('folder.update');
+        Route::delete('/folders/delete/{id}', 'FolderController@destroy')->name('folder.destroy');
 
     });
 });

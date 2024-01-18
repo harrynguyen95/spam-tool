@@ -14,8 +14,8 @@ if (! function_exists('active_route')) {
         
         if ($route == 1) {
             $route = [
-                'page.index', 'page.show',
-                'page.create', 'page.edit',
+                'folder.index', 'folder.show',
+                'folder.create', 'folder.edit',
 
                 'dashboard'
             ];
@@ -23,8 +23,7 @@ if (! function_exists('active_route')) {
 
         if ($route == 2) {
             $route = [
-                'user.index','user.show',
-                'user.create','user.edit',
+                'merge.index','merge',
             ];
         }
 
@@ -62,6 +61,12 @@ if (! function_exists('active_route')) {
             <li class="{{ active_route('folder.*') }} {{ active_route('folder.index') }}">
                 <a href="{{ route('folder.index') }}">
                     <i class="fa fa-book"></i> <span>Shared folder</span>
+                </a>
+            </li>
+
+            <li class="{{ active_route('merge.*') }} {{ active_route('merge.index') }}">
+                <a href="{{ route('merge.index') }}">
+                    <i class="fa fa-cog"></i> <span>Merge file</span>
                 </a>
             </li>
 {{-- 
