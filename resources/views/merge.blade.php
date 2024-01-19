@@ -12,14 +12,13 @@
     <div class="sp-push-form">
         <form action="{{ route('merge') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="form-group @if (count($errors->all())) {{$errors->has(['file_merge']) ? 'has-error' : 'has-success'}} @endif">
-                <label for="exampleInputFile">Zip file input<span class="required">*</span></label>
-                <input name="file_merge" type="file" id="exampleInputFile">
 
-                <div class="help-block">@if($errors->has('file_merge')) {{ $errors->first('file_merge') }} @endif</div>
+            <div class="form-group @if (count($errors->all())) {{$errors->has(['folder_path']) ? 'has-error' : 'has-success'}} @endif" >
+                <label class="control-label">Path<span class="required">*</span></label>
+                <input type="text" class="form-control{{ $errors->has('folder_path') ? ' has-error' : '' }}" name="folder_path" value="{{ old('folder_path') }}">
+                <div class="help-block">@if($errors->has('folder_path')) {{ $errors->first('folder_path') }} @endif</div>
             </div>
-
-            <br>
+            
             <div class="form-group">
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}" />
                 <button type="submit" class="btn btn-success">{{ t('Save') }}</button>

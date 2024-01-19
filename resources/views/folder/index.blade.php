@@ -11,7 +11,7 @@
 @section('content')
 <div class="sp-push-index">
     <p>
-        <a class="btn btn-success" href="{{ route('dashboard') }}">Upload</a>
+        <a class="btn btn-success" href="{{ route('dashboard') }}">Create</a>
     </p>
     <br>
     <br>
@@ -24,7 +24,7 @@
                         <th class="un-orderable-col">#</th>
                         <th class="un-orderable-col">Id</th>
                         <th class="un-orderable-col">Name</th>
-                        <th class="un-orderable-col">Upload name</th>
+                        <th class="un-orderable-col">Folder path</th>
                         <th class="un-orderable-col">Created at</th>
                     </tr>
                 </thead>
@@ -34,7 +34,7 @@
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $row['id'] }}</td>
                             <td>{{ $row['name'] }}</td>
-                            <td>{{ $row['upload_name'] }}</td>
+                            <td>{{ $row['folder_path'] }}</td>
                             <td>{{ date_format(date_create($row['created_at']), 'Y-m-d H:i') }}</td>
                             <td>
                                 <form method="POST"

@@ -19,13 +19,11 @@
                 <div class="help-block">@if($errors->has('name')) {{ $errors->first('name') }} @endif</div>
             </div>
 
-            <div class="form-group @if (count($errors->all())) {{$errors->has(['folder']) ? 'has-error' : 'has-success'}} @endif">
-                <label for="exampleInputFile">Zip file input<span class="required">*</span></label>
-                <input name="folder" type="file" id="exampleInputFile">
-
-                <div class="help-block">@if($errors->has('folder')) {{ $errors->first('folder') }} @endif</div>
-              </div>
-
+            <div class="form-group @if (count($errors->all())) {{$errors->has(['folder_path']) ? 'has-error' : 'has-success'}} @endif" >
+                <label class="control-label">Path<span class="required">*</span></label>
+                <input type="text" class="form-control{{ $errors->has('folder_path') ? ' has-error' : '' }}" name="folder_path" value="{{ old('folder_path') }}">
+                <div class="help-block">@if($errors->has('folder_path')) {{ $errors->first('folder_path') }} @endif</div>
+            </div>
 
             <br>
             <div class="form-group">

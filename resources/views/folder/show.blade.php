@@ -15,7 +15,7 @@
         <tbody>
             <tr><th>ID</th><td>{{ $folder->id }}</td></tr>
             <tr><th>{{ t('Name') }}</th><td>{{ $folder->name }}</td></tr>
-            <tr><th>{{ t('Upload name') }}</th><td>{{ $folder->upload_name }}</td></tr>
+            <tr><th>{{ t('Folder path') }}</th><td>{{ $folder->folder_path }}</td></tr>
             <tr><th>{{ t('Created at') }}</th><td><p class="c_timezone">{{ $folder->created_at }}</p></td></tr>
         </tbody>
     </table>

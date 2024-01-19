@@ -12,7 +12,7 @@ class Folder extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'upload_name', 'upload_destination'
+        'name', 'folder_path'
     ];
 
     public function configs()
