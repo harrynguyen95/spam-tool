@@ -24,7 +24,7 @@ class FolderController extends Controller
 
     public function create()
     {
-        return view('folder.create');
+        return view('dashboard');
     }
 
     public function store(Request $request)

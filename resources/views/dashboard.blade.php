@@ -27,7 +27,6 @@
 
             <br>
             <div class="form-group">
-                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}" />
                 <button type="submit" class="btn btn-success">{{ t('Save') }}</button>
             </div>
 

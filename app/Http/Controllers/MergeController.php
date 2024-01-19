@@ -61,4 +61,62 @@ class MergeController extends Controller
         }
     }
 
+    public function getCompare()
+    {
+        return view('compare');
+    }
+
+    public function compare(Request $request)
+    {
+        try {
+            $part_1 = $request->part_1;
+            $part_2 = $request->part_2;
+
+            if (strpos($part_1, "\r") !== false) {
+                $part_1 = explode("\r\n", $part_1);
+            } else {            
+                $part_1 = explode("\n", $part_1);
+            }
+            if (strpos($part_2, "\r") !== false) {
+                $part_2 = explode("\r\n", $part_2);
+            } else {            
+                $part_2 = explode("\n", $part_2);
+            }
+
+            $ctn_part_1 = count($part_1);
+            $ctn_part_2 = count($part_2);
+
+            $diff_1 = array_unique(array_diff($part_1, $part_2));
+            $ctn_diff_1 = count($diff_1);
+            $diff_1 = implode("\n", $diff_1);
+
+
+            $diff_2 = array_unique(array_diff($part_2, $part_1));
+            $ctn_diff_2 = count($diff_2);
+            $diff_2 = implode("\n", $diff_2);
+
+            $intersect = array_unique(array_intersect($part_1, $part_2));
+            $ctn_intersect = count($intersect);
+            $intersect = implode("\n", $intersect);
+
+            $part_1 = implode("\n", $part_1);
+            $part_2 = implode("\n", $part_2);
+
+            return view('compare', [
+                'part_1' => $part_1,
+                'ctn_part_1' => $ctn_part_1,
+                'part_2' => $part_2,
+                'ctn_part_2' => $ctn_part_2,
+                'diff_1' => $diff_1,
+                'ctn_diff_1' => $ctn_diff_1,
+                'diff_2' => $diff_2,
+                'ctn_diff_2' => $ctn_diff_2,
+                'intersect' => $intersect,
+                'ctn_intersect' => $ctn_intersect,
+            ]);
+        } catch(\Exception $e) {
+            return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
+        }
+    }
+
 }

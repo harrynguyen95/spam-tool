@@ -11,7 +11,7 @@
 @section('content')
 <div class="sp-push-index">
     <p>
-        <a class="btn btn-success" href="{{ route('dashboard') }}">Create</a>
+        <a class="btn btn-success" href="{{ route('folder.create') }}">Create</a>
     </p>
     <br>
     <br>

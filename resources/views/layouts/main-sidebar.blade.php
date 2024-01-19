@@ -17,13 +17,20 @@ if (! function_exists('active_route')) {
                 'folder.index', 'folder.show',
                 'folder.create', 'folder.edit',
 
-                'dashboard'
+                
             ];
         }
 
         if ($route == 2) {
             $route = [
-                'merge.index','merge',
+                'merge.index', 'merge',
+                'dashboard'
+            ];
+        }
+
+        if ($route == 3) {
+            $route = [
+                'compare.index', 'compare',
             ];
         }
 
@@ -60,16 +67,23 @@ if (! function_exists('active_route')) {
 
             <li class="{{ active_route('folder.*') }} {{ active_route('folder.index') }}">
                 <a href="{{ route('folder.index') }}">
-                    <i class="fa fa-book"></i> <span>Shared folder</span>
+                    <i class="fa fa-book"></i> <span>Shared ok folder</span>
                 </a>
             </li>
 
-            <li class="{{ active_route('merge.*') }} {{ active_route('merge.index') }}">
+            <li class="{{ active_route('merge.*') }} {{ active_route('merge.index') }} {{ active_route('dashboard') }}">
                 <a href="{{ route('merge.index') }}">
-                    <i class="fa fa-cog"></i> <span>Merge file</span>
+                    <i class="fa fa-cog"></i> <span>Merge files</span>
                 </a>
             </li>
-{{-- 
+
+            <li class="{{ active_route('compare.*') }} {{ active_route('compare.index') }}">
+                <a href="{{ route('compare.index') }}">
+                    <i class="fa fa-list"></i> <span>Compare files</span>
+                </a>
+            </li>
+
+            {{-- 
             @if(is_admin())
                 <li class="{{ active_route('user.*') }}">
                     <a href="{{ route('user.index') }}">

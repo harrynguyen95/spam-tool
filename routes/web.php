@@ -19,13 +19,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
     Route::post('/login', 'AuthController@login')->name('login.submit');
     Route::get('/logout', 'AuthController@logout')->name('logout');
 
-    Route::group(['middleware' => ['auth']], function() {
-        Route::get('/', 'FolderController@dashboard')->name('dashboard');
+    // Route::group(['middleware' => ['auth']], function() {
+        Route::get('/', 'MergeController@index')->name('dashboard');
         Route::post('/upload/folder', 'FolderController@upload')->name('upload');
 
         Route::get('/merge/file', 'MergeController@index')->name('merge.index');
         Route::post('/merge/file', 'MergeController@merge')->name('merge');
 
+        Route::get('/compare/file', 'MergeController@getCompare')->name('compare.index');
+        Route::post('/compare/file', 'MergeController@compare')->name('compare');
 
         Route::get('/folders/{id}/compare/nick', 'FolderController@compareNick')->name('folder.compare.nick');
         Route::get('/folders/{id}/compare/group', 'FolderController@compareGroup')->name('folder.compare.group');
@@ -38,5 +40,5 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::put('/folders/update/{id}', 'FolderController@update')->name('folder.update');
         Route::delete('/folders/delete/{id}', 'FolderController@destroy')->name('folder.destroy');
 
-    });
+    // });
 });
