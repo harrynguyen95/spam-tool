@@ -62,10 +62,14 @@ class FolderController extends Controller
                             'created_at' => now(),
                             'updated_at' => now(),
                         ];
+                        if (count($configs) == 1000) {
+                            Config::insert($configs);
+                            $configs = [];
+                        }
                     }
                 }
             }
-            Config::insert($configs);
+            // Config::insert($configs);
 
             return redirect()->route('folder.index')->withSuccess('Upload ok.');
         } catch(\Exception $e) {
