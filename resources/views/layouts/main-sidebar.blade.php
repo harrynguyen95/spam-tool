@@ -83,6 +83,12 @@ if (! function_exists('active_route')) {
                 </a>
             </li>
 
+            <li class="{{ active_route('split.*') }} {{ active_route('split.index') }}">
+                <a href="{{ route('split.index') }}">
+                    <i class="fa fa-car"></i> <span>Split text</span>
+                </a>
+            </li>
+
             {{-- 
             @if(is_admin())
                 <li class="{{ active_route('user.*') }}">

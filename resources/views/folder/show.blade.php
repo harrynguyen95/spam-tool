@@ -26,6 +26,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Nick đã join </h5>
                         <h6 class="card-subtitle mb-2 text-muted">(Sau khi merged như excel)</h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><b>(Code cột này sai, chỉ tham khảo)</b></h6>
 
                         <div class="form-group">
                             <textarea rows="10" class="form-control" name="d1">{!! $nick_uids !!}</textarea>
@@ -39,6 +40,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Group đã join</h5>
                         <h6 class="card-subtitle mb-2 text-muted">(Sau khi merged như excel)</h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><b>(Code cột này sai, chỉ tham khảo)</b></h6>
                         <div class="form-group">
                             <textarea rows="10" class="form-control" name="d2">{!! $group_uids !!}</textarea>
                             <p class="card-text">Tổng: <b>{{ $ctn_group_uids }}</b></p>
