@@ -82,16 +82,23 @@ class FolderController extends Controller
         $folder = Folder::find($id);
 
         if ($folder) {
-            $configs_1 = Config::select('group_uid', 'nick_uid')
-                ->where('folder_id', $folder->id)
+            $configs_1 = Config::where('folder_id', $folder->id)
                 ->orderBy('group_uid', 'ASC')
                 ->orderBy('nick_uid', 'ASC')
-                ->groupBy('group_uid')
-                ->groupBy('nick_uid')
                 ->get()->toArray();
 
-            $nick_uids = array_unique(array_column($configs_1, 'nick_uid'));
-            $group_uids = array_unique(array_column($configs_1, 'group_uid'));
+            $data = [];
+            foreach ($configs_1 as $config) {
+                if (! isset($data[$config['group_uid']])) {
+                    $data[$config['group_uid']] = $config['nick_uid'];
+                }
+            }
+
+            $nick_uids = array_unique(array_values($data));
+            $group_uids = array_unique(array_keys($data));
+
+            sort($nick_uids);
+            sort($group_uids);
 
             $ctn_nick_uids = count($nick_uids);
             $ctn_group_uids = count($group_uids);
