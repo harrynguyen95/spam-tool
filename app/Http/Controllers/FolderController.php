@@ -68,7 +68,7 @@ class FolderController extends Controller
                     }
                 }
             }
-            // Config::insert($configs);
+            Config::insert($configs);
 
             return redirect()->route('folder.index')->withSuccess('Upload ok.');
         } catch(\Exception $e) {
@@ -119,6 +119,19 @@ class FolderController extends Controller
                 $nick_with_count_groups .= $line . "\n";
             }
 
+            $configs_3 = Config::selectRaw('group_uid, count(nick_uid) as ctn')
+                ->where('folder_id', $folder->id)
+                ->groupBy('group_uid')
+                ->orderBy('ctn', 'ASC')
+                ->get()
+                ->toArray();
+
+            $group_with_count_nicks = "";
+            foreach ($configs_3 as $conf) {
+                $line = $conf['group_uid'] . '|' . $conf['ctn'];
+                $group_with_count_nicks .= $line . "\n";
+            }
+
             return view('folder.show', [
                 'folder' => $folder,
                 'nick_uids' => $nick_uids,
@@ -127,6 +140,8 @@ class FolderController extends Controller
                 'ctn_group_uids' => $ctn_group_uids,
                 'nick_with_count_groups' => $nick_with_count_groups,
                 'ctn_nick_with_count_groups' => count($configs_2),
+                'group_with_count_nicks' => $group_with_count_nicks,
+                'ctn_group_with_count_nicks' => count($configs_3),
             ]);
         }
 
