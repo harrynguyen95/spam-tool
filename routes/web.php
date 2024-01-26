@@ -32,6 +32,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::get('/split/text', 'SplitController@getSplit')->name('split.index');
         Route::post('/split/split', 'SplitController@split')->name('split');
 
+        Route::get('/avatar/get', 'AvatarController@index')->name('avatar.index');
+        Route::post('/avatar/get', 'AvatarController@store')->name('avatar.store');
+
         Route::get('/folders/{id}/compare/nick', 'FolderController@compareNick')->name('folder.compare.nick');
         Route::get('/folders/{id}/compare/group', 'FolderController@compareGroup')->name('folder.compare.group');
 

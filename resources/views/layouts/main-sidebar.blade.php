@@ -34,6 +34,12 @@ if (! function_exists('active_route')) {
             ];
         }
 
+        if ($route == 4) {
+            $route = [
+                'avatar.index', 'avatar.store',
+            ];
+        }
+
         if (is_array($route)) {
             if (call_user_func_array('Route::is', $route)) {
                 return $output;
@@ -86,6 +92,12 @@ if (! function_exists('active_route')) {
             <li class="{{ active_route('split.*') }} {{ active_route('split.index') }}">
                 <a href="{{ route('split.index') }}">
                     <i class="fa fa-car"></i> <span>Split text</span>
+                </a>
+            </li>
+
+            <li class="{{ active_route('avatar.*') }} {{ active_route('avatar.index') }}">
+                <a href="{{ route('avatar.index') }}">
+                    <i class="fa fa-user-o"></i> <span>Get avatars</span>
                 </a>
             </li>
 
