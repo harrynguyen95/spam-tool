@@ -11,7 +11,16 @@
 @section('content')
 <div class="sp-push-index">
     <p>
-        <a class="btn btn-success" href="{{ route('folder.create') }}">Create</a>
+        <form method="POST"
+            action="{{ route("folder.deleteAll") }}"
+            onsubmit="return confirm('{{ t('Are you sure you want to delete all items?') }}');">
+            <input name="_method" value="DELETE" type="hidden">
+            <input name="_token" value="{{ csrf_token() }}" type="hidden">
+            <a class="btn btn-success" href="{{ route('folder.create') }}">{{ t('Create') }}</a>
+            <button type="submit" class="btn btn-danger confirm">
+                Delete All
+            </button>
+        </form>
     </p>
     <br>
     <br>

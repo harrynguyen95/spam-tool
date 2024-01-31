@@ -45,6 +45,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::get('/folders/update/{id}', 'FolderController@edit')->name('folder.edit');
         Route::put('/folders/update/{id}', 'FolderController@update')->name('folder.update');
         Route::delete('/folders/delete/{id}', 'FolderController@destroy')->name('folder.destroy');
+        Route::delete('/folders/deleteAll', 'FolderController@deleteAll')->name('folder.deleteAll');
+
 
     // });
 });
