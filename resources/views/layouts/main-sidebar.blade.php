@@ -36,7 +36,7 @@ if (! function_exists('active_route')) {
 
         if ($route == 4) {
             $route = [
-                'avatar.index', 'avatar.store',
+                'translate.index', 'translate.store',
             ];
         }
 
@@ -95,9 +95,9 @@ if (! function_exists('active_route')) {
                 </a>
             </li>
 
-            <li class="{{ active_route('avatar.*') }} {{ active_route('avatar.index') }}">
-                <a href="{{ route('avatar.index') }}">
-                    <i class="fa fa-user-o"></i> <span>Get avatars</span>
+            <li class="{{ active_route('translate.*') }} {{ active_route('translate.index') }}">
+                <a href="{{ route('translate.index') }}">
+                    <i class="fa fa-user-o"></i> <span>Google Translate</span>
                 </a>
             </li>
 

@@ -35,6 +35,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::get('/avatar/get', 'AvatarController@index')->name('avatar.index');
         Route::post('/avatar/get', 'AvatarController@store')->name('avatar.store');
 
+        Route::get('/google/translate', 'CommonController@translateIndex')->name('translate.index');
+        Route::post('/google/translate', 'CommonController@translateStore')->name('translate.store');
+
         Route::get('/folders/{id}/compare/nick', 'FolderController@compareNick')->name('folder.compare.nick');
         Route::get('/folders/{id}/compare/group', 'FolderController@compareGroup')->name('folder.compare.group');
 
