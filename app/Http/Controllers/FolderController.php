@@ -160,6 +160,7 @@ class FolderController extends Controller
     public function deleteAll()
     {
         Folder::truncate();
+        Config::truncate();
         return redirect()->route('folder.index')->withSuccess('Deleted all successfully.');
     }
 
