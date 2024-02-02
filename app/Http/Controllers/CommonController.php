@@ -15,6 +15,8 @@ class CommonController extends Controller
 
     public function translateStore(Request $request)
     {
+        set_time_limit(30000);
+
         $request->validate([
             'groups' => 'required|string',
         ]);
@@ -31,12 +33,16 @@ class CommonController extends Controller
 
             $translations = [];
             foreach ($groups as $key => $line) {
-                if (($key % 1000) == 20) {
-                    sleep(2);
+                if (($key % 5000) == 20) {
+                    // sleep(1);
                 }
                 $explode = explode('|', $line);
+                if (!preg_match('/[^A-Za-z0-9 #$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]+/', $explode[1])) { // is En
+                    $text = $explode[1];
+                } else {
+                    $text = GoogleTranslate::trans($explode[1], 'en');
+                }
 
-                $text = GoogleTranslate::trans($explode[1], 'en');
                 $output = $explode[0] . '|' . $text;
                 $translations[] = $output;
             }
