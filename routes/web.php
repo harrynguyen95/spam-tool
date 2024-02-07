@@ -38,6 +38,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::get('/google/translate', 'CommonController@translateIndex')->name('translate.index');
         Route::post('/google/translate', 'CommonController@translateStore')->name('translate.store');
 
+        Route::get('/google/location', 'CommonController@locationIndex')->name('location.index');
+        Route::post('/google/location', 'CommonController@locationStore')->name('location.store');
+
         Route::get('/folders/{id}/compare/nick', 'FolderController@compareNick')->name('folder.compare.nick');
         Route::get('/folders/{id}/compare/group', 'FolderController@compareGroup')->name('folder.compare.group');
 

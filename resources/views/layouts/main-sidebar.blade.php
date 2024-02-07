@@ -40,6 +40,12 @@ if (! function_exists('active_route')) {
             ];
         }
 
+        if ($route == 5) {
+            $route = [
+                'location.index', 'location.store',
+            ];
+        }
+
         if (is_array($route)) {
             if (call_user_func_array('Route::is', $route)) {
                 return $output;
@@ -98,6 +104,12 @@ if (! function_exists('active_route')) {
             <li class="{{ active_route('translate.*') }} {{ active_route('translate.index') }}">
                 <a href="{{ route('translate.index') }}">
                     <i class="fa fa-user-o"></i> <span>Google Translate</span>
+                </a>
+            </li>
+
+            <li class="{{ active_route('location.*') }} {{ active_route('location.index') }}">
+                <a href="{{ route('location.index') }}">
+                    <i class="fa fa-map"></i> <span>Google Map</span>
                 </a>
             </li>
 
