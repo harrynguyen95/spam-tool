@@ -46,6 +46,12 @@ if (! function_exists('active_route')) {
             ];
         }
 
+        if ($route == 6) {
+            $route = [
+                'caption.index', 'caption.store',
+            ];
+        }
+
         if (is_array($route)) {
             if (call_user_func_array('Route::is', $route)) {
                 return $output;
@@ -110,6 +116,12 @@ if (! function_exists('active_route')) {
             <li class="{{ active_route('location.*') }} {{ active_route('location.index') }}">
                 <a href="{{ route('location.index') }}">
                     <i class="fa fa-map"></i> <span>Google Map</span>
+                </a>
+            </li>
+
+            <li class="{{ active_route('caption.*') }} {{ active_route('caption.index') }}">
+                <a href="{{ route('caption.index') }}">
+                    <i class="fa fa-book"></i> <span>Format Captions</span>
                 </a>
             </li>
 

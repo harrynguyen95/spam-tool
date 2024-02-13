@@ -169,4 +169,65 @@ class CommonController extends Controller
         return '';
     }
 
+    public function captionIndex()
+    {
+        return view('caption');
+    }
+
+    public function captionStore(Request $request)
+    {
+        set_time_limit(30000);
+        $start = Carbon::parse(now());
+
+        $request->validate([
+            'captions' => 'required|string',
+        ]);
+
+        try {
+            $captions = $request->captions;
+
+            if (strpos($captions, "\r") !== false) {
+                $captions = explode("\r\n", $captions);
+            } else {            
+                $captions = explode("\n", $captions);
+            }
+            $ctn = count($captions);
+
+            $output = [];
+            foreach ($captions as $key => $line) {
+                if (strpos($line, 'like') !== false) {
+                    continue;
+                }
+                if (strpos($line, 'share') !== false) {
+                    continue;
+                }
+                if (strpos($line, 'click') !== false) {
+                    continue;
+                }
+
+                $line = str_replace('"', '', $line);
+                $line .= ' [r8]';
+                $line = str_replace('  ', ' ', $line);
+                $output[] = $line;
+            }
+            $ctn_output = count($output);
+            $output = implode("\n", $output);
+
+            $end = Carbon::parse(now());
+            $minutes = $end->diffInMinutes($start);
+            $seconds = $end->diffInSeconds($start);
+
+            $time = $minutes . ':' . $seconds;
+            return view('caption', [
+                'message' => 'Success in: ' . $time,
+                'ctn' => $ctn,
+                'captions' => $request->captions,
+                'ctn_output' => $ctn_output,
+                'output' => $output
+            ]);
+        } catch(\Exception $e) {
+            return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
+        }
+    }
+
 }
