@@ -39,7 +39,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Formatted captions: </h5>
-                                <h5 class="card-title">(Xoá dấu nháy kép "like", "share", "click" & thêm [r8])</h5>
+                                <h5 class="card-title">(Xoá dấu nháy kép, "like", "share", "click" & thêm [r8])</h5>
                                 @if(isset($ctn_output))<h5 class="card-subtitle mb-2 text-muted">Tổng: <b>{{ $ctn_output }}</b></h5>@endif
                                 <div class="form-group">
                                     <textarea rows="10" class="form-control" name="xxx">{!! $output ?? '' !!}</textarea>
