@@ -14,9 +14,11 @@ class CommonController extends Controller
         'Denmark',
         'Norway',
         'USA',
+        'United States',
         'Singapore',
         'New Zealand',
         'UK',
+        'United Kingdom',
         'Canada',
         'Sweden',
     ];

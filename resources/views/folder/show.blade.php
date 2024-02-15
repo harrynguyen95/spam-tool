@@ -29,8 +29,8 @@
                         <h6 class="card-subtitle mb-2 text-muted">(Sau khi merged như excel)</h6>
 
                         <div class="form-group">
-                            <textarea rows="10" class="form-control" name="d1">{!! $nick_uids !!}</textarea>
-                            <p class="card-text">Tổng: <b>{{ $ctn_nick_uids }}</b></p>
+                            <textarea rows="10" class="form-control" name="d1">{!! $nick_uids ?? '' !!}</textarea>
+                            <p class="card-text">Tổng: <b>{{ $ctn_nick_uids ?? 0 }}</b></p>
                         </div>
                     </div>
                 </div>
@@ -42,8 +42,8 @@
                         <h6 class="card-title">Group đã join</h6>
                         <h6 class="card-subtitle mb-2 text-muted">(Sau khi merged như excel)</h6>
                         <div class="form-group">
-                            <textarea rows="10" class="form-control" name="d2">{!! $group_uids !!}</textarea>
-                            <p class="card-text">Tổng: <b>{{ $ctn_group_uids }}</b></p>
+                            <textarea rows="10" class="form-control" name="d2">{!! $group_uids ?? '' !!}</textarea>
+                            <p class="card-text">Tổng: <b>{{ $ctn_group_uids ?? 0 }}</b></p>
                         </div>
                     </div>
                 </div>

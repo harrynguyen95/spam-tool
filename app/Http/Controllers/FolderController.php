@@ -82,30 +82,6 @@ class FolderController extends Controller
         $folder = Folder::find($id);
 
         if ($folder) {
-            $configs_1 = Config::where('folder_id', $folder->id)
-                ->orderBy('group_uid', 'ASC')
-                ->orderBy('nick_uid', 'ASC')
-                ->get()->toArray();
-
-            $data = [];
-            foreach ($configs_1 as $config) {
-                if (! isset($data[$config['group_uid']])) {
-                    $data[$config['group_uid']] = $config['nick_uid'];
-                }
-            }
-
-            $nick_uids = array_unique(array_values($data));
-            $group_uids = array_unique(array_keys($data));
-
-            sort($nick_uids);
-            sort($group_uids);
-
-            $ctn_nick_uids = count($nick_uids);
-            $ctn_group_uids = count($group_uids);
-
-            $nick_uids = implode("\n", $nick_uids);
-            $group_uids = implode("\n", $group_uids);
-
             $configs_2 = Config::selectRaw('nick_uid, count(group_uid) as ctn')
                 ->where('folder_id', $folder->id)
                 ->groupBy('nick_uid')
@@ -134,10 +110,6 @@ class FolderController extends Controller
 
             return view('folder.show', [
                 'folder' => $folder,
-                'nick_uids' => $nick_uids,
-                'ctn_nick_uids' => $ctn_nick_uids,
-                'group_uids' => $group_uids,
-                'ctn_group_uids' => $ctn_group_uids,
                 'nick_with_count_groups' => $nick_with_count_groups,
                 'ctn_nick_with_count_groups' => count($configs_2),
                 'group_with_count_nicks' => $group_with_count_nicks,
