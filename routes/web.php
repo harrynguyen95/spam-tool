@@ -20,7 +20,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
     Route::get('/logout', 'AuthController@logout')->name('logout');
 
     // Route::group(['middleware' => ['auth']], function() {
-        Route::get('/', 'MergeController@index')->name('dashboard');
+        Route::get('/', 'CommonController@captionIndex')->name('dashboard');
+
         Route::post('/upload/folder', 'FolderController@upload')->name('upload');
 
         Route::get('/merge/file', 'MergeController@index')->name('merge.index');

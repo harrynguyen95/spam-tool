@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('page_title')
-    Caption
+    Format Caption
 @endsection
 @section('breadcrumb')
 <ul class="breadcrumb">
@@ -23,7 +23,9 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Captions: </h5>
+                            <h5 class="card-title"><b>Captions: </b></h5>
+                            <h5 class="card-title">Xoá dấu nháy kép, "like", "share", "click", thêm [r8] & xoá dòng trùng nhau.</h5>
+
                             @if(isset($ctn))<h5 class="card-subtitle mb-2 text-muted">Tổng: <b>{{ $ctn }}</b></h5>@endif
                             <div class="form-group">
                                 <textarea rows="10" class="form-control" name="captions">{!! $captions ?? '' !!}</textarea>
@@ -38,8 +40,7 @@
                         <p>----------------------------------------------------------------------------------------------------------------</p>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Formatted captions: </h5>
-                                <h5 class="card-title">(Xoá dấu nháy kép, "like", "share", "click" & thêm [r8])</h5>
+                                <h5 class="card-title"><b>Formatted captions: </b></h5>
                                 @if(isset($ctn_output))<h5 class="card-subtitle mb-2 text-muted">Tổng: <b>{{ $ctn_output }}</b></h5>@endif
                                 <div class="form-group">
                                     <textarea rows="10" class="form-control" name="xxx">{!! $output ?? '' !!}</textarea>

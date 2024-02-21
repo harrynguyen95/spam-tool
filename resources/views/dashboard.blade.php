@@ -1,11 +1,11 @@
 @extends('layouts.main')
 @section('page_title')
-    Dashboard
+    Create "ok" folder
 @endsection
 @section('breadcrumb')
 <ul class="breadcrumb">
     <li><a href="{{ route('dashboard') }}">Home</a></li>
-    <li class="active">Dashboard</li>
+    <li class="active">Ok folder</li>
 </ul>
 @endsection
 @section('content')
@@ -21,6 +21,8 @@
 
             <div class="form-group @if (count($errors->all())) {{$errors->has(['folder_path']) ? 'has-error' : 'has-success'}} @endif" >
                 <label class="control-label">Path<span class="required">*</span></label>
+                </br>
+                <label class="control-label">(Đường dẫn đến folder ok)</label>
                 <input type="text" class="form-control{{ $errors->has('folder_path') ? ' has-error' : '' }}" name="folder_path" value="{{ old('folder_path') }}">
                 <div class="help-block">@if($errors->has('folder_path')) {{ $errors->first('folder_path') }} @endif</div>
             </div>

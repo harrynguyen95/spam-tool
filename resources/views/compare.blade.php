@@ -17,7 +17,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">A</h5>
+                            <h5 class="card-title"><b>A</b></h5>
                             @if(isset($ctn_part_1))<h5 class="card-subtitle mb-2 text-muted">Tổng: <b>{{ $ctn_part_1 }}</b></h5>@endif
                             <div class="form-group">
                                 <textarea rows="10" class="form-control" name="part_1">{!! $part_1 ?? '' !!}</textarea>
@@ -28,7 +28,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">B</h5>
+                            <h5 class="card-title"><b>B</b></h5>
                             @if(isset($ctn_part_2))<h5 class="card-subtitle mb-2 text-muted">Tổng: <b>{{ $ctn_part_2 }}</b></h5>@endif
                             <div class="form-group">
                                 <textarea rows="10" class="form-control" name="part_2">{!! $part_2 ?? '' !!}</textarea>

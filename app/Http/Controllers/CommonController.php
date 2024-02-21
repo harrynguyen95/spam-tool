@@ -212,6 +212,7 @@ class CommonController extends Controller
                 $line = str_replace('  ', ' ', $line);
                 $output[] = $line;
             }
+            $output = array_unique($output);
             $ctn_output = count($output);
             $output = implode("\n", $output);
 

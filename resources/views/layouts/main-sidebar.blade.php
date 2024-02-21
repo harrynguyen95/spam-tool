@@ -24,7 +24,6 @@ if (! function_exists('active_route')) {
         if ($route == 2) {
             $route = [
                 'merge.index', 'merge',
-                'dashboard'
             ];
         }
 
@@ -49,6 +48,7 @@ if (! function_exists('active_route')) {
         if ($route == 6) {
             $route = [
                 'caption.index', 'caption.store',
+                'dashboard'
             ];
         }
 
@@ -89,11 +89,11 @@ if (! function_exists('active_route')) {
                 </a>
             </li>
 
-            <li class="{{ active_route('merge.*') }} {{ active_route('merge.index') }} {{ active_route('dashboard') }}">
+            {{-- <li class="{{ active_route('merge.*') }} {{ active_route('merge.index') }}">
                 <a href="{{ route('merge.index') }}">
                     <i class="fa fa-cog"></i> <span>Merge files</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="{{ active_route('compare.*') }} {{ active_route('compare.index') }}">
                 <a href="{{ route('compare.index') }}">
@@ -119,7 +119,7 @@ if (! function_exists('active_route')) {
                 </a>
             </li>
 
-            <li class="{{ active_route('caption.*') }} {{ active_route('caption.index') }}">
+            <li class="{{ active_route('caption.*') }} {{ active_route('caption.index') }} {{ active_route('dashboard') }}">
                 <a href="{{ route('caption.index') }}">
                     <i class="fa fa-book"></i> <span>Format Captions</span>
                 </a>

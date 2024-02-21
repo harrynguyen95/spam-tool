@@ -23,7 +23,8 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Groups</h5>
+                            <h5 class="card-title"><b>Groups</b></h5>
+                            <h5 class="card-title">group_uid|group_name|group_city</h5>
                             @if(isset($ctn))<h5 class="card-subtitle mb-2 text-muted">Tổng: <b>{{ $ctn }}</b></h5>@endif
                             <div class="form-group">
                                 <textarea rows="10" class="form-control" name="groups">{!! $groups ?? '' !!}</textarea>

@@ -19,13 +19,13 @@
                         <div class="card-body">
                             <div class="form-group @if (count($errors->all())) {{$errors->has(['columns']) ? 'has-error' : 'has-success'}} @endif" >
                                 <label class="control-label">Số columns<span class="required">*</span></label>
-                                <input type="text" class="form-control{{ $errors->has('columns') ? ' has-error' : '' }}" name="columns" value="{{ $columns ?? old('columns') }}">
+                                <input type="text" class="form-control{{ $errors->has('columns') ? ' has-error' : '' }}" name="columns" value="{{ $columns ?? (old('columns') ?? '2') }}">
                                 <div class="help-block">@if($errors->has('columns')) {{ $errors->first('columns') }} @endif</div>
                             </div>
                 
                             <div class="form-group @if (count($errors->all())) {{$errors->has(['separate']) ? 'has-error' : 'has-success'}} @endif" >
                                 <label class="control-label">Dấu phân cách<span class="required">*</span></label>
-                                <input type="text" class="form-control{{ $errors->has('separate') ? ' has-error' : '' }}" name="separate" value="{{ $separate ?? old('separate') }}">
+                                <input type="text" class="form-control{{ $errors->has('separate') ? ' has-error' : '' }}" name="separate" value="{{ $separate ?? (old('separate') ?? '|') }}">
                                 <div class="help-block">@if($errors->has('separate')) {{ $errors->first('separate') }} @endif</div>
                             </div>
                         </div>
