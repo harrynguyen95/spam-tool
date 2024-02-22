@@ -42,7 +42,7 @@
                             <div class="form-group">
                                 <label class="control-sidebar-subheading">
                                   Có sử dụng hashtag hay không?
-                                  <input type="checkbox" name="has_hashtag" style="margin: 15px 0 0 15px" {{ $has_hashtag ? 'checked' : '' }}>
+                                  <input type="checkbox" name="has_hashtag" style="margin: 15px 0 0 15px" {{ isset($has_hashtag) && $has_hashtag == true ? 'checked' : '' }}>
                                 </label>
                             </div>
 
