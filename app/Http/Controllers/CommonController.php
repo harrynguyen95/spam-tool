@@ -198,7 +198,7 @@ class CommonController extends Controller
             }
             $ctn = count($captions);
 
-            $output = [];
+            $caps = [];
             foreach ($captions as $key => $line) {
                 if (strpos($line, 'like') !== false) {
                     continue;
@@ -212,22 +212,35 @@ class CommonController extends Controller
 
                 $line = str_replace('"', '', $line);
                 $line .= ' [r8]';
-
-                if ($has_hashtag) {
-                    $rand_keys = array_rand($hashtags, $num_hashtag);
-                    if (!is_array($rand_keys)) {
-                        $rand_keys = [$rand_keys];
-                    }
-                    foreach ($rand_keys as $key) {
-                        $rand_hashtag = $hashtags[$key];
-                        $line .= ' #' . $rand_hashtag;
-                    }
-                }
                 
                 $line = str_replace('  ', ' ', $line);
-                $output[] = $line;
+                $caps[] = $line;
             }
-            $output = array_unique($output);
+            $caps = array_unique($caps);
+
+            $output = [];
+            if ($has_hashtag) {
+                $hash_array = [];
+                foreach ($hashtags as $k1 => $hash1) {
+                    $hash_txt1 = ' #' . $hash1;
+                    $hashtags_tmp = $hashtags;
+                    unset($hashtags_tmp[$k1]);
+                    foreach ($hashtags_tmp as $k2 => $hash2) {
+                        $hash_array[] = $hash_txt1 . ' #' . $hash2;
+                    }
+                    unset($hashtags[$k1]);
+                }
+
+                foreach ($hash_array as $hash) {
+                    foreach ($caps as $line) {
+                        $line .= $hash;
+                        $output[] = $line;
+                    }
+                }
+            } else {
+                $output = $caps;
+            }
+
             $ctn_output = count($output);
             $output = implode("\n", $output);
 

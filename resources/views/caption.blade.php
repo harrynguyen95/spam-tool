@@ -47,12 +47,14 @@
                             </div>
 
                             <div class="form-group @if (count($errors->all())) {{$errors->has(['name']) ? 'has-error' : 'has-success'}} @endif" >
-                                <label class="control-label">Số hashtag random</label>
-                                <input type="text" class="form-control" name="num_hashtag" value="{{ old('num_hashtag') ?? '2' }}">
+                                <label class="control-label">Số hashtag mỗi cap:</label>
+                                <input type="text" class="form-control" disabled name="num_hashtag" value="{{ old('num_hashtag') ?? '2' }}">
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label">Hashtags:</label>
+                                </br><label class="control-label">(6 hashtag có (5x6)/2 cặp)</label>
+                                </br><label class="control-label">(5 hashtag có (5x4)/2 cặp)</label>
                                 <textarea rows="3" class="form-control" name="hashtags">{!! $hashtags ?? $defaultHashtags !!}</textarea>
                             </div>
                         </div>
