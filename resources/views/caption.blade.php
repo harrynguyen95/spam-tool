@@ -20,7 +20,7 @@
             @csrf
 
             <div class="row folder">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><b>Captions: </b></h5>
@@ -29,6 +29,31 @@
                             @if(isset($ctn))<h5 class="card-subtitle mb-2 text-muted">Tổng: <b>{{ $ctn }}</b></h5>@endif
                             <div class="form-group">
                                 <textarea rows="10" class="form-control" name="captions">{!! $captions ?? '' !!}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><b>Hashtag: </b></h5>
+
+                            <div class="form-group">
+                                <label class="control-sidebar-subheading">
+                                  Có sử dụng hashtag hay không?
+                                  <input type="checkbox" name="has_hashtag" style="margin: 15px 0 0 15px" checked>
+                                </label>
+                            </div>
+
+                            <div class="form-group @if (count($errors->all())) {{$errors->has(['name']) ? 'has-error' : 'has-success'}} @endif" >
+                                <label class="control-label">Số hashtag random</label>
+                                <input type="text" class="form-control" name="num_hashtag" value="{{ old('num_hashtag') ?? '2' }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Hashtags:</label>
+                                <textarea rows="3" class="form-control" name="hashtags">{!! $hashtags ?? $defaultHashtags !!}</textarea>
                             </div>
                         </div>
                     </div>

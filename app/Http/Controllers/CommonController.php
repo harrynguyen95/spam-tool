@@ -9,6 +9,8 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class CommonController extends Controller
 {
+    private $defaultHashtags = '#trend #trending #viral #amazing #Amazing #reels';
+
     private $okCountry = [
         'Australia',
         'Denmark',
@@ -18,18 +20,6 @@ class CommonController extends Controller
         'Singapore',
         'New Zealand',
         'UK',
-        'United Kingdom',
-        'Canada',
-        'Sweden',
-    ];
-
-    private $okCountry2 = [
-        'Australia',
-        'Denmark',
-        'Norway',
-        'United States',
-        'Singapore',
-        'New Zealand',
         'United Kingdom',
         'Canada',
         'Sweden',
@@ -173,7 +163,9 @@ class CommonController extends Controller
 
     public function captionIndex()
     {
-        return view('caption');
+        return view('caption', [
+            'defaultHashtags' => $this->defaultHashtags
+        ]);
     }
 
     public function captionStore(Request $request)
@@ -187,6 +179,17 @@ class CommonController extends Controller
 
         try {
             $captions = $request->captions;
+            $hashtags = $request->hashtags;
+            $num_hashtag = $request->num_hashtag;
+            $has_hashtag = $request->has_hashtag;
+
+            if ($has_hashtag) {
+                $hashtags = str_replace(" ", "", $hashtags);
+                $hashtags = str_replace("\r\n", "", $hashtags);
+                $hashtags = str_replace("\n", "", $hashtags);
+                $hashtags =  explode("#", $hashtags);
+                $hashtags = array_filter($hashtags);
+            }
 
             if (strpos($captions, "\r") !== false) {
                 $captions = explode("\r\n", $captions);
@@ -209,6 +212,15 @@ class CommonController extends Controller
 
                 $line = str_replace('"', '', $line);
                 $line .= ' [r8]';
+
+                if ($has_hashtag) {
+                    $rand_keys = array_rand($hashtags, $num_hashtag);
+                    foreach ($rand_keys as $key) {
+                        $rand_hashtag = $hashtags[$key];
+                        $line .= ' #' . $rand_hashtag;
+                    }
+                }
+                
                 $line = str_replace('  ', ' ', $line);
                 $output[] = $line;
             }
@@ -226,7 +238,8 @@ class CommonController extends Controller
                 'ctn' => $ctn,
                 'captions' => $request->captions,
                 'ctn_output' => $ctn_output,
-                'output' => $output
+                'output' => $output,
+                'defaultHashtags' => $this->defaultHashtags
             ]);
         } catch(\Exception $e) {
             return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
