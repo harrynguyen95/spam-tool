@@ -9,7 +9,7 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class CommonController extends Controller
 {
-    private $defaultHashtags = '#trend #trending #viral #amazing #Amazing #reels';
+    private $defaultHashtags = '#trend #trending #viral #amazing #hot #reels #motivation #foryou #satisfying #fyp #funny';
 
     private $okCountry = [
         'Australia',
