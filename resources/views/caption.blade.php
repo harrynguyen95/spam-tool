@@ -53,7 +53,7 @@
 
                             <div class="form-group">
                                 <label class="control-label">Hashtags:</label>
-                                </br><label class="control-label">(6 hashtag có (5x6)/2 bộ)</label>
+                                </br><label class="control-label">(6 hashtag có (6x5)/2 bộ)</label>
                                 </br><label class="control-label">(5 hashtag có (5x4)/2 bộ)</label>
                                 <textarea rows="3" class="form-control" name="hashtags">{!! $hashtags ?? $defaultHashtags !!}</textarea>
                             </div>
