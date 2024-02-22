@@ -211,6 +211,7 @@ class CommonController extends Controller
                 }
 
                 $line = str_replace('"', '', $line);
+                $line = str_replace('[r8]', '', $line);
                 $line .= ' [r8]';
                 
                 $line = str_replace('  ', ' ', $line);
