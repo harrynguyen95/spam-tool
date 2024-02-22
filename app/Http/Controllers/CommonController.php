@@ -215,6 +215,9 @@ class CommonController extends Controller
 
                 if ($has_hashtag) {
                     $rand_keys = array_rand($hashtags, $num_hashtag);
+                    if (!is_array($rand_keys)) {
+                        $rand_keys = [$rand_keys];
+                    }
                     foreach ($rand_keys as $key) {
                         $rand_hashtag = $hashtags[$key];
                         $line .= ' #' . $rand_hashtag;
