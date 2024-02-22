@@ -217,6 +217,9 @@ class CommonController extends Controller
                 $caps[] = $line;
             }
             $caps = array_unique($caps);
+            $output_pure = $caps;
+            $ctn_output_pure = count($output_pure);
+            $output_pure = implode("\n", $output_pure);
 
             $output = [];
             if ($has_hashtag) {
@@ -237,8 +240,6 @@ class CommonController extends Controller
                         $output[] = $line;
                     }
                 }
-            } else {
-                $output = $caps;
             }
 
             $ctn_output = count($output);
@@ -250,11 +251,15 @@ class CommonController extends Controller
 
             $time = $minutes . ':' . $seconds;
             return view('caption', [
-                'message' => 'Success in: ' . $time,
+                'message' => 'Success in: ' . $time . 's.',
                 'ctn' => $ctn,
                 'captions' => $request->captions,
+                'has_hashtag' => $request->has_hashtag,
+                'hashtags' => $request->hashtags,
                 'ctn_output' => $ctn_output,
                 'output' => $output,
+                'ctn_output_pure' => $ctn_output_pure,
+                'output_pure' => $output_pure,
                 'defaultHashtags' => $this->defaultHashtags
             ]);
         } catch(\Exception $e) {
