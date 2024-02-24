@@ -268,4 +268,52 @@ class CommonController extends Controller
         }
     }
 
+    public function shufferIndex()
+    {
+        return view('shuffer', [
+        ]);
+    }
+
+    public function shufferStore(Request $request)
+    {
+        set_time_limit(30000);
+        $start = Carbon::parse(now());
+
+        $request->validate([
+            'groups' => 'required|string',
+        ]);
+
+        try {
+            $groups = $request->groups;
+
+            if (strpos($groups, "\r") !== false) {
+                $groups = explode("\r\n", $groups);
+            } else {            
+                $groups = explode("\n", $groups);
+            }
+            $ctn = count($groups);
+
+            $output = array_unique($groups);
+            shuffle($output);
+
+            $ctn_output = count($output);
+            $output = implode("\n", $output);
+
+            $end = Carbon::parse(now());
+            $minutes = $end->diffInMinutes($start);
+            $seconds = $end->diffInSeconds($start);
+
+            $time = $minutes . ':' . $seconds;
+            return view('shuffer', [
+                'message' => 'Success in: ' . $time . 's.',
+                'ctn' => $ctn,
+                'groups' => $request->groups,
+                'output' => $output,
+                'ctn_output' => $ctn_output,
+            ]);
+        } catch(\Exception $e) {
+            return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
+        }
+    }
+
 }

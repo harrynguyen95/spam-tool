@@ -45,6 +45,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::get('/captions', 'CommonController@captionIndex')->name('caption.index');
         Route::post('/captions', 'CommonController@captionStore')->name('caption.store');
 
+        Route::get('/shuffer', 'CommonController@shufferIndex')->name('shuffer.index');
+        Route::post('/shuffer', 'CommonController@shufferStore')->name('shuffer.store');
+
         Route::get('/folders/{id}/compare/nick', 'FolderController@compareNick')->name('folder.compare.nick');
         Route::get('/folders/{id}/compare/group', 'FolderController@compareGroup')->name('folder.compare.group');
 

@@ -125,6 +125,12 @@ if (! function_exists('active_route')) {
                 </a>
             </li>
 
+            <li class="{{ active_route('shuffer.*') }} {{ active_route('shuffer.index') }}">
+                <a href="{{ route('shuffer.index') }}">
+                    <i class="fa fa-cog"></i> <span>Shuffer text</span>
+                </a>
+            </li>
+
             {{-- 
             @if(is_admin())
                 <li class="{{ active_route('user.*') }}">
