@@ -182,6 +182,7 @@ class CommonController extends Controller
             $hashtags = $request->hashtags;
             $num_hashtag = $request->num_hashtag;
             $has_hashtag = $request->has_hashtag;
+            $should_shuffer = $request->should_shuffer;
 
             if ($has_hashtag) {
                 $hashtags = str_replace(" ", "", $hashtags);
@@ -244,6 +245,10 @@ class CommonController extends Controller
             }
 
             $ctn_output = count($output);
+            if ($should_shuffer) {
+                shuffle($output);
+            }
+
             $output = implode("\n", $output);
 
             $end = Carbon::parse(now());
@@ -256,6 +261,7 @@ class CommonController extends Controller
                 'ctn' => $ctn,
                 'captions' => $request->captions,
                 'has_hashtag' => $request->has_hashtag,
+                'should_shuffer' => $request->should_shuffer,
                 'hashtags' => $request->hashtags,
                 'ctn_output' => $ctn_output,
                 'output' => $output,

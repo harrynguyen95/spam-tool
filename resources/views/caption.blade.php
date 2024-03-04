@@ -39,12 +39,14 @@
                         <div class="card-body">
                             <h5 class="card-title"><b>Hashtag: </b></h5>
 
-                            <div class="form-group">
-                                <label class="control-sidebar-subheading">
-                                  Có sử dụng hashtag hay không?
-                                  <input type="checkbox" name="has_hashtag" style="margin: 15px 0 0 15px" {{ isset($has_hashtag) && $has_hashtag == true ? 'checked' : '' }}>
-                                </label>
-                            </div>
+                            <label class="control-sidebar-subheading">
+                                Có sử dụng hashtag hay không?
+                                <input type="checkbox" name="has_hashtag" style="margin: 15px 0 0 15px" {{ isset($has_hashtag) && $has_hashtag == true ? 'checked' : '' }}>
+                            </label>
+                            <label class="control-sidebar-subheading">
+                                Có xáo trộn hay không?
+                                <input type="checkbox" name="should_shuffer" style="margin: 0px 0 20px 15px" {{ isset($should_shuffer) && $should_shuffer == true ? 'checked' : '' }}>
+                            </label>
 
                             <div class="form-group @if (count($errors->all())) {{$errors->has(['name']) ? 'has-error' : 'has-success'}} @endif" >
                                 <label class="control-label">Số hashtag mỗi cap:</label>
@@ -53,8 +55,8 @@
 
                             <div class="form-group">
                                 <label class="control-label">Hashtags:</label>
-                                </br><label class="control-label">(6 hashtag có (6x5)/2 bộ)</label>
-                                </br><label class="control-label">(5 hashtag có (5x4)/2 bộ)</label>
+                                </br><label class="control-label" style="font-weight: 400">(6 hashtag có (6x5)/2 bộ) / </label>
+                                <label class="control-label" style="font-weight: 400">(5 hashtag có (5x4)/2 bộ)</label>
                                 <textarea rows="3" class="form-control" name="hashtags">{!! $hashtags ?? $defaultHashtags !!}</textarea>
                             </div>
                         </div>
@@ -66,7 +68,9 @@
 
             @if (!empty($output_pure))
             <div class="row">
-                <p>----------------------------------------------------------------------------------------------------------------</p>
+                <div class="col-md-12">
+                    <p>----------------------------------------------------------------------------------------------------------------</p>
+                </div>
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">

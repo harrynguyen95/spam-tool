@@ -43,7 +43,7 @@
             </div>
         </form>
 
-        @if (!empty($intersect))
+        @if (!empty($intersect) || !empty($diff_1) || !empty($diff_2))
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
