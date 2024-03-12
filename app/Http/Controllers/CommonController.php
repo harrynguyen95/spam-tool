@@ -204,10 +204,22 @@ class CommonController extends Controller
                 if (strpos($line, 'like') !== false) {
                     continue;
                 }
+                if (strpos($line, 'Like') !== false) {
+                    continue;
+                }
                 if (strpos($line, 'share') !== false) {
                     continue;
                 }
+                if (strpos($line, 'Share') !== false) {
+                    continue;
+                }
+                if (strpos($line, 'Sharing') !== false) {
+                    continue;
+                }
                 if (strpos($line, 'click') !== false) {
+                    continue;
+                }
+                if (strpos($line, 'Click') !== false) {
                     continue;
                 }
 
