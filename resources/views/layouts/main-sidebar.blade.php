@@ -131,6 +131,12 @@ if (! function_exists('active_route')) {
                 </a>
             </li>
 
+            <li class="{{ active_route('group.check') }}">
+                <a href="{{ route('group.check') }}">
+                    <i class="fa fa-cog"></i> <span>Group check</span>
+                </a>
+            </li>
+
             {{-- 
             @if(is_admin())
                 <li class="{{ active_route('user.*') }}">
