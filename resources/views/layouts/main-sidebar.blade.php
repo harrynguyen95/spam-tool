@@ -89,11 +89,11 @@ if (! function_exists('active_route')) {
                 </a>
             </li>
 
-            {{-- <li class="{{ active_route('merge.*') }} {{ active_route('merge.index') }}">
+            <li class="{{ active_route('merge.*') }} {{ active_route('merge.index') }}">
                 <a href="{{ route('merge.index') }}">
                     <i class="fa fa-cog"></i> <span>Merge files</span>
                 </a>
-            </li> --}}
+            </li>
 
             <li class="{{ active_route('compare.*') }} {{ active_route('compare.index') }}">
                 <a href="{{ route('compare.index') }}">
