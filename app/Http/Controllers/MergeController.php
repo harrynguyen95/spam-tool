@@ -43,7 +43,7 @@ class MergeController extends Controller
                 }
             }
 
-            $groups = array_unique($groups);
+            // $groups = array_unique($groups);
             $ctn_groups = count($groups);
             $groups = implode("\n", $groups);
 
