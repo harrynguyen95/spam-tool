@@ -136,7 +136,7 @@ class CommonController extends Controller
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'X-Goog-Api-Key' => 'AIzaSyD5-lH9byKok3Cm6jCVuvFPTlgBxj8xF7U',
+            'X-Goog-Api-Key' => 'AIzaSyC8WmRwXQTdl7w8xuFbUum6OQDaPHdDUck',
             'X-Goog-FieldMask' => 'places.displayName,places.formattedAddress'
         ])->post('https://places.googleapis.com/v1/places:searchText', [
             'textQuery' => $text,
