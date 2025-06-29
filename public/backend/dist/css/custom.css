@@ -98,3 +98,31 @@
 .failed-result {
     color: #dd4b39;
 }
+
+.form-check {
+    display: flex;
+}
+.form-check label {
+    line-height: 26px;
+    font-size: 17px;
+    margin-right: 10px;
+}
+.form-check label,
+.form-check input {
+    cursor: pointer;
+}
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #007bff; /* Màu xanh Bootstrap */
+    cursor: pointer;
+}
+
+.individual-check {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+.individual-check span {
+    margin-right: 10px;
+}

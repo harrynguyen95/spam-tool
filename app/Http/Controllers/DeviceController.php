@@ -28,13 +28,13 @@ class DeviceController extends Controller
         if ($response->successful()) {
             $res = $response->json(); 
             if ($res['status'] == 'success') {
-                return redirect()->route('device.index')->withSuccess($title . ': Setup success.');
+                return redirect()->route('device.index')->withSuccess($title . ': SETUP success.');
             } else {
-                return redirect()->route('device.index')->withError($title . ": " . $res['info']);
+                return redirect()->route('device.index')->withError($title . ": failed " . $res['info']);
             }
         }
 
-        return redirect()->route('device.index')->withError($title . ': Setup failed.');
+        return redirect()->route('device.index')->withError($title . ': SETUP failed.');
     }
 
     public function start(Request $request)
@@ -75,11 +75,30 @@ class DeviceController extends Controller
         return redirect()->route('device.index')->withError($title . ': STOP failed.');
     }
 
-    public function startAll()
+    public function bulkAction(Request $request)
+    {
+        $deviceIds = $request->input('device_ids', []);
+        $action = $request->input('action');
+
+        if (empty($deviceIds)) {
+            return redirect()->route('device.index')->withError('Empty device.');
+        }
+
+        if ($action == 'start') {
+            return $this->startAll($deviceIds);
+        } elseif ($action == 'stop') {
+            return $this->stopAll($deviceIds);
+        } elseif ($action == 'setup') {
+            return $this->setupAll($deviceIds);
+        }
+    }
+
+
+    public function startAll($ids)
     {
         $results = [];
 
-        $devices = Device::all();
+        $devices = Device::whereIn('id', $ids)->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
 
@@ -104,11 +123,11 @@ class DeviceController extends Controller
         return redirect()->route('device.index')->with('results', $results);
     }
 
-    public function stopAll()
+    public function stopAll($ids)
     {
         $results = [];
 
-        $devices = Device::all();
+        $devices = Device::whereIn('id', $ids)->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
 
@@ -127,6 +146,35 @@ class DeviceController extends Controller
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': STOP failed.' . ' ' . $e->getMessage();
+            }
+        }
+
+        return redirect()->route('device.index')->with('results', $results);
+    }
+
+    public function setupAll($ids)
+    {
+        $results = [];
+
+        $devices = Device::whereIn('id', $ids)->get();
+        foreach ($devices as $device) {
+            $title = $device->name . ' - ' . $device->ip_address;
+
+            try {
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Device/Setup.lua';
+                $response = Http::timeout(2)->get($url);
+                if ($response->successful()) {
+                    $res = $response->json(); 
+                    if ($res['status'] == 'success') {
+                        $results[] = $title . ': SETUP success.';
+                    } else {
+                        $results[] = $title . ": failed " . $res['info'];
+                    }
+                } else {
+                    $results[] = $title . ': SETUP failed.';
+                }
+            } catch (\Exception $e) {
+                $results[] = $title . ': SETUP failed.' . ' ' . $e->getMessage();
             }
         }
 

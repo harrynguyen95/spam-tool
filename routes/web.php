@@ -28,12 +28,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::get('/devices/view/{id}', 'DeviceController@show')->name('device.show');
         Route::get('/devices/update/{id}', 'DeviceController@edit')->name('device.edit');
         Route::put('/devices/update/{id}', 'DeviceController@update')->name('device.update');
-        Route::delete('/devices/delete/{id}', 'DeviceController@destroy')->name('device.destroy');
 
+        Route::post('/devices/delete/{id}', 'DeviceController@destroy')->name('device.destroy');
         Route::post('/devices/setup/{id}', 'DeviceController@setup')->name('device.setup');
         Route::post('/devices/start/{id}', 'DeviceController@start')->name('device.start');
-        Route::post('/devices/startAll', 'DeviceController@startAll')->name('device.startAll');
         Route::post('/devices/stop/{id}', 'DeviceController@stop')->name('device.stop');
+
+        Route::post('/devices/bulk-action', 'DeviceController@bulkAction')->name('device.bulkAction');
+        Route::post('/devices/startAll', 'DeviceController@startAll')->name('device.startAll');
         Route::post('/devices/stopAll', 'DeviceController@stopAll')->name('device.stopAll');
         
         Route::get('/autotouch', 'CommonController@listDevice')->name('autotouch.index');
