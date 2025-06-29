@@ -32,6 +32,13 @@
 
         <!-- Main content -->
         <section class="content">
+            @if(session()->get('results') && count(session()->get('results')) > 0)
+                <div class="alert" style ="border: 1px solid #ddd">
+                    @foreach(session()->get('results') as $result)
+                        <span class="{{ strpos($result, 'failed') !== false ? 'failed-result' : '' }}">{{ $result }}</span> <br>
+                    @endforeach
+                </div>
+            @endif
             @if(count($errors) > 0)
                 <div class="alert alert-danger">
                     @foreach($errors->all() as $err)
@@ -111,7 +118,20 @@
             'autoWidth'   : true,
             "sScrollX"    : "100%",
             "sScrollXInner": "100%",
-            "bScrollCollapse": true
+            "bScrollCollapse": true,
+        });
+
+        $('#device-datatables').DataTable({
+            'paging'      : true,
+            'lengthChange': true,
+            'searching'   : true,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : true,
+            "sScrollX"    : "100%",
+            "sScrollXInner": "100%",
+            "bScrollCollapse": true,
+            'pageLength'    : 100,
         });
 
         $('#datepicker').datepicker({

@@ -55,8 +55,8 @@
                                         <a class=""
                                             href="{{ route("page.edit", $row['id']) }}"><span
                                                 class="glyphicon glyphicon-pencil"></span></a>
-                                        <button type="submit" class="submit-with-icon">
-                                            <span class="glyphicon glyphicon-trash"></span>
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            Delete
                                         </button>
                                     @endif
                                 </form>

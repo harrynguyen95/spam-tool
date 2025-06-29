@@ -4,9 +4,9 @@
 }
 
 #datatables form button {
-    border: none;
+    /* border: none;
     background: transparent;
-    padding: 0;
+    padding: 0; */
 }
 
 #datatables form .glyphicon {
@@ -93,4 +93,8 @@
 }
 .is-hide{
     display:none;
+}
+
+.failed-result {
+    color: #dd4b39;
 }

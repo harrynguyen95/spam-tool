@@ -52,6 +52,13 @@ if (! function_exists('active_route')) {
             ];
         }
 
+        if ($route == 7) {
+            $route = [
+                'device.index', 'device.show',
+                'device.create', 'device.edit',
+            ];
+        }
+
         if (is_array($route)) {
             if (call_user_func_array('Route::is', $route)) {
                 return $output;
@@ -82,6 +89,12 @@ if (! function_exists('active_route')) {
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
+
+            <li class="{{ active_route('device.*') }} {{ active_route('device.index') }} {{ active_route('dashboard') }}">
+                <a href="{{ route('device.index') }}">
+                    <i class="fa fa-desktop"></i> <span>Autotouch Device</span>
+                </a>
+            </li>
 
             <li class="{{ active_route('folder.*') }} {{ active_route('folder.index') }}">
                 <a href="{{ route('folder.index') }}">
@@ -119,7 +132,7 @@ if (! function_exists('active_route')) {
                 </a>
             </li>
 
-            <li class="{{ active_route('caption.*') }} {{ active_route('caption.index') }} {{ active_route('dashboard') }}">
+            <li class="{{ active_route('caption.*') }} {{ active_route('caption.index') }}">
                 <a href="{{ route('caption.index') }}">
                     <i class="fa fa-book"></i> <span>Format Captions</span>
                 </a>

@@ -56,8 +56,9 @@
                                     {{-- <a href="{{ route("folder.compare.nick", $row['id']) }}" class="btn btn-sm btn-primary">Compare nick</a> --}}
                                     {{-- <a href="{{ route("folder.compare.group", $row['id']) }}" class="btn btn-sm btn-primary">Compare group</a> --}}
 
-                                    <button type="submit" class="submit-with-icon">
-                                        <span class="glyphicon glyphicon-trash"></span>
+
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        Delete
                                     </button>
                                 </form>
                             </td>

@@ -20,7 +20,24 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
     Route::get('/logout', 'AuthController@logout')->name('logout');
 
     // Route::group(['middleware' => ['auth']], function() {
-        Route::get('/', 'CommonController@captionIndex')->name('dashboard');
+        Route::get('/', 'DeviceController@index')->name('dashboard');
+
+        Route::get('/devices', 'DeviceController@index')->name('device.index');
+        Route::get('/devices/create', 'DeviceController@create')->name('device.create');
+        Route::post('/devices', 'DeviceController@store')->name('device.store');
+        Route::get('/devices/view/{id}', 'DeviceController@show')->name('device.show');
+        Route::get('/devices/update/{id}', 'DeviceController@edit')->name('device.edit');
+        Route::put('/devices/update/{id}', 'DeviceController@update')->name('device.update');
+        Route::delete('/devices/delete/{id}', 'DeviceController@destroy')->name('device.destroy');
+
+        Route::post('/devices/setup/{id}', 'DeviceController@setup')->name('device.setup');
+        Route::post('/devices/start/{id}', 'DeviceController@start')->name('device.start');
+        Route::post('/devices/startAll', 'DeviceController@startAll')->name('device.startAll');
+        Route::post('/devices/stop/{id}', 'DeviceController@stop')->name('device.stop');
+        Route::post('/devices/stopAll', 'DeviceController@stopAll')->name('device.stopAll');
+        
+        Route::get('/autotouch', 'CommonController@listDevice')->name('autotouch.index');
+        Route::post('/autotouch', 'CommonController@storeDevice')->name('autotouch.store');
 
         Route::post('/upload/folder', 'FolderController@upload')->name('upload');
 

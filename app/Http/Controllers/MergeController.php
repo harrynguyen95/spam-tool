@@ -35,7 +35,7 @@ class MergeController extends Controller
                     $explode_1 = explode("\n", $file_content);
                     foreach ($explode_1 as $line) {
                         $explode_2 = explode('|', $line);
-                        if (isset($explode_2[2]) && intval($explode_2[2]) >= 5000) {
+                        if (isset($explode_2[2]) && intval($explode_2[2]) >= 50000) {
                             $line = $explode_2[0] . '|' . $explode_2[1] . '|' . $explode_2[2];
                             $groups[] = $line;
                         }
