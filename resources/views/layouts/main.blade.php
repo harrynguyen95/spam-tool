@@ -121,19 +121,6 @@
             "bScrollCollapse": true,
         });
 
-        $('#device-datatables').DataTable({
-            'paging'      : true,
-            'lengthChange': true,
-            'searching'   : true,
-            'ordering'    : true,
-            'info'        : true,
-            'autoWidth'   : true,
-            "sScrollX"    : "100%",
-            "sScrollXInner": "100%",
-            "bScrollCollapse": true,
-            'pageLength'    : 100,
-        });
-
         $('#datepicker').datepicker({
             autoclose: true
         });

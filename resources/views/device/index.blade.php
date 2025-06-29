@@ -12,10 +12,11 @@
 <div class="sp-push-index">
     <form method="POST" action="{{ route("device.bulkAction") }}">
         @csrf
-        <a class="btn btn-default" href="{{ route('device.create') }}">{{ t('Create') }}</a>
+        
+        <button type="button" class="btn btn-sm btn-default"><a style="color: #444" href="{{ route('device.create') }}">{{ t('Create') }}</a></button>
         <button type="submit" class="btn btn-sm btn-success" name="action" value="start">Start Selected</button>
         <button type="submit" class="btn btn-sm btn-danger" name="action" value="stop">Stop Selected</button>
-        <button type="submit" class="btn btn-sm btn-warning" name="action" value="setup">Setup Selected</button>
+        <button type="submit" class="btn btn-sm btn-primary" name="action" value="setup">Setup Selected</button>
         <br>
         <br>
         <div class="form-check">
@@ -56,9 +57,9 @@
                                     <div class="">
                                         <button type="button" class="btn btn-sm btn-success" onclick="submitOneDevice('start', {{ $row['id'] }})">Start</button>
                                         <button type="button" class="btn btn-sm btn-danger" onclick="submitOneDevice('stop', {{ $row['id'] }})">Stop</button>
-                                        <button type="button" class="btn btn-sm btn-warning" onclick="submitOneDevice('setup', {{ $row['id'] }})">Setup</button>
-                                        <a href="{{ route("device.edit", $row['id']) }}" class="btn btn-sm btn-primary">Update IP</a>
-                                        <button type="button" class="btn btn-sm btn-danger" onclick="submitOneDevice('delete', {{ $row['id'] }})">Delete</button>
+                                        <button type="button" class="btn btn-sm btn-primary" onclick="submitOneDevice('setup', {{ $row['id'] }})">Setup</button>
+                                        <a href="{{ route("device.edit", $row['id']) }}" class="btn btn-sm btn-default">Update</a>
+                                        <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('delete', {{ $row['id'] }})">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -107,5 +108,21 @@
         $('#check-all').on('change', function () {
             $('input[name="device_ids[]"]').prop('checked', this.checked);
         });
+
+        $(function () {
+            $('#device-datatables').DataTable({
+                'paging'      : true,
+                'lengthChange': true,
+                'searching'   : true,
+                'ordering'    : true,
+                'order':      [[2, 'asc']],
+                'info'        : true,
+                'autoWidth'   : true,
+                "sScrollX"    : "100%",
+                "sScrollXInner": "100%",
+                "bScrollCollapse": true,
+                'pageLength'    : 100,
+            });
+        })
     </script>
 @endpush
