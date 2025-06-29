@@ -42,15 +42,14 @@
                     <tbody>
                         @foreach($devices as $key => $row)
                             <tr>
+                                <td>{{ $key + 1 }}</td>
+                                <td>{{ $row['id'] }}</td>
                                 <td>
                                     <div class="individual-check">
-                                        <span>{{ $key + 1 }}</span>
-                                        <input type=checkbox name="device_ids[]" value="{{ $row['id'] }}" />
+                                        <input type="checkbox" id="device-id-{{$row['id']}}" name="device_ids[]" value="{{ $row['id'] }}" />
+                                        <label for="device-id-{{$row['id']}}">{{ $row['name'] }}</label>
                                     </div>
-                                    
                                 </td>
-                                <td>{{ $row['id'] }}</td>
-                                <td>{{ $row['name'] }}</td>
                                 <td>{{ $row['ip_address'] }}</td>
                                 <td>{{ date_format(date_create($row['created_at']), 'Y-m-d H:i') }}</td>
                                 <td>

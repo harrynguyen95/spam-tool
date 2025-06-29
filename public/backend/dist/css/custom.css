@@ -123,6 +123,9 @@ input[type="checkbox"] {
     align-items: center;
     justify-content: left;
 }
-.individual-check span {
-    margin-right: 10px;
+.individual-check label {
+    margin-left: 10px;
+    margin-bottom: 0;
+    font-weight: 600;
+    cursor: pointer;
 }
