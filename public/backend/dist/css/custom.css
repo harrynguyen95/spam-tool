@@ -96,7 +96,10 @@
 }
 
 .failed-result {
-    color: #dd4b39;
+    color: #d73925;
+}
+.success-result {
+    color: #008d4c;
 }
 
 .form-check {

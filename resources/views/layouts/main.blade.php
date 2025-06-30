@@ -35,7 +35,7 @@
             @if(session()->get('results') && count(session()->get('results')) > 0)
                 <div class="alert" style ="border: 1px solid #ddd">
                     @foreach(session()->get('results') as $result)
-                        <span class="{{ strpos($result, 'failed') !== false ? 'failed-result' : '' }}">{{ $result }}</span> <br>
+                        <span class="{{ strpos($result, 'failed') !== false ? 'failed-result' : 'success-result' }}">{{ $result }}</span> <br>
                     @endforeach
                 </div>
             @endif
