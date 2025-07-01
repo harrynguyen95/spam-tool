@@ -17,6 +17,7 @@
         <button type="submit" class="btn btn-sm btn-success" name="action" value="start">Start Selected</button>
         <button type="submit" class="btn btn-sm btn-danger" name="action" value="stop">Stop Selected</button>
         <button type="submit" class="btn btn-sm btn-primary" name="action" value="setup">Setup Selected</button>
+        <button type="submit" class="btn btn-sm btn-default" name="action" value="clear_inprogress">Clear INPROGRESS</button>
         <br>
         <br>
         <div class="form-check">
@@ -123,5 +124,11 @@
                 'pageLength'    : 100,
             });
         })
+
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#check-all').trigger('click');
+            }, 1000); 
+        });
     </script>
 @endpush

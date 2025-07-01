@@ -100,9 +100,10 @@ class DeviceController extends Controller
             return $this->stopAll($deviceIds);
         } elseif ($action == 'setup') {
             return $this->setupAll($deviceIds);
+        } elseif ($action == 'clear_inprogress') {
+            return $this->clearInprogressAll($deviceIds);
         }
     }
-
 
     public function startAll($ids)
     {
@@ -156,6 +157,35 @@ class DeviceController extends Controller
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': STOP failed.' . ' ' . $e->getMessage();
+            }
+        }
+
+        return redirect()->route('device.index')->with('results', $results);
+    }
+
+    public function clearInprogressAll($ids)
+    {
+        $results = [];
+
+        $devices = Device::whereIn('id', $ids)->get();
+        foreach ($devices as $device) {
+            $title = $device->name . ' - ' . $device->ip_address;
+
+            try {
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/ClearLastInprogress.lua';
+                $response = Http::timeout(3)->get($url);
+                if ($response->successful()) {
+                    $res = $response->json(); 
+                    if ($res['status'] == 'success') {
+                        $results[] = $title . ': CLEAR INPROGRESS success.';
+                    } else {
+                        $results[] = $title . ": failed " . $res['info'];
+                    }
+                } else {
+                    $results[] = $title . ': CLEAR INPROGRESS failed.';
+                }
+            } catch (\Exception $e) {
+                $results[] = $title . ': CLEAR INPROGRESS failed.' . ' ' . $e->getMessage();
             }
         }
 

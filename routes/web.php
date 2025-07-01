@@ -35,8 +35,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::post('/devices/stop/{id}', 'DeviceController@stop')->name('device.stop');
 
         Route::post('/devices/bulk-action', 'DeviceController@bulkAction')->name('device.bulkAction');
-        Route::post('/devices/startAll', 'DeviceController@startAll')->name('device.startAll');
-        Route::post('/devices/stopAll', 'DeviceController@stopAll')->name('device.stopAll');
         
         Route::get('/autotouch', 'CommonController@listDevice')->name('autotouch.index');
         Route::post('/autotouch', 'CommonController@storeDevice')->name('autotouch.store');
