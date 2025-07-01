@@ -24,7 +24,7 @@ class DeviceController extends Controller
             $title = $device->name . ' - ' . $device->ip_address;
 
             $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Device/Setup.lua';
-            $response = Http::timeout(2)->get($url);
+            $response = Http::timeout(3)->get($url);
 
             if ($response->successful()) {
                 $res = $response->json(); 
@@ -47,7 +47,7 @@ class DeviceController extends Controller
             $title = $device->name . ' - ' . $device->ip_address;
 
             $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Main.lua';
-            $response = Http::timeout(2)->get($url);
+            $response = Http::timeout(3)->get($url);
             if ($response->successful()) {
                 $res = $response->json(); 
                 if ($res['status'] == 'success') {
@@ -69,7 +69,7 @@ class DeviceController extends Controller
             $title = $device->name . ' - ' . $device->ip_address;
 
             $url = 'http://' . $device->ip_address . ':8080/control/stop_playing?path=/Facebook/Main.lua';
-            $response = Http::timeout(2)->get($url);
+            $response = Http::timeout(3)->get($url);
             if ($response->successful()) {
                 $res = $response->json(); 
                 if ($res['status'] == 'success') {
@@ -114,7 +114,7 @@ class DeviceController extends Controller
 
             try {
                 $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Main.lua';
-                $response = Http::timeout(2)->get($url);
+                $response = Http::timeout(3)->get($url);
                 if ($response->successful()) {
                     $res = $response->json(); 
                     if ($res['status'] == 'success') {
@@ -143,7 +143,7 @@ class DeviceController extends Controller
 
             try {
                 $url = 'http://' . $device->ip_address . ':8080/control/stop_playing?path=/Facebook/Main.lua';
-                $response = Http::timeout(2)->get($url);
+                $response = Http::timeout(3)->get($url);
                 if ($response->successful()) {
                     $res = $response->json(); 
                     if ($res['status'] == 'success') {
@@ -172,7 +172,7 @@ class DeviceController extends Controller
 
             try {
                 $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Device/Setup.lua';
-                $response = Http::timeout(2)->get($url);
+                $response = Http::timeout(3)->get($url);
                 if ($response->successful()) {
                     $res = $response->json(); 
                     if ($res['status'] == 'success') {
