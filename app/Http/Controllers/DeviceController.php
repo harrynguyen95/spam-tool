@@ -19,60 +19,70 @@ class DeviceController extends Controller
     // http://192.168.1.188:8080/control/stop_playing?path=/Facebook/Main.lua
     public function setup(Request $request)
     {
-        $device = Device::findOrFail($request->id);
-        $title = $device->name . ' - ' . $device->ip_address;
+        try {
+            $device = Device::findOrFail($request->id);
+            $title = $device->name . ' - ' . $device->ip_address;
 
-        $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Device/Setup.lua';
-        $response = Http::timeout(2)->get($url);
+            $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Device/Setup.lua';
+            $response = Http::timeout(2)->get($url);
 
-        if ($response->successful()) {
-            $res = $response->json(); 
-            if ($res['status'] == 'success') {
-                return redirect()->route('device.index')->withSuccess($title . ': SETUP success.');
-            } else {
-                return redirect()->route('device.index')->withError($title . ": failed " . $res['info']);
+            if ($response->successful()) {
+                $res = $response->json(); 
+                if ($res['status'] == 'success') {
+                    return redirect()->route('device.index')->withSuccess($title . ': SETUP success.');
+                } else {
+                    return redirect()->route('device.index')->withError($title . ": failed " . $res['info']);
+                }
             }
+            return redirect()->route('device.index')->withError($title . ': SETUP failed.');
+        } catch(\Exception $e) {
+            return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
         }
-
-        return redirect()->route('device.index')->withError($title . ': SETUP failed.');
     }
 
     public function start(Request $request)
     {
-        $device = Device::findOrFail($request->id);
-        $title = $device->name . ' - ' . $device->ip_address;
+        try {
+            $device = Device::findOrFail($request->id);
+            $title = $device->name . ' - ' . $device->ip_address;
 
-        $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Main.lua';
-        $response = Http::timeout(2)->get($url);
-        if ($response->successful()) {
-            $res = $response->json(); 
-            if ($res['status'] == 'success') {
-                return redirect()->route('device.index')->withSuccess($title . ': START success.');
-            } else {
-                return redirect()->route('device.index')->withError($title . ": " . $res['info']);
+            $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Main.lua';
+            $response = Http::timeout(2)->get($url);
+            if ($response->successful()) {
+                $res = $response->json(); 
+                if ($res['status'] == 'success') {
+                    return redirect()->route('device.index')->withSuccess($title . ': START success.');
+                } else {
+                    return redirect()->route('device.index')->withError($title . ": " . $res['info']);
+                }
             }
+            return redirect()->route('device.index')->withError($title . ': START failed.');
+        } catch(\Exception $e) {
+            return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
         }
-
-        return redirect()->route('device.index')->withError($title . ': START failed.');
     }
 
     public function stop(Request $request)
     {
-        $device = Device::findOrFail($request->id);
-        $title = $device->name . ' - ' . $device->ip_address;
+        try {
+            $device = Device::findOrFail($request->id);
+            $title = $device->name . ' - ' . $device->ip_address;
 
-        $url = 'http://' . $device->ip_address . ':8080/control/stop_playing?path=/Facebook/Main.lua';
-        $response = Http::timeout(2)->get($url);
-        if ($response->successful()) {
-            $res = $response->json(); 
-            if ($res['status'] == 'success') {
-                return redirect()->route('device.index')->withSuccess($title . ': STOP success.');
-            } else {
-                return redirect()->route('device.index')->withError($title . ": " . $res['info']);
+            $url = 'http://' . $device->ip_address . ':8080/control/stop_playing?path=/Facebook/Main.lua';
+            $response = Http::timeout(2)->get($url);
+            if ($response->successful()) {
+                $res = $response->json(); 
+                if ($res['status'] == 'success') {
+                    return redirect()->route('device.index')->withSuccess($title . ': STOP success.');
+                } else {
+                    return redirect()->route('device.index')->withError($title . ": " . $res['info']);
+                }
             }
-        }
 
-        return redirect()->route('device.index')->withError($title . ': STOP failed.');
+            return redirect()->route('device.index')->withError($title . ': STOP failed.');
+        } catch(\Exception $e) {
+            return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
+        }
     }
 
     public function bulkAction(Request $request)

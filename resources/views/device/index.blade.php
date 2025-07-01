@@ -31,7 +31,7 @@
                 <table class="table table-striped table-bordered table-style" id="device-datatables">
                     <thead>
                         <tr>
-                            <th class="un-orderable-col">#</th>
+                            <!-- <th class="un-orderable-col">#</th> -->
                             <th class="un-orderable-col">Id</th>
                             <th class="un-orderable-col">Name</th>
                             <th class="un-orderable-col">IP Address</th>
@@ -42,7 +42,7 @@
                     <tbody>
                         @foreach($devices as $key => $row)
                             <tr>
-                                <td>{{ $key + 1 }}</td>
+                                <!-- <td>{{ $key + 1 }}</td> -->
                                 <td>{{ $row['id'] }}</td>
                                 <td>
                                     <div class="individual-check">
@@ -67,7 +67,7 @@
                     <tfoot>
                     
                         <tr>
-                            <th></th>
+                            <!-- <th></th> -->
                             <th></th>
                             <th></th>
                             <th></th>
