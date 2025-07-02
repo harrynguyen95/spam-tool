@@ -172,7 +172,7 @@ class DeviceController extends Controller
             $title = $device->name . ' - ' . $device->ip_address;
 
             try {
-                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/zClearLastInprogress.lua';
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/zClearLastInProgress.lua';
                 $response = Http::timeout(3)->get($url);
                 if ($response->successful()) {
                     $res = $response->json(); 
