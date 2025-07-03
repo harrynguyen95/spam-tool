@@ -17,7 +17,7 @@ class DeviceController extends Controller
     }
 
     // http://192.168.1.188:8080/control/stop_playing?path=/Facebook/Main.lua
-    public function setup(Request $request)
+    public function pullcode(Request $request)
     {
         try {
             $device = Device::findOrFail($request->id);
@@ -29,12 +29,12 @@ class DeviceController extends Controller
             if ($response->successful()) {
                 $res = $response->json(); 
                 if ($res['status'] == 'success') {
-                    return redirect()->route('device.index')->withSuccess($title . ': SETUP success.');
+                    return redirect()->route('device.index')->withSuccess($title . ': PULL CODE success.');
                 } else {
                     return redirect()->route('device.index')->withError($title . ": failed " . $res['info']);
                 }
             }
-            return redirect()->route('device.index')->withError($title . ': SETUP failed.');
+            return redirect()->route('device.index')->withError($title . ': PULL CODE failed.');
         } catch(\Exception $e) {
             return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
         }
@@ -85,6 +85,52 @@ class DeviceController extends Controller
         }
     }
 
+    public function clear(Request $request)
+    {
+        try {
+            $device = Device::findOrFail($request->id);
+            $title = $device->name . ' - ' . $device->ip_address;
+
+            $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/zClearLastInProgress.lua';
+            $response = Http::timeout(3)->get($url);
+            if ($response->successful()) {
+                $res = $response->json(); 
+                if ($res['status'] == 'success') {
+                    return redirect()->route('device.index')->withSuccess($title . ': CLEAR success.');
+                } else {
+                    return redirect()->route('device.index')->withError($title . ": " . $res['info']);
+                }
+            }
+
+            return redirect()->route('device.index')->withError($title . ': CLEAR failed.');
+        } catch(\Exception $e) {
+            return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
+        }
+    }
+
+    public function respring(Request $request)
+    {
+        try {
+            $device = Device::findOrFail($request->id);
+            $title = $device->name . ' - ' . $device->ip_address;
+
+            $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Respring.lua';
+            $response = Http::timeout(3)->get($url);
+            if ($response->successful()) {
+                $res = $response->json(); 
+                if ($res['status'] == 'success') {
+                    return redirect()->route('device.index')->withSuccess($title . ': RESPRING success.');
+                } else {
+                    return redirect()->route('device.index')->withError($title . ": " . $res['info']);
+                }
+            }
+
+            return redirect()->route('device.index')->withError($title . ': RESPRING failed.');
+        } catch(\Exception $e) {
+            return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
+        }
+    }
+
     public function bulkAction(Request $request)
     {
         $deviceIds = $request->input('device_ids', []);
@@ -98,8 +144,8 @@ class DeviceController extends Controller
             return $this->startAll($deviceIds);
         } elseif ($action == 'stop') {
             return $this->stopAll($deviceIds);
-        } elseif ($action == 'setup') {
-            return $this->setupAll($deviceIds);
+        } elseif ($action == 'pullcode') {
+            return $this->pullcodeAll($deviceIds);
         } elseif ($action == 'clear_inprogress') {
             return $this->clearInprogressAll($deviceIds);
         } elseif ($action == 'respring') {
@@ -223,7 +269,7 @@ class DeviceController extends Controller
         return redirect()->route('device.index')->with('results', $results);
     }
 
-    public function setupAll($ids)
+    public function pullcodeAll($ids)
     {
         $results = [];
 
@@ -237,15 +283,15 @@ class DeviceController extends Controller
                 if ($response->successful()) {
                     $res = $response->json(); 
                     if ($res['status'] == 'success') {
-                        $results[] = $title . ': SETUP success.';
+                        $results[] = $title . ': PULL CODE success.';
                     } else {
                         $results[] = $title . ": failed " . $res['info'];
                     }
                 } else {
-                    $results[] = $title . ': SETUP failed.';
+                    $results[] = $title . ': PULL CODE failed.';
                 }
             } catch (\Exception $e) {
-                $results[] = $title . ': SETUP failed.' . ' ' . $e->getMessage();
+                $results[] = $title . ': PULL CODE failed.' . ' ' . $e->getMessage();
             }
         }
 

@@ -30,9 +30,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::put('/devices/update/{id}', 'DeviceController@update')->name('device.update');
 
         Route::post('/devices/delete/{id}', 'DeviceController@destroy')->name('device.destroy');
-        Route::post('/devices/setup/{id}', 'DeviceController@setup')->name('device.setup');
+        Route::post('/devices/pullcode/{id}', 'DeviceController@pullcode')->name('device.pullcode');
         Route::post('/devices/start/{id}', 'DeviceController@start')->name('device.start');
         Route::post('/devices/stop/{id}', 'DeviceController@stop')->name('device.stop');
+        Route::post('/devices/clear/{id}', 'DeviceController@clear')->name('device.stop');
+        Route::post('/devices/respring/{id}', 'DeviceController@respring')->name('device.stop');
 
         Route::post('/devices/bulk-action', 'DeviceController@bulkAction')->name('device.bulkAction');
         

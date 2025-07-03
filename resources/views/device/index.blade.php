@@ -16,7 +16,7 @@
         <button type="button" class="btn btn-sm btn-default"><a style="color: #444" href="{{ route('device.create') }}">{{ t('Create') }}</a></button>
         <button type="submit" class="btn btn-sm btn-success" name="action" value="start">Start Selected</button>
         <button type="submit" class="btn btn-sm btn-danger" name="action" value="stop">Stop Selected</button>
-        <button type="submit" class="btn btn-sm btn-primary" name="action" value="setup">Setup Selected</button>
+        <button type="submit" class="btn btn-sm btn-primary" name="action" value="pullcode">Pull Code Selected</button>
         <button type="submit" class="btn btn-sm btn-default" name="action" value="clear_inprogress">Clear INPROGRESS</button>
         <button type="submit" class="btn btn-sm btn-warning" name="action" value="respring">Respring</button>
         <br>
@@ -58,7 +58,9 @@
                                     <div class="">
                                         <button type="button" class="btn btn-sm btn-success" onclick="submitOneDevice('start', {{ $row['id'] }})">Start</button>
                                         <button type="button" class="btn btn-sm btn-danger" onclick="submitOneDevice('stop', {{ $row['id'] }})">Stop</button>
-                                        <button type="button" class="btn btn-sm btn-primary" onclick="submitOneDevice('setup', {{ $row['id'] }})">Setup</button>
+                                        <button type="button" class="btn btn-sm btn-primary" onclick="submitOneDevice('pullcode', {{ $row['id'] }})">Pull Code</button>
+                                        <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('clear', {{ $row['id'] }})">Clear Inprogress</button>
+                                        <button type="button" class="btn btn-sm btn-warning" onclick="submitOneDevice('respring', {{ $row['id'] }})">Respring</button>
                                         <a href="{{ route("device.edit", $row['id']) }}" class="btn btn-sm btn-default">Update</a>
                                         <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('delete', {{ $row['id'] }})">Delete</button>
                                     </div>
