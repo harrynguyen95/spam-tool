@@ -18,6 +18,7 @@
         <button type="submit" class="btn btn-sm btn-danger" name="action" value="stop">Stop Selected</button>
         <button type="submit" class="btn btn-sm btn-primary" name="action" value="setup">Setup Selected</button>
         <button type="submit" class="btn btn-sm btn-default" name="action" value="clear_inprogress">Clear INPROGRESS</button>
+        <button type="submit" class="btn btn-sm btn-warning" name="action" value="respring">Respring</button>
         <br>
         <br>
         <div class="form-check">

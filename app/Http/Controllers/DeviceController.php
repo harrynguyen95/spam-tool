@@ -102,6 +102,8 @@ class DeviceController extends Controller
             return $this->setupAll($deviceIds);
         } elseif ($action == 'clear_inprogress') {
             return $this->clearInprogressAll($deviceIds);
+        } elseif ($action == 'respring') {
+            return $this->respringAll($deviceIds);
         }
     }
 
@@ -186,6 +188,35 @@ class DeviceController extends Controller
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': CLEAR INPROGRESS failed.' . ' ' . $e->getMessage();
+            }
+        }
+
+        return redirect()->route('device.index')->with('results', $results);
+    }
+
+    public function respringAll($ids)
+    {
+        $results = [];
+
+        $devices = Device::whereIn('id', $ids)->get();
+        foreach ($devices as $device) {
+            $title = $device->name . ' - ' . $device->ip_address;
+
+            try {
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Respring.lua';
+                $response = Http::timeout(3)->get($url);
+                if ($response->successful()) {
+                    $res = $response->json(); 
+                    if ($res['status'] == 'success') {
+                        $results[] = $title . ': RESPRING success.';
+                    } else {
+                        $results[] = $title . ": failed " . $res['info'];
+                    }
+                } else {
+                    $results[] = $title . ': RESPRING failed.';
+                }
+            } catch (\Exception $e) {
+                $results[] = $title . ': RESPRING failed.' . ' ' . $e->getMessage();
             }
         }
 
