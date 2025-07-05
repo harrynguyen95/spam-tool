@@ -127,8 +127,8 @@
                         </div>
                     </div>
                     <div class="col-md-4 d-flex align-items-center">
-                        <label class="me-2 w-50 text-end" style="width: 240px">Hotmail service ids</label>
-                        <input type="text" name="hotmail_service_ids" class="form-control" value="{2,6,1,3,5,59,60}" placeholder="{2,6,1,3,5,59,60}" />
+                        <label class="me-2 w-50 text-end" style="width: 240px">Hotmail service ids</label> 
+                        <input type="text" name="hotmail_service_ids" class="form-control" value="{1,2,3,5,6,59,60}" placeholder="{1,2,3,5,6,59,60}" />
                     </div>
                     <div class="col-md-4 text-right">
                         <button type="submit" class="btn btn-md btn-primary" name="action" value="config">Config</button>
