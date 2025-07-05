@@ -318,6 +318,7 @@ class DeviceController extends Controller
                 $response = Http::asForm()->timeout(3)->post($apiUrl, [
                     'action'                      => 'upsert',
                     'username'                    => $device->username,
+                    'device_name'                 => $device->name,
                     'device'                      => $device->ip_address,
                     'language'                    => $request->input('language') ?: 'ES',
                     'mail_suply'                  => $request->input('mail_suply') ?: '1',
