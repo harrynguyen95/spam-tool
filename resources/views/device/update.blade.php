@@ -17,8 +17,14 @@
         @csrf
             <input type="hidden" name="_method" value="PUT"/>
 
+            <div class="form-group @if (count($errors->all())) {{$errors->has(['username']) ? 'has-error' : 'has-success'}} @endif" >
+                <label class="control-label">{{ t('Username') }}<span class="required">*</span></label>
+                <input type="text" class="form-control{{ $errors->has('username') ? ' has-error' : '' }}" name="username" value="{{ $device->username }}">
+                <div class="help-block">@if($errors->has('username')) {{ $errors->first('username') }} @endif</div>
+            </div>
+
             <div class="form-group @if (count($errors->all())) {{$errors->has(['name']) ? 'has-error' : 'has-success'}} @endif" >
-                <label class="control-label">{{ t('Name') }}<span class="required">*</span></label>
+                <label class="control-label">{{ t('Device Name') }}<span class="required">*</span></label>
                 <input type="text" class="form-control{{ $errors->has('name') ? ' has-error' : '' }}" name="name" value="{{ $device->name }}">
                 <div class="help-block">@if($errors->has('name')) {{ $errors->first('name') }} @endif</div>
             </div>
@@ -27,6 +33,12 @@
                 <label class="control-label">Local IP Address<span class="required">*</span></label>
                 <input type="text" class="form-control{{ $errors->has('ip_address') ? ' has-error' : '' }}" name="ip_address" value="{{ $device->ip_address }}">
                 <div class="help-block">@if($errors->has('ip_address')) {{ $errors->first('ip_address') }} @endif</div>
+            </div>
+
+            <div class="form-group @if (count($errors->all())) {{$errors->has(['note']) ? 'has-error' : 'has-success'}} @endif" >
+                <label class="control-label">{{ t('Note') }}</label>
+                <input type="text" class="form-control{{ $errors->has('note') ? ' has-error' : '' }}" name="note" value="{{ $device->note }}">
+                <div class="help-block">@if($errors->has('note')) {{ $errors->first('note') }} @endif</div>
             </div>
 
             <br>

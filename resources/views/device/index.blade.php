@@ -12,22 +12,142 @@
 <div class="sp-push-index">
     <form method="POST" action="{{ route("device.bulkAction") }}">
         @csrf
-        
-        <button type="button" class="btn btn-sm btn-default"><a style="color: #444" href="{{ route('device.create') }}">{{ t('Create') }}</a></button>
-        <button type="submit" class="btn btn-sm btn-success" name="action" value="start">Start Selected</button>
-        <button type="submit" class="btn btn-sm btn-danger" name="action" value="stop">Stop Selected</button>
-        <button type="submit" class="btn btn-sm btn-primary" name="action" value="pullcode">Pull Code Selected</button>
-        <button type="submit" class="btn btn-sm btn-default" name="action" value="clear_inprogress">Clear INPROGRESS</button>
-        <button type="submit" class="btn btn-sm btn-warning" name="action" value="respring">Respring</button>
-        <br>
-        <br>
-        <div class="form-check">
-            <label class="form-check-label" for="check-all">Select all</label>
-            <input type="checkbox" class="form-check-input" id="check-all" name="check-all">
-        </div>
-        <br>
-        <br>
+        <div class="row">
+            <div class="col-md-5">
+                <button type="button" class="btn btn-sm btn-default"><a style="color: #444" href="{{ route('device.create') }}">{{ t('Create') }}</a></button>
+                <button type="submit" class="btn btn-sm btn-success" name="action" value="start">Start Selected</button>
+                <button type="submit" class="btn btn-sm btn-danger" name="action" value="stop">Stop Selected</button>
+                <button type="submit" class="btn btn-sm btn-primary" name="action" value="pullcode">Pull Code Selected</button>
+                <button type="submit" class="btn btn-sm btn-default" name="action" value="clear_inprogress">Clear INPROGRESS</button>
+                <button type="submit" class="btn btn-sm btn-warning" name="action" value="respring">Respring</button>
+                <br> <br> <br> <br> <br> <br> <br>
+                <div class="form-check">
+                    <label class="form-check-label" for="check-all" style="font-size: 18px;">Select all</label>
+                    <input type="checkbox" class="form-check-input" id="check-all" name="check-all">
+                </div>
+            </div>
+            <div class="col-md-7 config-form">
+                <div class="row mb-3">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end">Language (ES|EN)</label>
+                        <input type="text" name="language" class="form-control" value="ES" placeholder="ES|EN" disabled/>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end">Xoainfo (0|1|2)</label>
+                        <input type="number" name="times_xoa_info" class="form-control" value="3" placeholder="2|3|4" />
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end" style="color: #f7630c">Note Memo</label>
+                        <input type="text" name="note" class="form-control" value="" placeholder="note.." style="border-color: #f7630c" />
+                    </div>
+                </div>
 
+                <div class="row mb-3">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end" style="margin-right: 10px;">Hotmail source in file</label>
+                        <div class="form-check form-check-inline me-3">
+                            <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_yes" value="1">
+                            <label for="hot_mail_source_from_file_yes">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="margin-left: 5px;">
+                            <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_no" value="0" checked>
+                            <label for="hot_mail_source_from_file_no">No</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end" style="margin-right: 10px;">Enter verify code</label>
+                        <div class="form-check form-check-inline me-3">
+                            <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_yes" value="1" checked>
+                            <label for="enter_verify_code_yes">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="margin-left: 5px;">
+                            <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_no" value="0">
+                            <label for="enter_verify_code_no">No</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end" style="margin-right: 10px;">Add mail domain</label>
+                        <div class="form-check form-check-inline me-3">
+                            <input class="form-check-input" type="radio" name="add_mail_domain" id="add_mail_domain_yes" value="1" disabled>
+                            <label for="add_mail_domain_yes">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="margin-left: 5px;">
+                            <input class="form-check-input" type="radio" name="add_mail_domain" id="add_mail_domain_no" value="0" checked disabled>
+                            <label for="add_mail_domain_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end" style="margin-right: 10px;">Remove register mail</label>
+                        <div class="form-check form-check-inline me-3">
+                            <input class="form-check-input" type="radio" name="remove_register_mail" id="remove_register_mail_yes" value="1" disabled>
+                            <label for="remove_register_mail_yes">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="margin-left: 5px;">
+                            <input class="form-check-input" type="radio" name="remove_register_mail" id="remove_register_mail_no" value="0" checked disabled>
+                            <label for="remove_register_mail_no">No</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end" style="margin-right: 10px;">Re-rent thuemails</label>
+                        <div class="form-check form-check-inline me-3">
+                            <input class="form-check-input" type="radio" name="thue_lai_mail_thuemails" id="thue_lai_mail_thuemails_yes" value="1" disabled>
+                            <label for="thue_lai_mail_thuemails_yes">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="margin-left: 5px;">
+                            <input class="form-check-input" type="radio" name="thue_lai_mail_thuemails" id="thue_lai_mail_thuemails_no" value="0" checked disabled>
+                            <label for="thue_lai_mail_thuemails_no">No</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end" style="margin-right: 10px;">Provider thuemails</label>
+                        <div class="form-check form-check-inline me-3">
+                            <input class="form-check-input" type="radio" name="provider_mail_thuemails" id="provider_mail_thuemails_yes" value="1" checked>
+                            <label for="provider_mail_thuemails_yes">Gmail</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="margin-left: 5px;">
+                            <input class="form-check-input" type="radio" name="provider_mail_thuemails" id="provider_mail_thuemails_no" value="3" >
+                            <label for="provider_mail_thuemails_no">Icloud</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end" style="margin-right: 10px;">Mail suply</label>
+                        <div class="form-check form-check-inline me-3">
+                            <input class="form-check-input" type="radio" name="mail_suply" id="mail_suply_yes" value="1" checked>
+                            <label for="mail_suply_yes">dongvanfb</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="margin-left: 5px;">
+                            <input class="form-check-input" type="radio" name="mail_suply" id="mail_suply_no" value="2" >
+                            <label for="mail_suply_no">thuemails</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end" style="width: 240px">Hotmail service ids</label>
+                        <input type="text" name="hotmail_service_ids" class="form-control" value="{2,6,1,3,5,59,60}" placeholder="{2,6,1,3,5,59,60}" />
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <button type="submit" class="btn btn-md btn-primary" name="action" value="config">Config</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <label class="me-2 w-50 text-end">Proxy</label>
+                        <input type="text" name="proxy" class="form-control" style="margin-right: 5px;" value="" placeholder="123.123.123.123:10000" />
+                        <button type="submit" class="btn btn-md btn-default" name="action" value="change_proxy"
+                            onclick="return confirm('Are you sure you want to reset Proxy Xoainfo?');">Xoainfo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
         <div class="grid-view" id="w0">
             <div class="summary">
                 <table class="table table-striped table-bordered table-style" id="device-datatables">
@@ -37,7 +157,7 @@
                             <th class="un-orderable-col">Id</th>
                             <th class="un-orderable-col">Name</th>
                             <th class="un-orderable-col">IP Address</th>
-                            <th class="un-orderable-col">Created at</th>
+                            <th class="un-orderable-col">Note</th>
                             <th class="un-orderable-col">Action</th>
                         </tr>
                     </thead>
@@ -49,11 +169,12 @@
                                 <td>
                                     <div class="individual-check">
                                         <input type="checkbox" id="device-id-{{$row['id']}}" name="device_ids[]" value="{{ $row['id'] }}" />
-                                        <label for="device-id-{{$row['id']}}">{{ $row['name'] }}</label>
+                                        <label class="form-check-label" for="device-id-{{$row['id']}}">{{ $row['name'] }}</label>
                                     </div>
                                 </td>
                                 <td>{{ $row['ip_address'] }}</td>
-                                <td>{{ date_format(date_create($row['created_at']), 'Y-m-d H:i') }}</td>
+                                <!-- <td>{{ date_format(date_create($row['created_at']), 'Y-m-d H:i') }}</td> -->
+                                <td>{{ $row['note'] }}</td>
                                 <td>
                                     <div class="">
                                         <button type="button" class="btn btn-sm btn-success" onclick="submitOneDevice('start', {{ $row['id'] }})">Start</button>
@@ -118,7 +239,7 @@
                 'lengthChange': true,
                 'searching'   : true,
                 'ordering'    : true,
-                'order':      [[2, 'asc']],
+                'order':      [[1, 'asc']],
                 'info'        : true,
                 'autoWidth'   : true,
                 "sScrollX"    : "100%",

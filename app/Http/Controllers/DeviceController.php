@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\Rule;
 
 class DeviceController extends Controller
 {
@@ -150,6 +150,10 @@ class DeviceController extends Controller
             return $this->clearInprogressAll($deviceIds);
         } elseif ($action == 'respring') {
             return $this->respringAll($deviceIds);
+        } elseif ($action == 'config') {
+            return $this->configAll($request);
+        } elseif ($action == 'change_proxy') {
+            return 'change_proxy chưa code.';
         }
     }
 
@@ -298,6 +302,55 @@ class DeviceController extends Controller
         return redirect()->route('device.index')->with('results', $results);
     }
 
+    public function configAll($request)
+    {
+        $ids = $request->input('device_ids', []);
+
+        $results = [];
+
+        $devices = Device::whereIn('id', $ids)->get();
+        foreach ($devices as $device) {
+            $title = $device->name . ' - ' . $device->ip_address;
+            $device->update(['note' => $request->input('note')]);
+
+            try {
+                $apiUrl = 'https://tuongtacthongminh.com/device_config.php';
+                $response = Http::asForm()->timeout(3)->post($apiUrl, [
+                    'action'                      => 'upsert',
+                    'username'                    => $device->username,
+                    'device'                      => $device->ip_address,
+                    'language'                    => $request->input('language') ?: 'ES',
+                    'mail_suply'                  => $request->input('mail_suply') ?: '1',
+                    'proxy'                       => $request->input('proxy') ?: '',
+                    'hotmail_service_ids'         => $request->input('hotmail_service_ids') ?: '{2,6,1,3,5,59,60}',
+                    'enter_verify_code'           => $request->input('enter_verify_code') ?: '0',
+                    'hot_mail_source_from_file'   => $request->input('hot_mail_source_from_file') ?: '0',
+                    'thue_lai_mail_thuemails'     => $request->input('thue_lai_mail_thuemails') ?: '0',
+                    'add_mail_domain'             => $request->input('add_mail_domain') ?: '0',
+                    'remove_register_mail'        => $request->input('remove_register_mail') ?: '0',
+                    'provider_mail_thuemails'     => $request->input('provider_mail_thuemails') ?: '1',
+                    'times_xoa_info'              => $request->input('times_xoa_info') ?: '0',
+                    'note'                        => $request->input('note') ?: '',
+                ]);
+
+                if ($response->successful()) {
+                    $res = $response->json(); 
+                    if ($res['status'] == 'success') {
+                        $results[] = $title . ': CONFIG success.';
+                    } else {
+                        $results[] = $title . ": failed " . $res['info'];
+                    }
+                } else {
+                    $results[] = $title . ': CONFIG failed.';
+                }
+            } catch (\Exception $e) {
+                $results[] = $title . ': CONFIG failed.' . ' ' . $e->getMessage();
+            }
+        }
+
+        return redirect()->route('device.index')->with('results', $results);
+    }
+
     public function create()
     {
         return view('device.create');
@@ -306,12 +359,23 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'username' => [
+                'required',
+                'string',
+                Rule::in(['Hải', 'Nam', 'Hiến']),
+            ],
             'name' => 'required|string',
-            'ip_address' => 'required|string|regex:/^192\.168\.1\.(\d{1,3})$/',
+            'ip_address' => [
+                'required',
+                'ipv4',
+                'regex:/^192\.168\.(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)$/',
+            ],
         ]);
         
         try {
-            $device = Device::create([
+            Device::create([
+                'username' => $request->username,
+                'note' => $request->note,
                 'name' => $request->name,
                 'ip_address' => $request->ip_address,
             ]);
@@ -331,12 +395,23 @@ class DeviceController extends Controller
     public function update(Request $request)
     {
         $request->validate([
+            'username' => [
+                'required',
+                'string',
+                Rule::in(['Hải', 'Nam', 'Hiến']),
+            ],
             'name' => 'required|string',
-            'ip_address' => 'required|string|regex:/^192\.168\.1\.(\d{1,3})$/',
+            'ip_address' => [
+                'required',
+                'ipv4',
+                'regex:/^192\.168\.(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)$/',
+            ],
         ]);
         
         try {
             Device::where('id', $request->id)->update([
+                'username' => $request->username,
+                'note' => $request->note,
                 'name' => $request->name,
                 'ip_address' => $request->ip_address,
             ]);

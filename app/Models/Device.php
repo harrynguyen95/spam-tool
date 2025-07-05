@@ -12,7 +12,7 @@ class Device extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'ip_address'
+        'name', 'ip_address', 'username', 'note'
     ];
 
 }
