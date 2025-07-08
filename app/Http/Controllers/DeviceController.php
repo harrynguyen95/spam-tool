@@ -11,7 +11,7 @@ class DeviceController extends Controller
 {
     public function index()
     {
-        $devices = Device::orderBy('id', 'DESC')->get();
+        $devices = Device::orderBy('id', 'DESC')->orderBy('name', 'asc')->get();
 
         return view('device.index', ['devices' => $devices]);
     }
@@ -218,7 +218,7 @@ class DeviceController extends Controller
     {
         $results = [];
 
-        $devices = Device::whereIn('id', $ids)->get();
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
 
@@ -247,7 +247,7 @@ class DeviceController extends Controller
     {
         $results = [];
 
-        $devices = Device::whereIn('id', $ids)->get();
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
 
@@ -276,7 +276,7 @@ class DeviceController extends Controller
     {
         $results = [];
 
-        $devices = Device::whereIn('id', $ids)->get();
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
 
@@ -305,7 +305,7 @@ class DeviceController extends Controller
     {
         $results = [];
 
-        $devices = Device::whereIn('id', $ids)->get();
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
 
@@ -334,7 +334,7 @@ class DeviceController extends Controller
     {
         $results = [];
 
-        $devices = Device::whereIn('id', $ids)->get();
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
 
@@ -363,7 +363,7 @@ class DeviceController extends Controller
     {
         $results = [];
 
-        $devices = Device::whereIn('id', $ids)->get();
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
 
@@ -392,7 +392,7 @@ class DeviceController extends Controller
     {
         $results = [];
 
-        $devices = Device::whereIn('id', $ids)->get();
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
 
@@ -421,7 +421,7 @@ class DeviceController extends Controller
     {
         $results = [];
 
-        $devices = Device::whereIn('id', $ids)->get();
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
 
@@ -451,7 +451,7 @@ class DeviceController extends Controller
         $ids = $request->input('device_ids', []);
         $results = [];
 
-        $devices = Device::whereIn('id', $ids)->get();
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
             $device->update(['lang' => $lang]);
@@ -483,7 +483,7 @@ class DeviceController extends Controller
 
         $results = [];
 
-        $devices = Device::whereIn('id', $ids)->get();
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
             $device->update(['note' => $request->input('note')]);

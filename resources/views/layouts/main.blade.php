@@ -32,11 +32,32 @@
 
         <!-- Main content -->
         <section class="content">
-            @if(session()->get('results') && count(session()->get('results')) > 0)
-                <div class="alert" style ="border: 1px solid #ddd">
-                    @foreach(session()->get('results') as $result)
-                        <span class="{{ strpos($result, 'failed') !== false ? 'failed-result' : 'success-result' }}">{{ $result }}</span> <br>
-                    @endforeach
+            @endif -->
+            @php
+                $results = session()->get('results') ?? [];
+                $columns = 4;
+                $rows = ceil(count($results) / $columns);
+                $columnData = array_fill(0, $columns, []);
+
+                foreach ($results as $i => $result) {
+                    $colIndex = floor($i / $rows);
+                    $columnData[$colIndex][] = $result;
+                }
+            @endphp
+
+            @if(count($results) > 0)
+                <div class="alert" style="border: 1px solid #ddd; padding: 10px;">
+                    <div style="display: flex; gap: 20px;">
+                        @foreach($columnData as $column)
+                            <div style="flex: 1;">
+                                @foreach($column as $result)
+                                    <div class="{{ strpos($result, 'failed') !== false ? 'failed-result' : 'success-result' }}">
+                                        {{ $result }}
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             @endif
             @if(count($errors) > 0)

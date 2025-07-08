@@ -15,8 +15,8 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-sm btn-success" name="action" value="start">Start Selected</button>
                     <button type="submit" class="btn btn-sm btn-danger" name="action" value="stop">Stop Selected</button>
+                    <button type="submit" class="btn btn-sm btn-success" name="action" value="start">Start Selected</button>
                     <button type="submit" class="btn btn-sm btn-primary" name="action" value="pullcode">Pull Code Selected</button>
                     <button type="submit" class="btn btn-sm btn-warning" name="action" value="respring">Respring</button>
                 </div>
@@ -32,7 +32,7 @@
                 </div> -->
                 <div class="mb-3">
                     <button type="submit" class="btn btn-sm btn-default" name="action" value="changeProxy"
-                        onclick="return confirm('Are you sure you want to change Proxy Xoainfo?');">Proxy Xoainfo</button>
+                        onclick="return confirm('Are you sure you want to change Proxy Xoainfo?');" style="color: #f7630c">Proxy Xoainfo</button>
                     <button type="submit" class="btn btn-sm btn-default" name="action" value="setupES"
                         onclick="return confirm('Are you sure you want to set Device Spanish?');">Set App Facebook <b>ES</b></button>
                     <button type="submit" class="btn btn-sm btn-default" name="action" value="setupEN"
