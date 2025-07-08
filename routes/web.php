@@ -35,6 +35,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::post('/devices/stop/{id}', 'DeviceController@stop')->name('device.stop');
         Route::post('/devices/clear/{id}', 'DeviceController@clear')->name('device.stop');
         Route::post('/devices/respring/{id}', 'DeviceController@respring')->name('device.stop');
+        Route::post('/devices/openscreen/{id}', 'DeviceController@openscreen')->name('device.openscreen');
+        Route::post('/devices/closescreen/{id}', 'DeviceController@closescreen')->name('device.closescreen');
 
         Route::post('/devices/bulk-action', 'DeviceController@bulkAction')->name('device.bulkAction');
         

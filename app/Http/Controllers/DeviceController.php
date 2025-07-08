@@ -91,7 +91,7 @@ class DeviceController extends Controller
             $device = Device::findOrFail($request->id);
             $title = $device->name . ' - ' . $device->ip_address;
 
-            $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/zClearLastInProgress.lua';
+            $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/ClearLastInProgress.lua';
             $response = Http::timeout(3)->get($url);
             if ($response->successful()) {
                 $res = $response->json(); 
@@ -108,13 +108,59 @@ class DeviceController extends Controller
         }
     }
 
+    public function openscreen(Request $request)
+    {
+        try {
+            $device = Device::findOrFail($request->id);
+            $title = $device->name . ' - ' . $device->ip_address;
+
+            $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/OpenScreen.lua';
+            $response = Http::timeout(3)->get($url);
+            if ($response->successful()) {
+                $res = $response->json(); 
+                if ($res['status'] == 'success') {
+                    return redirect()->route('device.index')->withSuccess($title . ': Open Screen success.');
+                } else {
+                    return redirect()->route('device.index')->withError($title . ": " . $res['info']);
+                }
+            }
+
+            return redirect()->route('device.index')->withError($title . ': Open Screen failed.');
+        } catch(\Exception $e) {
+            return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
+        }
+    }
+
+    public function closescreen(Request $request)
+    {
+        try {
+            $device = Device::findOrFail($request->id);
+            $title = $device->name . ' - ' . $device->ip_address;
+
+            $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/CloseScreen.lua';
+            $response = Http::timeout(3)->get($url);
+            if ($response->successful()) {
+                $res = $response->json(); 
+                if ($res['status'] == 'success') {
+                    return redirect()->route('device.index')->withSuccess($title . ': Close Screen success.');
+                } else {
+                    return redirect()->route('device.index')->withError($title . ": " . $res['info']);
+                }
+            }
+
+            return redirect()->route('device.index')->withError($title . ': Close Screen failed.');
+        } catch(\Exception $e) {
+            return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
+        }
+    }
+
     public function respring(Request $request)
     {
         try {
             $device = Device::findOrFail($request->id);
             $title = $device->name . ' - ' . $device->ip_address;
 
-            $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Respring.lua';
+            $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/Respring.lua';
             $response = Http::timeout(3)->get($url);
             if ($response->successful()) {
                 $res = $response->json(); 
@@ -146,15 +192,113 @@ class DeviceController extends Controller
             return $this->stopAll($deviceIds);
         } elseif ($action == 'pullcode') {
             return $this->pullcodeAll($deviceIds);
-        } elseif ($action == 'clear_inprogress') {
+        } elseif ($action == 'clearInprogress') {
             return $this->clearInprogressAll($deviceIds);
         } elseif ($action == 'respring') {
             return $this->respringAll($deviceIds);
+        } elseif ($action == 'openScreen') {
+            return $this->openScreenAll($deviceIds);
+        } elseif ($action == 'closeScreen') {
+            return $this->closeScreenAll($deviceIds);
+        } elseif ($action == 'changeProxy') {
+            return $this->changeProxyAll($deviceIds);
+
         } elseif ($action == 'config') {
             return $this->configAll($request);
-        } elseif ($action == 'change_proxy') {
-            return 'change_proxy chưa code.';
+        } elseif ($action == 'setupES') {
+            return $this->setupLang($request, 'ES');
+        } elseif ($action == 'setupEN') {
+            return $this->setupLang($request, 'EN');
+        } 
+
+        return 'Not found action.';
+    }
+
+    public function changeProxyAll($ids)
+    {
+        $results = [];
+
+        $devices = Device::whereIn('id', $ids)->get();
+        foreach ($devices as $device) {
+            $title = $device->name . ' - ' . $device->ip_address;
+
+            try {
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/ProxyXoainfo.lua';
+                $response = Http::timeout(3)->get($url);
+                if ($response->successful()) {
+                    $res = $response->json(); 
+                    if ($res['status'] == 'success') {
+                        $results[] = $title . ': ProxyXoainfo success.';
+                    } else {
+                        $results[] = $title . ": failed " . $res['info'];
+                    }
+                } else {
+                    $results[] = $title . ': ProxyXoainfo failed.';
+                }
+            } catch (\Exception $e) {
+                $results[] = $title . ': ProxyXoainfo failed.' . ' ' . $e->getMessage();
+            }
         }
+
+        return redirect()->route('device.index')->with('results', $results);
+    }
+
+    public function openScreenAll($ids)
+    {
+        $results = [];
+
+        $devices = Device::whereIn('id', $ids)->get();
+        foreach ($devices as $device) {
+            $title = $device->name . ' - ' . $device->ip_address;
+
+            try {
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/OpenScreen.lua';
+                $response = Http::timeout(3)->get($url);
+                if ($response->successful()) {
+                    $res = $response->json(); 
+                    if ($res['status'] == 'success') {
+                        $results[] = $title . ': Open screen success.';
+                    } else {
+                        $results[] = $title . ": failed " . $res['info'];
+                    }
+                } else {
+                    $results[] = $title . ': Open screen failed.';
+                }
+            } catch (\Exception $e) {
+                $results[] = $title . ': Open screen failed.' . ' ' . $e->getMessage();
+            }
+        }
+
+        return redirect()->route('device.index')->with('results', $results);
+    }
+
+    public function closeScreenAll($ids)
+    {
+        $results = [];
+
+        $devices = Device::whereIn('id', $ids)->get();
+        foreach ($devices as $device) {
+            $title = $device->name . ' - ' . $device->ip_address;
+
+            try {
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/CloseScreen.lua';
+                $response = Http::timeout(3)->get($url);
+                if ($response->successful()) {
+                    $res = $response->json(); 
+                    if ($res['status'] == 'success') {
+                        $results[] = $title . ': Close screen success.';
+                    } else {
+                        $results[] = $title . ": failed " . $res['info'];
+                    }
+                } else {
+                    $results[] = $title . ': Close screen failed.';
+                }
+            } catch (\Exception $e) {
+                $results[] = $title . ': Close screen failed.' . ' ' . $e->getMessage();
+            }
+        }
+
+        return redirect()->route('device.index')->with('results', $results);
     }
 
     public function startAll($ids)
@@ -224,7 +368,7 @@ class DeviceController extends Controller
             $title = $device->name . ' - ' . $device->ip_address;
 
             try {
-                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/zClearLastInProgress.lua';
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/ClearLastInProgress.lua';
                 $response = Http::timeout(3)->get($url);
                 if ($response->successful()) {
                     $res = $response->json(); 
@@ -253,7 +397,7 @@ class DeviceController extends Controller
             $title = $device->name . ' - ' . $device->ip_address;
 
             try {
-                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Respring.lua';
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/Respring.lua';
                 $response = Http::timeout(3)->get($url);
                 if ($response->successful()) {
                     $res = $response->json(); 
@@ -296,6 +440,37 @@ class DeviceController extends Controller
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': PULL CODE failed.' . ' ' . $e->getMessage();
+            }
+        }
+
+        return redirect()->route('device.index')->with('results', $results);
+    }
+
+    public function setupLang($request, $lang)
+    {
+        $ids = $request->input('device_ids', []);
+        $results = [];
+
+        $devices = Device::whereIn('id', $ids)->get();
+        foreach ($devices as $device) {
+            $title = $device->name . ' - ' . $device->ip_address;
+            $device->update(['lang' => $lang]);
+
+            try {
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/Setup'.$lang.'.lua';
+                $response = Http::timeout(3)->get($url);
+                if ($response->successful()) {
+                    $res = $response->json(); 
+                    if ($res['status'] == 'success') {
+                        $results[] = $title . ': Setup '.$lang.' success.';
+                    } else {
+                        $results[] = $title . ": failed " . $res['info'];
+                    }
+                } else {
+                    $results[] = $title . ': Setup '.$lang.' failed.';
+                }
+            } catch (\Exception $e) {
+                $results[] = $title . ': Setup '.$lang.' failed.' . ' ' . $e->getMessage();
             }
         }
 
@@ -429,12 +604,6 @@ class DeviceController extends Controller
         $device->delete();
 
         return redirect()->route('device.index')->withSuccess('Deleted successfully.');
-    }
-
-    public function deleteAll()
-    {
-        device::truncate();
-        return redirect()->route('device.index')->withSuccess('Deleted all successfully.');
     }
 
 }
