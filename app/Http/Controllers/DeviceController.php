@@ -202,6 +202,8 @@ class DeviceController extends Controller
             return $this->closeScreenAll($deviceIds);
         } elseif ($action == 'changeProxy') {
             return $this->changeProxyAll($deviceIds);
+        } elseif ($action == 'deleteSelected') {
+            return $this->deleteSelected($deviceIds);
 
         } elseif ($action == 'config') {
             return $this->configAll($request);
@@ -240,7 +242,7 @@ class DeviceController extends Controller
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
     }
 
     public function openScreenAll($ids)
@@ -269,7 +271,7 @@ class DeviceController extends Controller
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
     }
 
     public function closeScreenAll($ids)
@@ -298,7 +300,7 @@ class DeviceController extends Controller
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
     }
 
     public function startAll($ids)
@@ -327,7 +329,7 @@ class DeviceController extends Controller
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
     }
 
     public function stopAll($ids)
@@ -356,7 +358,7 @@ class DeviceController extends Controller
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
     }
 
     public function clearInprogressAll($ids)
@@ -385,7 +387,7 @@ class DeviceController extends Controller
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
     }
 
     public function respringAll($ids)
@@ -414,7 +416,7 @@ class DeviceController extends Controller
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
     }
 
     public function pullcodeAll($ids)
@@ -443,7 +445,7 @@ class DeviceController extends Controller
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
     }
 
     public function setupLang($request, $lang)
@@ -474,57 +476,91 @@ class DeviceController extends Controller
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
     }
 
     public function configAll($request)
     {
         $ids = $request->input('device_ids', []);
 
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
+
+        Device::whereIn('id', $ids)->update([
+            'note' => $request->input('note')
+        ]);
+
+        $payloadData = [];
+
+        foreach ($devices as $device) {
+            $payloadData[] = [
+                'username'                  => $device->username,
+                'device_name'               => $device->name,
+                'device'                    => $device->ip_address,
+                'language'                  => $request->input('language') ?: 'ES',
+                'mail_suply'                => $request->input('mail_suply') ?: '1',
+                'proxy'                     => $request->input('proxy') ?: '',
+                'hotmail_service_ids'       => $request->input('hotmail_service_ids') ?: '{2,6,1,3,5,59,60}',
+                'enter_verify_code'         => $request->input('enter_verify_code') ?: '0',
+                'hot_mail_source_from_file' => $request->input('hot_mail_source_from_file') ?: '0',
+                'thue_lai_mail_thuemails'   => $request->input('thue_lai_mail_thuemails') ?: '0',
+                'add_mail_domain'           => $request->input('add_mail_domain') ?: '0',
+                'remove_register_mail'      => $request->input('remove_register_mail') ?: '0',
+                'provider_mail_thuemails'   => $request->input('provider_mail_thuemails') ?: '1',
+                'times_xoa_info'            => $request->input('times_xoa_info') ?: '0',
+                'note'                      => $request->input('note') ?: '',
+            ];
+        }
+
+        try {
+            $apiUrl = 'https://tuongtacthongminh.com/device_config.php';
+            $response = Http::asForm()->timeout(120)->post($apiUrl, [
+                'action' => 'upsert',
+                'data'   => json_encode($payloadData),
+            ]);
+
+            $results = [];
+
+            if ($response->successful()) {
+                $res = $response->json();
+
+                foreach ($res['results'] ?? [] as $index => $result) {
+                    $device = $devices[$index];
+                    $title = $device->name . ' - ' . $device->ip_address;
+
+                    if ($result['status'] === 'success') {
+                        $results[] = "$title: CONFIG success.";
+                    } else {
+                        $message = $result['message'] ?? $result['info'] ?? '(no message)';
+                        $results[] = "$title: CONFIG failed. $message";
+                    }
+                }
+            } else {
+                $results[] = 'API request failed (non-200).';
+            }
+        } catch (\Exception $e) {
+            $results[] = 'API exception: ' . $e->getMessage();
+        }
+
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+    }
+
+    public function deleteSelected($ids)
+    {
         $results = [];
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
-            $title = $device->name . ' - ' . $device->ip_address;
-            $device->update(['note' => $request->input('note')]);
-
             try {
-                $apiUrl = 'https://tuongtacthongminh.com/device_config.php';
-                $response = Http::asForm()->timeout(3)->post($apiUrl, [
-                    'action'                      => 'upsert',
-                    'username'                    => $device->username,
-                    'device_name'                 => $device->name,
-                    'device'                      => $device->ip_address,
-                    'language'                    => $request->input('language') ?: 'ES',
-                    'mail_suply'                  => $request->input('mail_suply') ?: '1',
-                    'proxy'                       => $request->input('proxy') ?: '',
-                    'hotmail_service_ids'         => $request->input('hotmail_service_ids') ?: '{2,6,1,3,5,59,60}',
-                    'enter_verify_code'           => $request->input('enter_verify_code') ?: '0',
-                    'hot_mail_source_from_file'   => $request->input('hot_mail_source_from_file') ?: '0',
-                    'thue_lai_mail_thuemails'     => $request->input('thue_lai_mail_thuemails') ?: '0',
-                    'add_mail_domain'             => $request->input('add_mail_domain') ?: '0',
-                    'remove_register_mail'        => $request->input('remove_register_mail') ?: '0',
-                    'provider_mail_thuemails'     => $request->input('provider_mail_thuemails') ?: '1',
-                    'times_xoa_info'              => $request->input('times_xoa_info') ?: '0',
-                    'note'                        => $request->input('note') ?: '',
-                ]);
+                $title = $device->name . ' - ' . $device->ip_address;
+                $device->delete();
 
-                if ($response->successful()) {
-                    $res = $response->json(); 
-                    if ($res['status'] == 'success') {
-                        $results[] = $title . ': CONFIG success.';
-                    } else {
-                        $results[] = $title . ": failed " . $res['info'];
-                    }
-                } else {
-                    $results[] = $title . ': CONFIG failed.';
-                }
+                $results[] = $title . ': Delete success.';
             } catch (\Exception $e) {
-                $results[] = $title . ': CONFIG failed.' . ' ' . $e->getMessage();
+                $results[] = $title . ': Delete failed.' . ' ' . $e->getMessage();
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
     }
 
     public function create()
