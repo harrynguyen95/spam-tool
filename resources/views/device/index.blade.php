@@ -15,28 +15,25 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-sm btn-danger" name="action" value="stop">Stop Selected</button>
+                    <button type="button" class="btn btn-sm btn-default"><a style="color: #444" href="{{ route('device.create') }}">Create new Device</a></button>
                     <button type="submit" class="btn btn-sm btn-success" name="action" value="start">Start Selected</button>
+                    <button type="submit" class="btn btn-sm btn-danger" name="action" value="stop">Stop Selected</button>
                     <button type="submit" class="btn btn-sm btn-primary" name="action" value="pullcode">Pull Code Selected</button>
                     <button type="submit" class="btn btn-sm btn-warning" name="action" value="respring">Respring</button>
                 </div>
                 <div class="mb-3">
-                    <button type="button" class="btn btn-sm btn-default"><a style="color: #444" href="{{ route('device.create') }}">Create new Device</a></button>
+                    <button type="submit" class="btn btn-sm btn-default" name="action" value="deleteSelected" style="color: #d73925">Delete Selected</button>
                     <button type="submit" class="btn btn-sm btn-default" name="action" value="clearInprogress">Clear INPROGRESS</button>
-                    <button type="submit" class="btn btn-sm btn-default" name="action" value="openScreen">Open Screen</button>
-                    <button type="submit" class="btn btn-sm btn-default" name="action" value="closeScreen">Close Screen</button>
+                    <button type="submit" class="btn btn-sm btn-default" name="action" value="openScreen" style="color: #008d4c">Open Screen</button>
+                    <button type="submit" class="btn btn-sm btn-default" name="action" value="closeScreen" style="color: #008d4c">Close Screen</button>
                 </div>
-                <!-- <div class="mb-3">
-                    <button type="submit" class="btn btn-sm btn-primary" name="action" value="setupES">Set App Facebook ES</button>
-                    <button type="submit" class="btn btn-sm btn-primary" name="action" value="setupEN">Set App Facebook EN</button>
-                </div> -->
                 <div class="mb-3">
                     <button type="submit" class="btn btn-sm btn-default" name="action" value="changeProxy"
-                        onclick="return confirm('Are you sure you want to change Proxy Xoainfo?');" style="color: #f7630c">Proxy Xoainfo</button>
+                        onclick="return confirm('Are you sure you want to change Proxy Xoainfo?');" style="color: #e08e0b">Proxy Xoainfo</button>
                     <button type="submit" class="btn btn-sm btn-default" name="action" value="setupES"
-                        onclick="return confirm('Are you sure you want to set Device Spanish?');">Set App Facebook <b>ES</b></button>
+                        onclick="return confirm('Are you sure you want to set Device Spanish?');" disabled>Set App Facebook <b>ES</b></button>
                     <button type="submit" class="btn btn-sm btn-default" name="action" value="setupEN"
-                        onclick="return confirm('Are you sure you want to set Device English?');">Set App Facebook <b>EN</b></button>
+                        onclick="return confirm('Are you sure you want to set Device English?');" disabled>Set App Facebook <b>EN</b></button>
                 </div>
                 <br> 
                 <div class="form-check">
