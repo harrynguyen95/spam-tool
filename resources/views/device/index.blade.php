@@ -55,7 +55,7 @@
                                 margin-bottom: 0;
                                 line-height: 28px;
                                 margin-right: 5px;
-                                opacity: 0.7;">Select Failed</label>
+                                opacity: 0.5;">Select Failed</label>
                             <input type="checkbox" class="form-check-input" id="check-all-failed" name="check-all-failed">
                         </div>
                     </div>
@@ -66,31 +66,31 @@
 
                         <div class="col-md-4 d-flex align-items-center">
                             <label class="me-2 w-50 text-end" style="color: #f7630c">Note Memo</label>
-                            <input type="text" name="note" class="form-control" value="" placeholder="note.." style="border-color: #f7630c" />
+                            <input type="text" name="note" class="form-control" value="{{ $config->note }}" placeholder="note.." style="border-color: #f7630c" />
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
                             <label class="me-2 w-50 text-end">Xoainfo (0|1|2)</label>
-                            <input type="number" name="times_xoa_info" class="form-control" value="1" placeholder="2|3|4" />
+                            <input type="number" name="times_xoa_info" class="form-control" value="{{ $config->times_xoa_info }}" placeholder="2|3|4" />
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
                             <label class="me-2 w-50 text-end">Proxy Xoainfo</label>
-                            <input type="text" name="proxy" class="form-control" value="" placeholder="123.123.123.123:10000" />
+                            <input type="text" name="proxy" class="form-control" value="{{ $config->proxy }}" placeholder="123.123.123.123:10000" />
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
                             <label class="me-2 w-50 text-end" style="margin-right: 10px;">Mail:</label>
                             <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="mail_suply" id="mail_suply_yes" value="1" checked>
+                                <input class="form-check-input" type="radio" name="mail_suply" id="mail_suply_yes" value="1" {{ $config->mail_suply == '1' ? 'checked' : '' }} >
                                 <label for="mail_suply_yes">dongvanfb</label>
                             </div>
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="mail_suply" id="mail_suply_no" value="2" >
+                                <input class="form-check-input" type="radio" name="mail_suply" id="mail_suply_no" value="2" {{ $config->mail_suply == '2' ? 'checked' : '' }} >
                                 <label for="mail_suply_no">thuemails</label>
                             </div>
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="mail_suply" id="mail_suply_no2" value="3">
+                                <input class="form-check-input" type="radio" name="mail_suply" id="mail_suply_no2" value="3" {{ $config->mail_suply == '3' ? 'checked' : '' }} >
                                 <label for="mail_suply_no2">yagisongs</label>
                             </div>
                         </div>
@@ -98,28 +98,28 @@
                         <div class="col-md-4 d-flex align-items-center">
                             <label class="me-2 w-50 text-end" style="margin-right: 10px;">Hotmail source in file</label>
                             <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_yes" value="1">
+                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_yes" value="1" {{ $config->hot_mail_source_from_file == '1' ? 'checked' : '' }} >
                                 <label for="hot_mail_source_from_file_yes">Yes</label>
                             </div>
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_no" value="0" checked>
+                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_no" value="0" {{ $config->hot_mail_source_from_file == '0' ? 'checked' : '' }} >
                                 <label for="hot_mail_source_from_file_no">No</label>
                             </div>
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
                             <label class="me-2 w-50 text-end" style="width: 240px">Hotmail service ids</label> 
-                            <input type="text" name="hotmail_service_ids" class="form-control" value="{1,2,3,5,6,59,60}" placeholder="{1,2,3,5,6,59,60}" />
+                            <input type="text" name="hotmail_service_ids" class="form-control" value="{{ $config->hotmail_service_ids }}" placeholder="{1,2,3,5,6,59,60}" />
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
                             <label class="me-2 w-50 text-end" style="margin-right: 10px;">Tool Language</label>
                             <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="language" id="language_yes" value="ES" checked>
+                                <input class="form-check-input" type="radio" name="language" id="language_yes" value="ES" {{ $config->language == 'ES' ? 'checked' : '' }} >
                                 <label for="language_yes">Spanish</label>
                             </div>
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="language" id="language_no" value="EN" >
+                                <input class="form-check-input" type="radio" name="language" id="language_no" value="EN" {{ $config->language == 'EN' ? 'checked' : '' }} >
                                 <label for="language_no">English</label>
                             </div>
                         </div>
@@ -127,11 +127,11 @@
                         <div class="col-md-4 d-flex align-items-center">
                             <label class="me-2 w-50 text-end" style="margin-right: 10px;">Enter verify code</label>
                             <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_yes" value="1" checked>
+                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_yes" value="1" {{ $config->enter_verify_code == '1' ? 'checked' : '' }} >
                                 <label for="enter_verify_code_yes">Yes</label>
                             </div>
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_no" value="0">
+                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_no" value="0" {{ $config->enter_verify_code == '0' ? 'checked' : '' }} >
                                 <label for="enter_verify_code_no">No</label>
                             </div>
                         </div>

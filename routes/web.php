@@ -28,17 +28,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::get('/devices/view/{id}', 'DeviceController@show')->name('device.show');
         Route::get('/devices/update/{id}', 'DeviceController@edit')->name('device.edit');
         Route::put('/devices/update/{id}', 'DeviceController@update')->name('device.update');
-
         Route::post('/devices/delete/{id}', 'DeviceController@destroy')->name('device.destroy');
-        Route::post('/devices/pullcode/{id}', 'DeviceController@pullcode')->name('device.pullcode');
-        Route::post('/devices/start/{id}', 'DeviceController@start')->name('device.start');
-        Route::post('/devices/stop/{id}', 'DeviceController@stop')->name('device.stop');
-        Route::post('/devices/clear/{id}', 'DeviceController@clear')->name('device.stop');
-        Route::post('/devices/respring/{id}', 'DeviceController@respring')->name('device.stop');
-        Route::post('/devices/openscreen/{id}', 'DeviceController@openscreen')->name('device.openscreen');
-        Route::post('/devices/closescreen/{id}', 'DeviceController@closescreen')->name('device.closescreen');
 
-        Route::post('/devices/bulk-action', 'DeviceController@bulkAction')->name('device.bulkAction');
+        Route::post('/devices/pullcode/{id}', 'DeviceBulkController@pullcode')->name('device.pullcode');
+        Route::post('/devices/start/{id}', 'DeviceBulkController@start')->name('device.start');
+        Route::post('/devices/stop/{id}', 'DeviceBulkController@stop')->name('device.stop');
+        Route::post('/devices/clear/{id}', 'DeviceBulkController@clear')->name('device.stop');
+        Route::post('/devices/respring/{id}', 'DeviceBulkController@respring')->name('device.stop');
+        Route::post('/devices/openscreen/{id}', 'DeviceBulkController@openscreen')->name('device.openscreen');
+        Route::post('/devices/closescreen/{id}', 'DeviceBulkController@closescreen')->name('device.closescreen');
+
+        Route::post('/devices/bulk-action', 'DeviceBulkController@bulkAction')->name('device.bulkAction');
         
         Route::get('/autotouch', 'CommonController@listDevice')->name('autotouch.index');
         Route::post('/autotouch', 'CommonController@storeDevice')->name('autotouch.store');
