@@ -484,13 +484,13 @@ class DeviceBulkController extends Controller
         $ids = $request->input('device_ids', []);
         $results = [];
 
+        Device::whereIn('id', $ids)->update(['lang' => $lang]);
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
             $title = $device->name . ' - ' . $device->ip_address;
-            $device->update(['lang' => $lang]);
 
             try {
-                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/Setup'.$lang.'.lua';
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/SetupDevice'.$lang.'.lua';
                 $response = Http::timeout(3)->get($url);
                 if ($response->successful()) {
                     $res = $response->json(); 

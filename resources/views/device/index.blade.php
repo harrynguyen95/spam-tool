@@ -40,9 +40,9 @@
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="changeProxy"
                             onclick="return confirm('Are you sure you want to change Proxy Xoainfo?');" style="color: #e08e0b">Proxy Xoainfo</button>
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="setupES"
-                            onclick="return confirm('Are you sure you want to set Device Spanish?');">Set Device Lang <b>ES</b></button>
+                            onclick="return confirm('Are you sure you want to set Device Spanish?');">Device <b>Spanish</b></button>
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="setupEN"
-                            onclick="return confirm('Are you sure you want to set Device English?');">Set Device Lang <b>EN</b></button>
+                            onclick="return confirm('Are you sure you want to set Device English?');">Device <b>English</b></button>
                     </div>
                     <br> 
                     <div class="d-flex align-items-center" style="justify-content: space-between">
