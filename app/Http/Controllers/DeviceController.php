@@ -204,8 +204,10 @@ class DeviceController extends Controller
             return $this->changeProxyAll($deviceIds);
         } elseif ($action == 'deleteSelected') {
             return $this->deleteSelected($deviceIds);
+        } elseif ($action == 'checkInternet') {
+            return $this->checkInternetAll($deviceIds);
 
-        } elseif ($action == 'config') {
+        }  elseif ($action == 'config') {
             return $this->configAll($request);
         } elseif ($action == 'setupES') {
             return $this->setupLang($request, 'ES');
@@ -243,6 +245,42 @@ class DeviceController extends Controller
         }
 
         return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+    }
+
+    public function checkInternetAll($ids)
+    {
+        $results = [];
+        $failedIds = [];
+
+        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
+        foreach ($devices as $device) {
+            $title = $device->name . ' - ' . $device->ip_address;
+
+            try {
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/CheckInternet.lua';
+                $response = Http::timeout(3)->get($url);
+                if ($device->id < 20) {
+                    $failedIds[] = $device->id;
+                }
+                if ($response->successful()) {
+                    $res = $response->json(); 
+                    if ($res['status'] == 'success') {
+                        $results[] = $title . ': CheckInternet success.';
+                    } else {
+                        $results[] = $title . ": failed " . $res['info'];
+                        $failedIds[] = $device->id;
+                    }
+                } else {
+                    $results[] = $title . ': CheckInternet failed.';
+                    $failedIds[] = $device->id;
+                }
+            } catch (\Exception $e) {
+                $results[] = $title . ': CheckInternet failed.' . ' ' . $e->getMessage();
+                $failedIds[] = $device->id;
+            }
+        }
+
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
     public function openScreenAll($ids)

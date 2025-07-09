@@ -11,6 +11,7 @@
 @section('content')
     @php
         $selected = session('selected_device_ids', []);
+        $failed = session('failed_ids', []);
     @endphp
 
     <div class="sp-push-index">
@@ -29,6 +30,9 @@
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="deleteSelected"
                             onclick="return confirm('Are you sure you want to Delete these items?');" style="color: #d73925">Delete Selected</button>
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="clearInprogress">Clear INPROGRESS</button>
+
+                        <button type="button" class="btn btn-sm btn-default" style="color: #ccc"> | </button>
+                        <button type="submit" class="btn btn-sm btn-success" name="action" value="checkInternet">Check Internet</button>
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="openScreen" style="color: #008d4c">Open Screen</button>
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="closeScreen" style="color: #008d4c">Close Screen</button>
                     </div>
@@ -41,10 +45,21 @@
                             onclick="return confirm('Are you sure you want to set Device English?');">Set Device Lang <b>EN</b></button>
                     </div>
                     <br> 
-                    <div class="form-check">
-                        <label class="form-check-label" for="check-all" style="font-size: 18px;">Select all</label>
-                        <input type="checkbox" class="form-check-input" id="check-all" name="check-all">
+                    <div class="d-flex align-items-center" style="justify-content: space-between">
+                        <div class="form-check">
+                            <label class="form-check-label" for="check-all" style="font-size: 18px;">Select All</label>
+                            <input type="checkbox" class="form-check-input" id="check-all" name="check-all">
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label" for="check-all-failed" style="font-size: 14px;
+                                margin-bottom: 0;
+                                line-height: 28px;
+                                margin-right: 5px;
+                                opacity: 0.7;">Select Failed</label>
+                            <input type="checkbox" class="form-check-input" id="check-all-failed" name="check-all-failed">
+                        </div>
                     </div>
+                    
                 </div>
                 <div class="col-md-7 config-form">
                     <div class="row mb-3">
@@ -195,7 +210,10 @@
                                     <td>{{ $row['id'] }}</td>
                                     <td>
                                         <div class="individual-check">
-                                            <input type="checkbox" id="device-id-{{$row['id']}}" name="device_ids[]" value="{{ $row['id'] }}" {{ in_array($row['id'], $selected) ? "checked" : "" }} />
+                                            <input type="checkbox" id="device-id-{{$row['id']}}" name="device_ids[]" 
+                                                value="{{ $row['id'] }}" {{ in_array($row['id'], $selected) ? "checked" : "" }} 
+                                                data-is-failed="{{ in_array($row['id'], $failed) ? '1' : '0' }}"
+                                            />
                                             <label class="form-check-label" for="device-id-{{$row['id']}}">{{ $row['name'] }}</label>
                                         </div>
                                     </td>
@@ -209,7 +227,7 @@
                                             <button type="button" class="btn btn-sm btn-danger" onclick="submitOneDevice('stop', {{ $row['id'] }})">Stop</button>
                                             <button type="button" class="btn btn-sm btn-primary" onclick="submitOneDevice('pullcode', {{ $row['id'] }})">Pull Code</button>
                                             <button type="button" class="btn btn-sm btn-warning" onclick="submitOneDevice('respring', {{ $row['id'] }})">Respring</button>
-                                            <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('clear', {{ $row['id'] }})">Clear INPROGRESS</button>
+                                            <!-- <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('clear', {{ $row['id'] }})">Clear INPROGRESS</button> -->
                                             <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('openscreen', {{ $row['id'] }})" style="color: #008d4c">Open Screen</button>
                                             <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('closescreen', {{ $row['id'] }})" style="color: #008d4c">Close Screen</button>
                                             <button type="button" class="btn btn-sm btn-success" onclick="window.open('http://{{ $row['ip_address'] }}:8080', '_blank')">Open URL</button>
@@ -276,16 +294,24 @@
             });
         })
 
-        $('#check-all').on('change', function () {
-            $('input[name="device_ids[]"]').prop('checked', this.checked);
-        });
         $(document).ready(function () {
             let all = $('input[name="device_ids[]"]');
             let checked = all.filter(':checked');
 
             $('#check-all').prop('checked', all.length === checked.length);
         });
-        
+        $('#check-all').on('change', function () {
+            $('input[name="device_ids[]"]').prop('checked', this.checked);
+        });
+        $('#check-all-failed').on('change', function () {
+            $('input[name="device_ids[]"]').each(function () {
+                if ($(this).data('is-failed') == 1) {
+                    $(this).prop('checked', $('#check-all-failed').prop('checked'));
+                } else {
+                    $(this).prop('checked', false);
+                }
+            });
+        });
         // $(document).ready(function () {
         //     setTimeout(function () {
         //         $('#check-all').trigger('click');
