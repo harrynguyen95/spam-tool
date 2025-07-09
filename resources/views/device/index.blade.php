@@ -227,7 +227,7 @@
                                             <button type="button" class="btn btn-sm btn-danger" onclick="submitOneDevice('stop', {{ $row['id'] }})">Stop Reg</button>
                                             <button type="button" class="btn btn-sm btn-primary" onclick="submitOneDevice('pullcode', {{ $row['id'] }})">Pull Code</button>
                                             <button type="button" class="btn btn-sm btn-warning" onclick="submitOneDevice('respring', {{ $row['id'] }})">Respring</button>
-                                            <!-- <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('clear', {{ $row['id'] }})">Clear INPROGRESS</button> -->
+                                            <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('clear', {{ $row['id'] }})">Clear INPROGRESS</button>
                                             <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('openscreen', {{ $row['id'] }})" style="color: #008d4c">Open Screen</button>
                                             <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('closescreen', {{ $row['id'] }})" style="color: #008d4c">Close Screen</button>
                                             <button type="button" class="btn btn-sm btn-success" onclick="window.open('http://{{ $row['ip_address'] }}:8080', '_blank')">Open URL</button>
