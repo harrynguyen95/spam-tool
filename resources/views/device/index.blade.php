@@ -17,6 +17,8 @@
     <div class="sp-push-index">
         <form method="POST" action="{{ route("device.bulkAction") }}">
             @csrf
+            
+            <input type="hidden" name="order_dir" id="order_dir">
             <div class="row">
                 <div class="col-md-5">
                     <div class="mb-3">
@@ -259,7 +261,7 @@
 
 @push('scripts')
     <script>
-        var orderDevice = "{{ env('ORDER_DEVICE', 'asc') }}";
+        var orderDevice = @json(session('order_dir', env('ORDER_DEVICE', 'asc')));
         function submitOneDevice(method, deviceId) {
             if (method == 'delete') {
                 if (! confirm('Are you sure you want to delete this item?')) {
@@ -280,7 +282,8 @@
         } 
 
         $(function () {
-            $('#device-datatables').DataTable({
+            var lastOrder = null;
+            var table = $('#device-datatables').DataTable({
                 'paging'      : true,
                 'lengthChange': true,
                 'searching'   : true,
@@ -291,7 +294,12 @@
                 "sScrollX"    : "100%",
                 "sScrollXInner": "100%",
                 "bScrollCollapse": true,
-                'pageLength'    : 100,
+                'pageLength'  : 100,
+            });
+
+            table.on('order.dt', function () {
+                lastOrder = table.order();
+                $('#order_dir').val(lastOrder[0][1]); 
             });
         })
 

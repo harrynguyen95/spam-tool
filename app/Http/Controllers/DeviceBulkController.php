@@ -174,7 +174,10 @@ class DeviceBulkController extends Controller
     {
         $deviceIds = $request->input('device_ids', []);
         $action = $request->input('action');
+        $dir = $request->input('order_dir');
 
+        session(['order_dir' => $dir]);
+        
         if (empty($deviceIds)) {
             return redirect()->route('device.index')->withError('Empty device.');
         }
