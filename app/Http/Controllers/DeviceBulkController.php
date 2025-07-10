@@ -214,6 +214,7 @@ class DeviceBulkController extends Controller
     public function changeProxyAll($ids)
     {
         $results = [];
+        $failedIds = [];
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
@@ -228,16 +229,19 @@ class DeviceBulkController extends Controller
                         $results[] = $title . ': ProxyXoainfo success.';
                     } else {
                         $results[] = $title . ": failed " . $res['info'];
+                        $failedIds[] = $device->id;
                     }
                 } else {
                     $results[] = $title . ': ProxyXoainfo failed.';
+                    $failedIds[] = $device->id;
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': ProxyXoainfo failed.' . ' ' . $e->getMessage();
+                $failedIds[] = $device->id;
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
     public function checkInternetAll($ids)
@@ -252,9 +256,6 @@ class DeviceBulkController extends Controller
             try {
                 $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/CheckInternet.lua';
                 $response = Http::timeout(3)->get($url);
-                if ($device->id < 20) {
-                    $failedIds[] = $device->id;
-                }
                 if ($response->successful()) {
                     $res = $response->json(); 
                     if ($res['status'] == 'success') {
@@ -279,6 +280,7 @@ class DeviceBulkController extends Controller
     public function openScreenAll($ids)
     {
         $results = [];
+        $failedIds = [];
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
@@ -293,21 +295,25 @@ class DeviceBulkController extends Controller
                         $results[] = $title . ': Open screen success.';
                     } else {
                         $results[] = $title . ": failed " . $res['info'];
+                        $failedIds[] = $device->id;
                     }
                 } else {
                     $results[] = $title . ': Open screen failed.';
+                    $failedIds[] = $device->id;
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': Open screen failed.' . ' ' . $e->getMessage();
+                $failedIds[] = $device->id;
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
     public function closeScreenAll($ids)
     {
         $results = [];
+        $failedIds = [];
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
@@ -322,21 +328,25 @@ class DeviceBulkController extends Controller
                         $results[] = $title . ': Close screen success.';
                     } else {
                         $results[] = $title . ": failed " . $res['info'];
+                        $failedIds[] = $device->id;
                     }
                 } else {
                     $results[] = $title . ': Close screen failed.';
+                    $failedIds[] = $device->id;
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': Close screen failed.' . ' ' . $e->getMessage();
+                $failedIds[] = $device->id;
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
     public function startAll($ids)
     {
         $results = [];
+        $failedIds = [];
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
@@ -351,21 +361,25 @@ class DeviceBulkController extends Controller
                         $results[] = $title . ': START success.';
                     } else {
                         $results[] = $title . ": failed " . $res['info'];
+                        $failedIds[] = $device->id;
                     }
                 } else {
                     $results[] = $title . ': START failed.';
+                    $failedIds[] = $device->id;
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': START failed.' . ' ' . $e->getMessage();
+                $failedIds[] = $device->id;
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
     public function stopAll($ids)
     {
         $results = [];
+        $failedIds = [];
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
@@ -380,21 +394,25 @@ class DeviceBulkController extends Controller
                         $results[] = $title . ': STOP success.';
                     } else {
                         $results[] = $title . ": failed " . $res['info'];
+                        $failedIds[] = $device->id;
                     }
                 } else {
                     $results[] = $title . ': STOP failed.';
+                    $failedIds[] = $device->id;
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': STOP failed.' . ' ' . $e->getMessage();
+                $failedIds[] = $device->id;
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
     public function clearInprogressAll($ids)
     {
         $results = [];
+        $failedIds = [];
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
@@ -409,21 +427,25 @@ class DeviceBulkController extends Controller
                         $results[] = $title . ': CLEAR INPROGRESS success.';
                     } else {
                         $results[] = $title . ": failed " . $res['info'];
+                        $failedIds[] = $device->id;
                     }
                 } else {
                     $results[] = $title . ': CLEAR INPROGRESS failed.';
+                    $failedIds[] = $device->id;
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': CLEAR INPROGRESS failed.' . ' ' . $e->getMessage();
+                $failedIds[] = $device->id;
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
     public function respringAll($ids)
     {
         $results = [];
+        $failedIds = [];
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
@@ -438,21 +460,25 @@ class DeviceBulkController extends Controller
                         $results[] = $title . ': RESPRING success.';
                     } else {
                         $results[] = $title . ": failed " . $res['info'];
+                        $failedIds[] = $device->id;
                     }
                 } else {
                     $results[] = $title . ': RESPRING failed.';
+                    $failedIds[] = $device->id;
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': RESPRING failed.' . ' ' . $e->getMessage();
+                $failedIds[] = $device->id;
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
     public function pullcodeAll($ids)
     {
         $results = [];
+        $failedIds = [];
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
@@ -467,22 +493,26 @@ class DeviceBulkController extends Controller
                         $results[] = $title . ': PULL CODE success.';
                     } else {
                         $results[] = $title . ": failed " . $res['info'];
+                        $failedIds[] = $device->id;
                     }
                 } else {
                     $results[] = $title . ': PULL CODE failed.';
+                    $failedIds[] = $device->id;
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': PULL CODE failed.' . ' ' . $e->getMessage();
+                $failedIds[] = $device->id;
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
     public function setupLang($request, $lang)
     {
         $ids = $request->input('device_ids', []);
         $results = [];
+        $failedIds = [];
 
         Device::whereIn('id', $ids)->update(['lang' => $lang]);
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
@@ -498,16 +528,19 @@ class DeviceBulkController extends Controller
                         $results[] = $title . ': Setup '.$lang.' success.';
                     } else {
                         $results[] = $title . ": failed " . $res['info'];
+                        $failedIds[] = $device->id;
                     }
                 } else {
                     $results[] = $title . ': Setup '.$lang.' failed.';
+                    $failedIds[] = $device->id;
                 }
             } catch (\Exception $e) {
                 $results[] = $title . ': Setup '.$lang.' failed.' . ' ' . $e->getMessage();
+                $failedIds[] = $device->id;
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
     public function configAll($request)
@@ -566,6 +599,7 @@ class DeviceBulkController extends Controller
             ]);
 
             $results = [];
+            $failedIds = [];
 
             if ($response->successful()) {
                 $res = $response->json();
@@ -579,22 +613,26 @@ class DeviceBulkController extends Controller
                     } else {
                         $message = $result['message'] ?? $result['info'] ?? '(no message)';
                         $results[] = "$title: CONFIG failed. $message";
+                        $failedIds[] = $device->id;
                     }
                 }
             } else {
                 $results[] = 'API request failed (non-200).';
+                $failedIds[] = $device->id;
             }
         } catch (\Exception $e) {
             $results[] = 'API exception: ' . $e->getMessage();
+            $failedIds[] = $device->id;
         }
 
        
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
     public function deleteSelected($ids)
     {
         $results = [];
+        $failedIds = [];
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
         foreach ($devices as $device) {
@@ -605,10 +643,11 @@ class DeviceBulkController extends Controller
                 $results[] = $title . ': Delete success.';
             } catch (\Exception $e) {
                 $results[] = $title . ': Delete failed.' . ' ' . $e->getMessage();
+                $failedIds[] = $device->id;
             }
         }
 
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids);
+        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
 }
