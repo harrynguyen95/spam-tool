@@ -261,7 +261,7 @@
 
 @push('scripts')
     <script>
-        var orderDevice = {{ session('order_dir', env('ORDER_DEVICE', 'asc')) }};
+        var orderDevice = "{{ session('order_dir', env('ORDER_DEVICE', 'asc')) }}";
         function submitOneDevice(method, deviceId) {
             if (method == 'delete') {
                 if (! confirm('Are you sure you want to delete this item?')) {
