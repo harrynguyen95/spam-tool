@@ -259,6 +259,7 @@
 
 @push('scripts')
     <script>
+        var orderDevice = "{{ env('ORDER_DEVICE', 'asc') }}";
         function submitOneDevice(method, deviceId) {
             if (method == 'delete') {
                 if (! confirm('Are you sure you want to delete this item?')) {
@@ -284,7 +285,7 @@
                 'lengthChange': true,
                 'searching'   : true,
                 'ordering'    : true,
-                'order':      [[1, 'asc']],
+                'order':      [[1, orderDevice]],
                 'info'        : true,
                 'autoWidth'   : true,
                 "sScrollX"    : "100%",
@@ -311,7 +312,6 @@
                     $(this).prop('checked', false);
                 }
             });
-            $('#check-all').prop('checked', false);
         });
         // $(document).ready(function () {
         //     setTimeout(function () {
