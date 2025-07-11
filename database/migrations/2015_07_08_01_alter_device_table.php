@@ -7,9 +7,13 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::table('devices', function (Blueprint $table) {
-            $table->text('lang')->nullable()->after('note');
-        });
+        if (!Schema::hasColumn('devices', 'lang')) {
+            Schema::table('devices', function (Blueprint $table) {
+                if (!Schema::hasColumn('devices', 'lang')) {
+                    $table->text('lang')->nullable()->after('note');
+                }
+            });
+        }
     }
 
     public function down(): void

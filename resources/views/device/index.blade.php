@@ -321,6 +321,76 @@
                 }
             });
         });
+
+        // let lastChecked = null;
+        // $(document).ready(function () {
+        //     const $checkboxes = $('input[name="device_ids[]"]');
+
+        //     $checkboxes.on('click', function (e) {
+        //         if (!lastChecked) {
+        //             lastChecked = this;
+        //             return;
+        //         }
+
+        //         if (e.shiftKey) {
+        //             const start = $checkboxes.index(this);
+        //             const end = $checkboxes.index(lastChecked);
+
+        //             $checkboxes.slice(Math.min(start, end), Math.max(start, end) + 1)
+        //                 .prop('checked', lastChecked.checked);
+        //         }
+
+        //         lastChecked = this;
+        //     });
+        // });
+
+        let lastChecked = null;
+
+        $(document).ready(function () {
+            const $checkboxes = $('input[name="device_ids[]"]');
+
+            function handleCheckboxClick(checkbox, e) {
+                if (!lastChecked) {
+                    lastChecked = checkbox;
+                    return;
+                }
+
+                if (e.shiftKey) {
+                    const start = $checkboxes.index(checkbox);
+                    const end = $checkboxes.index(lastChecked);
+
+                    $checkboxes.slice(Math.min(start, end), Math.max(start, end) + 1)
+                        .prop('checked', lastChecked.checked);
+                }
+
+                lastChecked = checkbox;
+            }
+
+            // Click trực tiếp vào checkbox
+            $checkboxes.on('click', function (e) {
+                handleCheckboxClick(this, e);
+            });
+
+            // Click vào từng dòng (tr)
+            $('#device-datatables tbody tr').on('click', function (e) {
+                // Tránh click nhầm vào nút, thẻ a, input...
+                if ($(e.target).is('input, label, button, a')) {
+                    return;
+                }
+
+                const $checkbox = $(this).find('input[name="device_ids[]"]');
+                const checkbox = $checkbox.get(0);
+                if (!checkbox) return;
+
+                // Toggle trạng thái checkbox (giống click)
+                checkbox.checked = !checkbox.checked;
+
+                // Gọi lại xử lý shift
+                handleCheckboxClick(checkbox, e);
+            });
+        });
+
+        
         // $(document).ready(function () {
         //     setTimeout(function () {
         //         $('#check-all').trigger('click');
