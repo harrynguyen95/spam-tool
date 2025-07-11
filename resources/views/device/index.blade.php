@@ -249,7 +249,13 @@
                                     <td>{{ $row['ip_address'] }}</td>
                                     <!-- <td>{{ date_format(date_create($row['created_at']), 'Y-m-d H:i') }}</td> -->
                                     <td>{{ $row['note'] }}</td>
-                                    <td>{{ $row['lang'] == 'ES' ? 'Spanish' : ($row['lang'] == 'EN' ? 'English' : '-') }}</td>
+                                    <td>
+                                        {!! $row['lang'] == 'ES' ? '<span style="color: #fff;border-radius: 10px;
+                                            padding: 3px 10px;
+                                            background-color: #245c7c;">Spanish</span>' : ($row['lang'] == 'EN' ? '<span style="color: #fff;border-radius: 10px;
+                                            padding: 3px 10px;
+                                            background-color: #007c43;">English</span>' : '-') !!}
+                                    </td>
                                     <td>
                                         <div class="">
                                             <button type="button" class="btn btn-sm btn-success" onclick="submitOneDevice('start', {{ $row['id'] }})">Start Reg</button>
