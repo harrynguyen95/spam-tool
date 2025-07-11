@@ -55,14 +55,25 @@
                             <label class="form-check-label" for="check-all" style="font-size: 18px;">Select All</label>
                             <input type="checkbox" class="form-check-input" id="check-all" name="check-all">
                         </div>
-                        <div class="form-check">
-                            <label class="form-check-label" for="check-all-failed" style="font-size: 14px;
-                                margin-bottom: 0;
-                                line-height: 28px;
-                                margin-right: 5px;
-                                opacity: 0.5;">Select Failed</label>
-                            <input type="checkbox" class="form-check-input" id="check-all-failed" name="check-all-failed">
+                        <div style="display: inline-flex">
+                            <div class="form-check" style="margin-right: 15px;">
+                                <label class="form-check-label" for="de-check-all" style="font-size: 14px;
+                                    margin-bottom: 0;
+                                    line-height: 28px;
+                                    margin-right: 6px;
+                                    opacity: 0.5;">De-Select All</label>
+                                <input type="checkbox" class="form-check-input" id="de-check-all" name="de-check-all">
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label" for="check-all-failed" style="font-size: 14px;
+                                    margin-bottom: 0;
+                                    line-height: 28px;
+                                    margin-right: 5px;
+                                    opacity: 0.5;">Select Failed</label>
+                                <input type="checkbox" class="form-check-input" id="check-all-failed" name="check-all-failed">
+                            </div>
                         </div>
+                        
                     </div>
                     <p><span id="count-selected">0</span> devices.</p>
                 </div>
@@ -276,7 +287,7 @@
 
 @push('scripts')
     <script>
-        var orderDevice = "{{ session('order_dir', env('ORDER_DEVICE', 'asc')) }}";
+        var orderDevice = "{{ session('order_dir') ?: env('ORDER_DEVICE', 'asc') }}";
         function updateCountSelected() {
             const selectedCount = $('input[name="device_ids[]"]:checked').length;
             $('#count-selected').text(selectedCount);
@@ -331,10 +342,21 @@
             $('#check-all').prop('checked', all.length === checked.length);
             updateCountSelected()
         });
+
         $('#check-all').on('change', function () {
             $('input[name="device_ids[]"]').prop('checked', this.checked);
+            this.checked ? $('#de-check-all').prop('checked', false) : null;
             updateCountSelected()
         });
+
+        $('#de-check-all').on('change', function () {
+            if (this.checked) {
+                $('input[name="device_ids[]"]').prop('checked', false);
+                $('#check-all').prop('checked', false);
+            }
+            updateCountSelected()
+        });
+
         $('#check-all-failed').on('change', function () {
             $('input[name="device_ids[]"]').each(function () {
                 if ($(this).data('is-failed') == 1) {
