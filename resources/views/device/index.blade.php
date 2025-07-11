@@ -75,7 +75,7 @@
                         </div>
                         
                     </div>
-                    <p><span id="count-selected">0</span> devices.</p>
+                    <p style="color: #d73925; font-weight: 700"><span class="count-selected">0</span> devices.</p>
                 </div>
                 <div class="col-md-7 config-form">
                     <div class="row mb-3">
@@ -214,6 +214,7 @@
                             <button type="submit" class="btn btn-md btn-primary" name="action" value="config">Config</button>
                         </div>
                     </div>
+                    <p style="color: #d73925; font-weight: 700"><span class="count-selected">0</span> devices.</p>
                 </div>
             </div>
 
@@ -290,7 +291,7 @@
         var orderDevice = "{{ session('order_dir') ?: env('ORDER_DEVICE', 'asc') }}";
         function updateCountSelected() {
             const selectedCount = $('input[name="device_ids[]"]:checked').length;
-            $('#count-selected').text(selectedCount);
+            $('.count-selected').text(selectedCount);
         }
 
         function submitOneDevice(method, deviceId) {
