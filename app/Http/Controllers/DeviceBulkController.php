@@ -188,33 +188,42 @@ class DeviceBulkController extends Controller
             return $this->stopAll($deviceIds);
         } elseif ($action == 'pullcode') {
             return $this->pullcodeAll($deviceIds);
-        } elseif ($action == 'clearInprogress') {
-            return $this->clearInprogressAll($deviceIds);
-        } elseif ($action == 'respring') {
-            return $this->respringAll($deviceIds);
-        } elseif ($action == 'openScreen') {
-            return $this->openScreenAll($deviceIds);
-        } elseif ($action == 'closeScreen') {
-            return $this->closeScreenAll($deviceIds);
-        } elseif ($action == 'changeProxy') {
-            return $this->changeProxyAll($deviceIds);
-        } elseif ($action == 'deleteSelected') {
-            return $this->deleteSelected($deviceIds);
-        } elseif ($action == 'checkInternet') {
-            return $this->checkInternetAll($deviceIds);
+        }
 
-        }  elseif ($action == 'config') {
+        if ($action == 'config') {
             return $this->configAll($request);
         } elseif ($action == 'setupES') {
             return $this->setupLang($request, 'ES');
         } elseif ($action == 'setupEN') {
             return $this->setupLang($request, 'EN');
-        } 
+        } elseif ($action == 'deleteSelected') {
+            return $this->deleteSelected($deviceIds);
+        }
+
+        if (in_array($action, ['ClearLastInProgress', 'CheckInternet', 'ProxyXoainfo', 'Respring', 'CloseScreen', 'OpenScreen', 'Xoainfo'])) {
+            return $this->executeRemoteScript($deviceIds, $action);
+        }
+        
+        if ($action == 'clearInprogress') {
+            // return $this->clearInprogressAll($deviceIds);
+        } elseif ($action == 'respring') {
+            // return $this->respringAll($deviceIds);
+        } elseif ($action == 'openScreen') {
+            // return $this->openScreenAll($deviceIds);
+        } elseif ($action == 'closeScreen') {
+            // return $this->closeScreenAll($deviceIds);
+        } elseif ($action == 'changeProxy') {
+            // return $this->changeProxyAll($deviceIds);
+        }  elseif ($action == 'checkInternet') {
+            // return $this->checkInternetAll($deviceIds);
+        } elseif ($action == 'Xoainfo') {
+            // return $this->Xoainfo($deviceIds);
+        }
 
         return 'Not found action.';
     }
 
-    public function changeProxyAll($ids)
+    public function executeRemoteScript($ids, $action)
     {
         $results = [];
         $failedIds = [];
@@ -224,121 +233,22 @@ class DeviceBulkController extends Controller
             $title = $device->name . ' - ' . $device->ip_address;
 
             try {
-                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/ProxyXoainfo.lua';
+                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/'.$action.'.lua';
                 $response = Http::timeout(3)->get($url);
                 if ($response->successful()) {
                     $res = $response->json(); 
                     if ($res['status'] == 'success') {
-                        $results[] = $title . ': ProxyXoainfo success.';
+                        $results[] = $title . ': '.$action.' success.';
                     } else {
                         $results[] = $title . ": failed " . $res['info'];
                         $failedIds[] = $device->id;
                     }
                 } else {
-                    $results[] = $title . ': ProxyXoainfo failed.';
+                    $results[] = $title . ': '.$action.' failed.';
                     $failedIds[] = $device->id;
                 }
             } catch (\Exception $e) {
-                $results[] = $title . ': ProxyXoainfo failed.' . ' ' . $e->getMessage();
-                $failedIds[] = $device->id;
-            }
-        }
-
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
-    }
-
-    public function checkInternetAll($ids)
-    {
-        $results = [];
-        $failedIds = [];
-
-        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
-        foreach ($devices as $device) {
-            $title = $device->name . ' - ' . $device->ip_address;
-
-            try {
-                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/CheckInternet.lua';
-                $response = Http::timeout(3)->get($url);
-                if ($response->successful()) {
-                    $res = $response->json(); 
-                    if ($res['status'] == 'success') {
-                        $results[] = $title . ': CheckInternet success.';
-                    } else {
-                        $results[] = $title . ": failed " . $res['info'];
-                        $failedIds[] = $device->id;
-                    }
-                } else {
-                    $results[] = $title . ': CheckInternet failed.';
-                    $failedIds[] = $device->id;
-                }
-            } catch (\Exception $e) {
-                $results[] = $title . ': CheckInternet failed.' . ' ' . $e->getMessage();
-                $failedIds[] = $device->id;
-            }
-        }
-
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
-    }
-
-    public function openScreenAll($ids)
-    {
-        $results = [];
-        $failedIds = [];
-
-        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
-        foreach ($devices as $device) {
-            $title = $device->name . ' - ' . $device->ip_address;
-
-            try {
-                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/OpenScreen.lua';
-                $response = Http::timeout(3)->get($url);
-                if ($response->successful()) {
-                    $res = $response->json(); 
-                    if ($res['status'] == 'success') {
-                        $results[] = $title . ': Open screen success.';
-                    } else {
-                        $results[] = $title . ": failed " . $res['info'];
-                        $failedIds[] = $device->id;
-                    }
-                } else {
-                    $results[] = $title . ': Open screen failed.';
-                    $failedIds[] = $device->id;
-                }
-            } catch (\Exception $e) {
-                $results[] = $title . ': Open screen failed.' . ' ' . $e->getMessage();
-                $failedIds[] = $device->id;
-            }
-        }
-
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
-    }
-
-    public function closeScreenAll($ids)
-    {
-        $results = [];
-        $failedIds = [];
-
-        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
-        foreach ($devices as $device) {
-            $title = $device->name . ' - ' . $device->ip_address;
-
-            try {
-                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/CloseScreen.lua';
-                $response = Http::timeout(3)->get($url);
-                if ($response->successful()) {
-                    $res = $response->json(); 
-                    if ($res['status'] == 'success') {
-                        $results[] = $title . ': Close screen success.';
-                    } else {
-                        $results[] = $title . ": failed " . $res['info'];
-                        $failedIds[] = $device->id;
-                    }
-                } else {
-                    $results[] = $title . ': Close screen failed.';
-                    $failedIds[] = $device->id;
-                }
-            } catch (\Exception $e) {
-                $results[] = $title . ': Close screen failed.' . ' ' . $e->getMessage();
+                $results[] = $title . ': '.$action.' failed.' . ' ' . $e->getMessage();
                 $failedIds[] = $device->id;
             }
         }
@@ -412,71 +322,7 @@ class DeviceBulkController extends Controller
         return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
 
-    public function clearInprogressAll($ids)
-    {
-        $results = [];
-        $failedIds = [];
-
-        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
-        foreach ($devices as $device) {
-            $title = $device->name . ' - ' . $device->ip_address;
-
-            try {
-                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/ClearLastInProgress.lua';
-                $response = Http::timeout(3)->get($url);
-                if ($response->successful()) {
-                    $res = $response->json(); 
-                    if ($res['status'] == 'success') {
-                        $results[] = $title . ': CLEAR INPROGRESS success.';
-                    } else {
-                        $results[] = $title . ": failed " . $res['info'];
-                        $failedIds[] = $device->id;
-                    }
-                } else {
-                    $results[] = $title . ': CLEAR INPROGRESS failed.';
-                    $failedIds[] = $device->id;
-                }
-            } catch (\Exception $e) {
-                $results[] = $title . ': CLEAR INPROGRESS failed.' . ' ' . $e->getMessage();
-                $failedIds[] = $device->id;
-            }
-        }
-
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
-    }
-
-    public function respringAll($ids)
-    {
-        $results = [];
-        $failedIds = [];
-
-        $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
-        foreach ($devices as $device) {
-            $title = $device->name . ' - ' . $device->ip_address;
-
-            try {
-                $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/Respring.lua';
-                $response = Http::timeout(3)->get($url);
-                if ($response->successful()) {
-                    $res = $response->json(); 
-                    if ($res['status'] == 'success') {
-                        $results[] = $title . ': RESPRING success.';
-                    } else {
-                        $results[] = $title . ": failed " . $res['info'];
-                        $failedIds[] = $device->id;
-                    }
-                } else {
-                    $results[] = $title . ': RESPRING failed.';
-                    $failedIds[] = $device->id;
-                }
-            } catch (\Exception $e) {
-                $results[] = $title . ': RESPRING failed.' . ' ' . $e->getMessage();
-                $failedIds[] = $device->id;
-            }
-        }
-
-        return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
-    }
+    
 
     public function pullcodeAll($ids)
     {
@@ -562,6 +408,8 @@ class DeviceBulkController extends Controller
             'proxy'                     => $request->input('proxy') ?: '',
             'hotmail_service_ids'       => $request->input('hotmail_service_ids') ?: '{2,6,1,3,5,59,60}',
             'enter_verify_code'         => $request->input('enter_verify_code') ?: '0',
+            'api_key_thuemails'         => $request->input('api_key_thuemails') ?: '',
+            'api_key_dongvanfb'         => $request->input('api_key_dongvanfb') ?: '',
             'hot_mail_source_from_file' => $request->input('hot_mail_source_from_file') ?: '0',
             'thue_lai_mail_thuemails'   => $request->input('thue_lai_mail_thuemails') ?: '0',
             'add_mail_domain'           => $request->input('add_mail_domain') ?: '0',
@@ -584,6 +432,8 @@ class DeviceBulkController extends Controller
                 'proxy'                     => $request->input('proxy') ?: '',
                 'hotmail_service_ids'       => $request->input('hotmail_service_ids') ?: '{2,6,1,3,5,59,60}',
                 'enter_verify_code'         => $request->input('enter_verify_code') ?: '0',
+                'api_key_thuemails'         => $request->input('api_key_thuemails') ?: '',
+                'api_key_dongvanfb'         => $request->input('api_key_dongvanfb') ?: '',
                 'hot_mail_source_from_file' => $request->input('hot_mail_source_from_file') ?: '0',
                 'thue_lai_mail_thuemails'   => $request->input('thue_lai_mail_thuemails') ?: '0',
                 'add_mail_domain'           => $request->input('add_mail_domain') ?: '0',
