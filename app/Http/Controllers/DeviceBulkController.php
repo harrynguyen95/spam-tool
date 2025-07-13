@@ -402,7 +402,9 @@ class DeviceBulkController extends Controller
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
 
         Device::whereIn('id', $ids)->update([
-            'note' => $request->input('note')
+            'note' => $request->input('note'),
+            'mail_suply' => $request->input('mail_suply'),
+            'language' => $request->input('language'),
         ]);
 
         LastConfig::latest()->first()->update([

@@ -275,12 +275,16 @@
                                     <td>{{ $row['ip_address'] }}</td>
                                     <!-- <td>{{ date_format(date_create($row['created_at']), 'Y-m-d H:i') }}</td> -->
                                     <td>{{ $row['note'] }}</td>
-                                    <td>
-                                        {!! $row['lang'] == 'ES' ? '<span style="color: #fff;border-radius: 10px;
+                                    <td style="vertical-align: middle;">
+                                        @if ($row['lang'] == 'ES')
+                                            <span style="color: #fff;border-radius: 10px;
                                             padding: 3px 10px;
-                                            background-color: #245c7c;">Spanish</span>' : ($row['lang'] == 'EN' ? '<span style="color: #fff;border-radius: 10px;
+                                            background-color: #245c7c;">Spanish | {{ $row['lang'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}</span>
+                                        @elseif ($row['lang'] == 'EN')
+                                            <span style="color: #fff;border-radius: 10px;
                                             padding: 3px 10px;
-                                            background-color: #007c43;">English</span>' : '-') !!}
+                                            background-color: #007c43;">English | {{ $row['lang'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <div class="">
