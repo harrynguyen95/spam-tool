@@ -395,6 +395,9 @@ class DeviceBulkController extends Controller
     public function configAll($request)
     {
         $ids = $request->input('device_ids', []);
+        $dir = $request->input('order_dir');
+
+        session(['order_dir' => $dir]);
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
 
@@ -413,6 +416,8 @@ class DeviceBulkController extends Controller
             'hot_mail_source_from_file' => $request->input('hot_mail_source_from_file') ?: '0',
             'thue_lai_mail_thuemails'   => $request->input('thue_lai_mail_thuemails') ?: '0',
             'add_mail_domain'           => $request->input('add_mail_domain') ?: '0',
+            'reg_phone_first'           => $request->input('reg_phone_first') ?: '0',
+            'login_with_code'           => $request->input('login_with_code') ?: '0',
             'remove_register_mail'      => $request->input('remove_register_mail') ?: '0',
             'provider_mail_thuemails'   => $request->input('provider_mail_thuemails') ?: '1',
             'times_xoa_info'            => $request->input('times_xoa_info') ?: '0',
@@ -437,6 +442,8 @@ class DeviceBulkController extends Controller
                 'hot_mail_source_from_file' => $request->input('hot_mail_source_from_file') ?: '0',
                 'thue_lai_mail_thuemails'   => $request->input('thue_lai_mail_thuemails') ?: '0',
                 'add_mail_domain'           => $request->input('add_mail_domain') ?: '0',
+                'reg_phone_first'           => $request->input('reg_phone_first') ?: '0',
+                'login_with_code'           => $request->input('login_with_code') ?: '0',
                 'remove_register_mail'      => $request->input('remove_register_mail') ?: '0',
                 'provider_mail_thuemails'   => $request->input('provider_mail_thuemails') ?: '1',
                 'times_xoa_info'            => $request->input('times_xoa_info') ?: '0',

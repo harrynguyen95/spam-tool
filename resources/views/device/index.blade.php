@@ -151,6 +151,18 @@
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
+                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Reg phone first</label>
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input" type="radio" name="reg_phone_first" id="reg_phone_first_yes" value="1" {{ $config->reg_phone_first == '1' ? 'checked' : '' }} >
+                                <label for="reg_phone_first_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="reg_phone_first" id="reg_phone_first_no" value="0" {{ $config->reg_phone_first == '0' ? 'checked' : '' }} >
+                                <label for="reg_phone_first_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center">
                             <label class="me-2 w-50 text-end" style="margin-right: 10px;">Enter verify code</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_yes" value="1" {{ $config->enter_verify_code == '1' ? 'checked' : '' }} >
@@ -159,6 +171,18 @@
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
                                 <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_no" value="0" {{ $config->enter_verify_code == '0' ? 'checked' : '' }} >
                                 <label for="enter_verify_code_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center">
+                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Login With Code</label>
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_yes" value="1" {{ $config->login_with_code == '1' ? 'checked' : '' }} >
+                                <label for="login_with_code_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_no" value="0" {{ $config->login_with_code == '0' ? 'checked' : '' }} >
+                                <label for="login_with_code_no">No</label>
                             </div>
                         </div>
 
@@ -208,13 +232,15 @@
                         </div>
 
                         <div class="col-md-4">
+                            <p style="color: #d73925; font-weight: 700"><span class="count-selected">0</span> devices.</p>
+                        </div>
+                        <div class="col-md-4">
                         </div>
                         
                         <div class="col-md-4 text-right">
                             <button type="submit" class="btn btn-md btn-primary" name="action" value="config">Config</button>
                         </div>
                     </div>
-                    <p style="color: #d73925; font-weight: 700"><span class="count-selected">0</span> devices.</p>
                 </div>
             </div>
 
