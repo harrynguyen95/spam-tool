@@ -83,6 +83,5 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
         Route::delete('/folders/delete/{id}', 'FolderController@destroy')->name('folder.destroy');
         Route::delete('/folders/deleteAll', 'FolderController@deleteAll')->name('folder.deleteAll');
 
-
     // });
 });

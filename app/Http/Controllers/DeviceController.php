@@ -6,6 +6,7 @@ use App\Models\Device;
 use App\Models\LastConfig;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class DeviceController extends Controller
 {
@@ -95,10 +96,34 @@ class DeviceController extends Controller
 
     public function destroy(Request $request)
     {
-        $device = device::find($request->id);
+        $device = Device::find($request->id);
         $device->delete();
 
         return redirect()->route('device.index')->withSuccess('Deleted successfully.');
     }
 
+    public function getSourceFilecontent(Request $request)
+    {
+        try {
+            $localIP = $request->get('localIP');
+            $inputPath = storage_path('app/separated/'.$localIP.'.txt');
+
+            if (!file_exists($inputPath)) {
+                return response()->json(['error' => 'File not found'], 404);
+            }
+
+            $lines = file($inputPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+            return response()->json([
+                'status' => 'success',
+                'count' => count($lines),
+                'data' => $lines
+            ]);
+        } catch(\Exception $e) {
+            return response()->json([
+                'status' => 'failed',
+                'info' => $e->getMessage()
+            ]);
+        }
+    }
 }

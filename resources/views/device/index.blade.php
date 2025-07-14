@@ -240,6 +240,41 @@
                         <div class="col-md-4 text-right">
                             <button type="submit" class="btn btn-md btn-primary" name="action" value="config">Config</button>
                         </div>
+
+                        <div class="col-md-12 text-right">
+                            <a style="color: #d73925; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="separate-btn">Separate file</a>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="separate-div" style="display: none;">
+                         <div class="col-md-3 d-flex align-items-center">
+                            <label class="me-2 w-50 text-end">Local server</label>
+                            <input type="text" name="local_server" class="form-control" value="{{ $config->local_server }}" placeholder="" />
+                        </div>
+                        <div class="col-md-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 w-50 text-end">Destination filename</label>
+                                <input type="text" name="destination_filename" class="form-control" value="{{ $config->destination_filename }}" placeholder="" />
+                            </div>
+                            <p style="opacity: 0.5;">hotmail_source.txt|accounts_code.txt</p>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center">
+                            <label class="me-2 w-50 text-end">Source filepath</label>
+                            <input type="text" name="source_filepath" class="form-control" value="{{ $config->source_filepath }}" placeholder="" />
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center">
+                            <label class="me-2 w-50 text-end">Separate items</label>
+                            <input type="text" name="separate_items" class="form-control" value="{{ $config->separate_items }}" placeholder="" />
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <button type="submit" class="btn btn-md btn-danger" name="action" value="Separate"
+                                onclick="return confirm('Are you sure you want to Separate data to these items?');">Separate</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -448,6 +483,11 @@
 
         $(document).on('change', 'input[name="device_ids[]"]', function () {
             updateCountSelected()
+        });
+
+        $('#separate-btn').on('click', function (e) {
+            e.preventDefault();
+            $('#separate-div').toggle();
         });
         
     </script>

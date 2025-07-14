@@ -6,6 +6,7 @@ use App\Models\Device;
 use App\Models\LastConfig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class DeviceBulkController extends Controller
 {
@@ -198,26 +199,12 @@ class DeviceBulkController extends Controller
             return $this->setupLang($request, 'EN');
         } elseif ($action == 'deleteSelected') {
             return $this->deleteSelected($deviceIds);
+        } elseif ($action == 'Separate') {
+            return $this->separateFile($request);
         }
 
         if (in_array($action, ['ClearLastInProgress', 'CheckInternet', 'ProxyXoainfo', 'Respring', 'CloseScreen', 'OpenScreen', 'Xoainfo'])) {
             return $this->executeRemoteScript($deviceIds, $action);
-        }
-        
-        if ($action == 'clearInprogress') {
-            // return $this->clearInprogressAll($deviceIds);
-        } elseif ($action == 'respring') {
-            // return $this->respringAll($deviceIds);
-        } elseif ($action == 'openScreen') {
-            // return $this->openScreenAll($deviceIds);
-        } elseif ($action == 'closeScreen') {
-            // return $this->closeScreenAll($deviceIds);
-        } elseif ($action == 'changeProxy') {
-            // return $this->changeProxyAll($deviceIds);
-        }  elseif ($action == 'checkInternet') {
-            // return $this->checkInternetAll($deviceIds);
-        } elseif ($action == 'Xoainfo') {
-            // return $this->Xoainfo($deviceIds);
         }
 
         return 'Not found action.';
@@ -424,6 +411,10 @@ class DeviceBulkController extends Controller
             'provider_mail_thuemails'   => $request->input('provider_mail_thuemails') ?: '1',
             'times_xoa_info'            => $request->input('times_xoa_info') ?: '0',
             'note'                      => $request->input('note') ?: '',
+            'local_server'              => $request->input('local_server') ?: '',
+            'destination_filename'      => $request->input('destination_filename') ?: '',
+            'source_filepath'           => $request->input('source_filepath') ?: '',
+            'separate_items'            => $request->input('separate_items') ?: '',
         ]);
 
 
@@ -450,6 +441,10 @@ class DeviceBulkController extends Controller
                 'provider_mail_thuemails'   => $request->input('provider_mail_thuemails') ?: '1',
                 'times_xoa_info'            => $request->input('times_xoa_info') ?: '0',
                 'note'                      => $request->input('note') ?: '',
+                'local_server'              => $request->input('local_server') ?: '',
+                'destination_filename'      => $request->input('destination_filename') ?: '',
+                'source_filepath'           => $request->input('source_filepath') ?: '',
+                'separate_items'            => $request->input('separate_items') ?: '',
             ];
         }
 
@@ -510,6 +505,72 @@ class DeviceBulkController extends Controller
         }
 
         return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
+    }
+
+    public function separateFile($request)
+    {
+        try {
+            $ids = $request->input('device_ids', []);
+            $sourceFilepath = $request->input('source_filepath');
+            $separateItems = $request->input('separate_items');
+            $dir = $request->input('order_dir');
+            session(['order_dir' => $dir]);
+            $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
+
+            if (!file_exists($sourceFilepath)) {
+                return 'File không tồn tại hoặc PHP không có quyền truy cập.';
+            }
+
+            $outputDir = 'separated';
+            $allLines = file($sourceFilepath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            Storage::delete(Storage::files($outputDir));
+            
+            foreach ($devices as $i => $device) {
+                $chunk = array_slice($allLines, $i * $separateItems, $separateItems);
+                $ipAddress = $device->ip_address;
+
+                $filename = $ipAddress . ".txt";
+                $fileContent = implode("\n", $chunk);
+
+                Storage::put("$outputDir/$filename", $fileContent);
+            }
+
+            $usedLinesCount = count($devices) * $separateItems;
+            $remainingLines = array_slice($allLines, $usedLinesCount);
+
+            file_put_contents($sourceFilepath, implode("\n", $remainingLines));
+            // return 'OK';
+
+            $results = [];
+            $failedIds = [];
+            foreach ($devices as $device) {
+                $title = $device->name . ' - ' . $device->ip_address;
+
+                try {
+                    $url = 'http://' . $device->ip_address . ':8080/control/start_playing?path=/Facebook/Remote/UploadSourceFile.lua';
+                    $response = Http::timeout(3)->get($url);
+                    if ($response->successful()) {
+                        $res = $response->json(); 
+                        if ($res['status'] == 'success') {
+                            $results[] = $title . ': UploadSourceFile success.';
+                        } else {
+                            $results[] = $title . ": failed " . $res['info'];
+                            $failedIds[] = $device->id;
+                        }
+                    } else {
+                        $results[] = $title . ': UploadSourceFile failed.';
+                        $failedIds[] = $device->id;
+                    }
+                } catch (\Exception $e) {
+                    $results[] = $title . ': UploadSourceFile failed.' . ' ' . $e->getMessage();
+                    $failedIds[] = $device->id;
+                }
+            }
+
+            return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
+        } catch(\Exception $e) {
+            return redirect()->route('dashboard')->withError('Error: ' . $e->getMessage());
+        }
     }
 
 }
