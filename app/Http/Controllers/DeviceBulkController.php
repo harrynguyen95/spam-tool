@@ -175,9 +175,8 @@ class DeviceBulkController extends Controller
     {
         $deviceIds = $request->input('device_ids', []);
         $action = $request->input('action');
-        $dir = $request->input('order_dir');
-
-        session(['order_dir' => $dir]);
+        session(['order_dir' => $request->input('order_dir')]);
+        session(['separate_status' => $request->input('separate_status')]);
         
         if (empty($deviceIds)) {
             return redirect()->route('device.index')->withError('Empty device.');
@@ -203,7 +202,8 @@ class DeviceBulkController extends Controller
             return $this->separateFile($request);
         }
 
-        if (in_array($action, ['ClearLastInProgress', 'CheckInternet', 'ProxyXoainfo', 'Respring', 'CloseScreen', 'OpenScreen', 'Xoainfo'])) {
+        if (in_array($action, ['ClearLastInProgress', 'CheckInternet', 'ProxyXoainfo', 'Respring', 'CloseScreen', 
+            'OpenScreen', 'Xoainfo', 'CleanSourceFile', 'CountLineSourceFile'])) {
             return $this->executeRemoteScript($deviceIds, $action);
         }
 
@@ -238,6 +238,10 @@ class DeviceBulkController extends Controller
                 $results[] = $title . ': '.$action.' failed.' . ' ' . $e->getMessage();
                 $failedIds[] = $device->id;
             }
+        }
+
+        if ($action == 'CountLineSourceFile') {
+            sleep(3);
         }
 
         return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
@@ -382,9 +386,8 @@ class DeviceBulkController extends Controller
     public function configAll($request)
     {
         $ids = $request->input('device_ids', []);
-        $dir = $request->input('order_dir');
-
-        session(['order_dir' => $dir]);
+        session(['order_dir' => $request->input('order_dir')]);
+        session(['separate_status' => $request->input('separate_status')]);
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
 
@@ -511,10 +514,12 @@ class DeviceBulkController extends Controller
     {
         try {
             $ids = $request->input('device_ids', []);
+            session(['order_dir' => $request->input('order_dir')]);
+            session(['separate_status' => $request->input('separate_status')]);
+
             $sourceFilepath = $request->input('source_filepath');
             $separateItems = $request->input('separate_items');
-            $dir = $request->input('order_dir');
-            session(['order_dir' => $dir]);
+            
             $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
 
             if (!file_exists($sourceFilepath)) {

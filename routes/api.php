@@ -35,4 +35,5 @@ Route::post('/location', function () {
 });
 
 Route::post('/get_source_file_content', 'App\Http\Controllers\DeviceController@getSourceFilecontent')->name('get_source_file_content');
+Route::post('/count_line_source_file', 'App\Http\Controllers\DeviceController@countLineSourceFile')->name('count_line_source_file');
 

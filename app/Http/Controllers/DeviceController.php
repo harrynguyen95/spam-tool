@@ -126,4 +126,22 @@ class DeviceController extends Controller
             ]);
         }
     }
+
+    public function countLineSourceFile(Request $request)
+    {
+        try {
+            $localIP = $request->get('localIP');
+            $countLine = $request->get('countLine');
+            Device::where('ip_address', $localIP)->update(['count_line' => $countLine]);
+
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } catch(\Exception $e) {
+            return response()->json([
+                'status' => 'failed',
+                'info' => $e->getMessage()
+            ]);
+        }
+    }
 }

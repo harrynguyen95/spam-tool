@@ -242,7 +242,7 @@
                         </div>
 
                         <div class="col-md-12 text-right">
-                            <a style="color: #d73925; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="separate-btn">Separate file</a>
+                            <a style="color: #f7630c; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="separate-btn">Separate file</a>
                         </div>
                     </div>
                     <div class="row mb-3" id="separate-div" style="display: none;">
@@ -269,11 +269,13 @@
                         </div>
                         <div class="col-md-3">
                         </div>
-                        <div class="col-md-3">
-                        </div>
-                        <div class="col-md-3 text-right">
+                        <div class="col-md-6 text-right">
+                            <button type="submit" class="btn btn-md btn-default" name="action" value="CountLineSourceFile">Count Line</button>
+                            <button type="submit" class="btn btn-md btn-default" name="action" value="CleanSourceFile"
+                                onclick="return confirm('Are you sure you want to CleanSourceFile in these items?');">Clean File</button>
                             <button type="submit" class="btn btn-md btn-danger" name="action" value="Separate"
                                 onclick="return confirm('Are you sure you want to Separate data to these items?');">Separate</button>
+                            <input type="hidden" id="separate-status" name="separate_status" value="0">
                         </div>
                     </div>
                 </div>
@@ -313,13 +315,18 @@
                                     <td style="vertical-align: middle;">
                                         @if ($row['lang'] == 'ES')
                                             <span style="color: #fff;border-radius: 10px;
-                                            padding: 3px 10px;
-                                            color: #245c7c; border: 1px solid #245c7c; border-radius: 8px">Spanish | {{ $row['lang'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}</span>
+                                                padding: 3px 10px;
+                                                color: #245c7c; border: 1px solid #245c7c; border-radius: 8px">
+                                                Spanish | {{ $row['lang'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
+                                            </span>
                                         @elseif ($row['lang'] == 'EN')
                                             <span style="color: #fff;border-radius: 10px;
-                                            padding: 3px 10px;
-                                            color: #007c43; border: 1px solid #007c43; border-radius: 8px">English | {{ $row['lang'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}</span>
+                                                padding: 3px 10px;
+                                                color: #007c43; border: 1px solid #007c43; border-radius: 8px">
+                                                English | {{ $row['lang'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
+                                            </span>
                                         @endif
+                                        @if($row['count_line']) <span style="margin-left: 5px;">{{ $row['count_line'] . "L" }}</span>@endif
                                     </td>
                                     <td>
                                         <div class="">
@@ -360,6 +367,15 @@
 @push('scripts')
     <script>
         var orderDevice = "{{ session('order_dir') ?: env('ORDER_DEVICE', 'asc') }}";
+        var separateStatus = "{{ session('separate_status') ?? '' }}";
+
+        if (separateStatus && separateStatus != '' && separateStatus != 0) {
+            $('#separate-div').toggle();
+
+            const isVisible = $('#separate-div').is(':visible');
+            $('#separate-status').val(isVisible ? '1' : '0');
+        }
+
         function updateCountSelected() {
             const selectedCount = $('input[name="device_ids[]"]:checked').length;
             $('.count-selected').text(selectedCount);
@@ -488,6 +504,9 @@
         $('#separate-btn').on('click', function (e) {
             e.preventDefault();
             $('#separate-div').toggle();
+
+            const isVisible = $('#separate-div').is(':visible');
+            $('#separate-status').val(isVisible ? '1' : '0');
         });
         
     </script>
