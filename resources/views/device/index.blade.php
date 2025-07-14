@@ -79,62 +79,57 @@
                 </div>
                 <div class="col-md-7 config-form">
                     <div class="row mb-3">
-
                         <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end" style="color: #f7630c">Note Memo</label>
+                            <label class="text-end" style="color: #f7630c">Note Memo</label>
                             <input type="text" name="note" class="form-control" value="{{ $config->note }}" placeholder="note.." style="border-color: #f7630c" />
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end">Xoainfo (0|1|2)</label>
+                            <label class="text-end">Xoainfo (0|1|2)</label>
                             <input type="number" name="times_xoa_info" class="form-control" value="{{ $config->times_xoa_info }}" placeholder="2|3|4" />
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end">Proxy Xoainfo</label>
+                            <label class="text-end">Proxy Xoainfo</label>
                             <input type="text" name="proxy" class="form-control" value="{{ $config->proxy }}" placeholder="123.123.123.123:10000" />
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Mail:</label>
-                            <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="mail_suply" id="mail_suply_yes" value="1" {{ $config->mail_suply == '1' ? 'checked' : '' }} >
-                                <label for="mail_suply_yes">dongvanfb</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="mail_suply" id="mail_suply_no" value="2" {{ $config->mail_suply == '2' ? 'checked' : '' }} >
-                                <label for="mail_suply_no">thuemails</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="mail_suply" id="mail_suply_no2" value="3" {{ $config->mail_suply == '3' ? 'checked' : '' }} >
-                                <label for="mail_suply_no2">yagisongs</label>
-                            </div>
+                            <label class="text-end" style="margin-right: 10px; width: 120px">Mail Suply</label>
+                            <select name="mail_suply" class="form-control">
+                                <option {{ $config->mail_suply == '1' ? 'selected' : '' }} value="1">DongvanFB</option>
+                                <option {{ $config->mail_suply == '2' ? 'selected' : '' }} value="2">Thuemails</option>
+                                <option {{ $config->mail_suply == '3' ? 'selected' : '' }} value="3">Yagisongs</option>
+                            </select>
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end">API-key thuemails</label>
+                            <label class="text-end">API-key thuemails</label>
                             <input type="text" name="api_key_thuemails" class="form-control" value="{{ $config->api_key_thuemails }}" placeholder="" />
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end">API-key dongvanfb</label>
+                            <label class="text-end">API-key dongvanfb</label>
                             <input type="text" name="api_key_dongvanfb" class="form-control" value="{{ $config->api_key_dongvanfb }}" placeholder="" />
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Tool Language</label>
-                            <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="language" id="language_yes" value="ES" {{ $config->language == 'ES' ? 'checked' : '' }} >
-                                <label for="language_yes">Spanish</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="language" id="language_no" value="EN" {{ $config->language == 'EN' ? 'checked' : '' }} >
-                                <label for="language_no">English</label>
-                            </div>
+                            <label class="text-end" style="margin-right: 10px; width: 120px">Dummy Reg</label>
+                            <select name="reg_phone_first" class="form-control">
+                                <option {{ $config->reg_phone_first == '0' ? 'selected' : '' }} value="0">Normal</option>
+                                <option {{ $config->reg_phone_first == '1' ? 'selected' : '' }} value="1">Phone</option>
+                                <option {{ $config->reg_phone_first == '2' ? 'selected' : '' }} value="2">Gmail</option>
+                                <option {{ $config->reg_phone_first == '3' ? 'selected' : '' }} value="3">Icloud</option>
+                            </select>
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Hotmail source in file</label>
+                            <label class="text-end" style="width: 240px">Hotmail service ids</label> 
+                            <input type="text" name="hotmail_service_ids" class="form-control" value="{{ $config->hotmail_service_ids }}" placeholder="{1,2,3,5,6,59,60}" />
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center" style="height: 34px;">
+                            <label class="text-end" style="margin-right: 10px;">Hotmail source in file</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_yes" value="1" {{ $config->hot_mail_source_from_file == '1' ? 'checked' : '' }} >
                                 <label for="hot_mail_source_from_file_yes">Yes</label>
@@ -145,25 +140,20 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end" style="width: 240px">Hotmail service ids</label> 
-                            <input type="text" name="hotmail_service_ids" class="form-control" value="{{ $config->hotmail_service_ids }}" placeholder="{1,2,3,5,6,59,60}" />
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Reg phone first</label>
+                        <div class="col-md-4 d-flex align-items-center" style="height: 34px;">
+                            <label class="text-end" style="margin-right: 10px;">Tool Language</label>
                             <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="reg_phone_first" id="reg_phone_first_yes" value="1" {{ $config->reg_phone_first == '1' ? 'checked' : '' }} >
-                                <label for="reg_phone_first_yes">Yes</label>
+                                <input class="form-check-input" type="radio" name="language" id="language_yes" value="ES" {{ $config->language == 'ES' ? 'checked' : '' }} >
+                                <label for="language_yes">Spanish</label>
                             </div>
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="reg_phone_first" id="reg_phone_first_no" value="0" {{ $config->reg_phone_first == '0' ? 'checked' : '' }} >
-                                <label for="reg_phone_first_no">No</label>
+                                <input class="form-check-input" type="radio" name="language" id="language_no" value="EN" {{ $config->language == 'EN' ? 'checked' : '' }} >
+                                <label for="language_no">English</label>
                             </div>
                         </div>
 
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Enter verify code</label>
+                        <div class="col-md-4 d-flex align-items-center" style="height: 34px;">
+                            <label class="text-end" style="margin-right: 10px;">Enter verify code</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_yes" value="1" {{ $config->enter_verify_code == '1' ? 'checked' : '' }} >
                                 <label for="enter_verify_code_yes">Yes</label>
@@ -174,8 +164,8 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Login With Code</label>
+                        <div class="col-md-4 d-flex align-items-center" style="height: 34px;">
+                            <label class="text-end" style="margin-right: 10px;">Login With Code</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_yes" value="1" {{ $config->login_with_code == '1' ? 'checked' : '' }} >
                                 <label for="login_with_code_yes">Yes</label>
@@ -187,7 +177,7 @@
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center hidden">
-                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Add mail domain</label>
+                            <label class="text-end" style="margin-right: 10px;">Add mail domain</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="add_mail_domain" id="add_mail_domain_yes" value="1" disabled>
                                 <label for="add_mail_domain_yes">Yes</label>
@@ -198,7 +188,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-center hidden">
-                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Remove register mail</label>
+                            <label class="text-end" style="margin-right: 10px;">Remove register mail</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="remove_register_mail" id="remove_register_mail_yes" value="1" disabled>
                                 <label for="remove_register_mail_yes">Yes</label>
@@ -209,7 +199,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-center hidden">
-                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Re-rent thuemails</label>
+                            <label class="text-end" style="margin-right: 10px;">Re-rent thuemails</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="thue_lai_mail_thuemails" id="thue_lai_mail_thuemails_yes" value="1" disabled>
                                 <label for="thue_lai_mail_thuemails_yes">Yes</label>
@@ -220,7 +210,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-center hidden">
-                            <label class="me-2 w-50 text-end" style="margin-right: 10px;">Provider thuemails</label>
+                            <label class="text-end" style="margin-right: 10px;">Provider thuemails</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="provider_mail_thuemails" id="provider_mail_thuemails_yes" value="1" checked>
                                 <label for="provider_mail_thuemails_yes">Gmail</label>
@@ -230,7 +220,8 @@
                                 <label for="provider_mail_thuemails_no">Icloud</label>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="row mb-3">
                         <div class="col-md-4">
                             <p style="color: #d73925; font-weight: 700"><span class="count-selected">0</span> devices.</p>
                         </div>
@@ -241,28 +232,28 @@
                             <button type="submit" class="btn btn-md btn-primary" name="action" value="config">Config</button>
                         </div>
 
-                        <div class="col-md-12 text-right">
+                        <div class="col-md-12 text-right" style="margin: 5px 0 10px">
                             <a style="color: #f7630c; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="separate-btn">Separate file</a>
                         </div>
                     </div>
                     <div class="row mb-3" id="separate-div" style="display: none;">
                          <div class="col-md-3 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end">Local server</label>
+                            <label class="text-end">Local server</label>
                             <input type="text" name="local_server" class="form-control" value="{{ $config->local_server }}" placeholder="" />
                         </div>
                         <div class="col-md-3">
                             <div class="d-flex align-items-center">
-                                <label class="me-2 w-50 text-end">Destination filename</label>
+                                <label class="text-end">Destination filename</label>
                                 <input type="text" name="destination_filename" class="form-control" value="{{ $config->destination_filename }}" placeholder="" />
                             </div>
                             <p style="opacity: 0.5;">hotmail_source.txt|accounts_code.txt</p>
                         </div>
                         <div class="col-md-3 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end">Source filepath</label>
+                            <label class="text-end">Source filepath</label>
                             <input type="text" name="source_filepath" class="form-control" value="{{ $config->source_filepath }}" placeholder="" />
                         </div>
                         <div class="col-md-3 d-flex align-items-center">
-                            <label class="me-2 w-50 text-end">Separate items</label>
+                            <label class="text-end">Separate items</label>
                             <input type="text" name="separate_items" class="form-control" value="{{ $config->separate_items }}" placeholder="" />
                         </div>
                         <div class="col-md-3">
