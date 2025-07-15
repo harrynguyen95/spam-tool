@@ -363,7 +363,7 @@
 
         function fetchGmailCount() {
             $.getJSON("https://api.thuemails.com/api/count-gmail?api_key=" + APIKEYthuemails, function(data) {
-                $('#gmail-count').text((data.count || JSON.stringify(data)));
+                $('#gmail-count').text(((data.count || data.count == 0) || JSON.stringify(data)));
             }).fail(function() {
                 $('#gmail-count').text('---');
             });
