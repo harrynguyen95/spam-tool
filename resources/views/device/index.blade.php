@@ -73,9 +73,9 @@
                                 <input type="checkbox" class="form-check-input" id="check-all-failed" name="check-all-failed">
                             </div>
                         </div>
-                        
                     </div>
-                    <p style="color: #d73925; font-weight: 700"><span class="count-selected">0</span> devices.</p>
+                    <span style="color: #d73925; font-weight: 700"><span class="count-selected">0</span> devices.</span>
+                    <span style="float: right; font-weight: 700; opacity: 0.5"><span id="gmail-count">-</span> gmails..</span>
                 </div>
                 <div class="col-md-7 config-form">
                     <div class="row mb-3">
@@ -359,6 +359,18 @@
     <script>
         var orderDevice = "{{ session('order_dir') ?: env('ORDER_DEVICE', 'asc') }}";
         var separateStatus = "{{ session('separate_status') ?? '' }}";
+        var APIKEYthuemails = "{{ $config->api_key_thuemails ?? '' }}"
+
+        function fetchGmailCount() {
+            $.getJSON("https://api.thuemails.com/api/count-gmail?api_key=" + APIKEYthuemails, function(data) {
+                $('#gmail-count').text((data.count || JSON.stringify(data)));
+            }).fail(function() {
+                $('#gmail-count').text('---');
+            });
+        }
+
+        fetchGmailCount();
+        setInterval(fetchGmailCount, 5000);
 
         if (separateStatus && separateStatus != '' && separateStatus != 0) {
             $('#separate-div').toggle();
