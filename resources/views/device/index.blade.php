@@ -370,7 +370,7 @@
         }
 
         fetchGmailCount();
-        setInterval(fetchGmailCount, 5000);
+        setInterval(fetchGmailCount, 30000);
 
         if (separateStatus && separateStatus != '' && separateStatus != 0) {
             $('#separate-div').toggle();
