@@ -308,13 +308,13 @@
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #245c7c; border: 1px solid #245c7c; border-radius: 8px">
-                                                Spanish | {{ $row['lang'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
+                                                Spanish | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
                                             </span>
                                         @elseif ($row['lang'] == 'EN')
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #007c43; border: 1px solid #007c43; border-radius: 8px">
-                                                English | {{ $row['lang'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
+                                                English | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
                                             </span>
                                         @endif
                                         @if($row['count_line']) <span style="margin-left: 5px;">{{ $row['count_line'] . "L" }}</span>@endif
