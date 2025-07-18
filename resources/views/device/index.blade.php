@@ -251,6 +251,7 @@
                             <label class="text-end">API-key dongvanfb</label>
                             <input type="text" name="api_key_dongvanfb" class="form-control" value="{{ $config->api_key_dongvanfb }}" placeholder="" />
                         </div>
+                        <input type="hidden" id="common-setting-status" name="common_setting_status" value="0">
                     </div>
 
                     <div class="row mb-3" id="file-setting-div" style="display: none;">
@@ -377,7 +378,7 @@
         var APIKEYthuemails = "{{ $config->api_key_thuemails ?? '' }}"
         var orderDevice = "{{ session('order_dir') ?: env('ORDER_DEVICE', 'asc') }}";
         var fileSettingStatus = "{{ session('file_setting_status') ?? '' }}";
-        var commonSettingStatus = "{{ session('file_setting_status') ?? '' }}";
+        var commonSettingStatus = "{{ session('common_setting_status') ?? '' }}";
 
         function fetchGmailCount() {
             $.getJSON("https://api.thuemails.com/api/count-gmail?api_key=" + APIKEYthuemails, function(data) {
@@ -398,10 +399,10 @@
         }
 
         if (commonSettingStatus && commonSettingStatus != '' && commonSettingStatus != 0) {
-            $('#file-setting-div').toggle();
+            $('#common-setting-div').toggle();
 
-            const isVisible = $('#file-setting-div').is(':visible');
-            $('#file-setting-status').val(isVisible ? '1' : '0');
+            const isVisible = $('#common-setting-div').is(':visible');
+            $('#common-setting-status').val(isVisible ? '1' : '0');
         }
 
         function updateCountSelected() {
@@ -544,8 +545,6 @@
             const isVisible = $('#common-setting-div').is(':visible');
             $('#common-setting-status').val(isVisible ? '1' : '0');
         });
-
-        
         
     </script>
 @endpush
