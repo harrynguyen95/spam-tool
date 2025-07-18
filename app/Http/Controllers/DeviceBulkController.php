@@ -452,7 +452,7 @@ class DeviceBulkController extends Controller
         }
 
         try {
-            $apiUrl = 'https://tuongtacthongminh.com/device_config.php';
+            $apiUrl = 'https://tuongtacthongminh.com/reg_tool/device_config.php';
             $response = Http::asForm()->timeout(120)->post($apiUrl, [
                 'action' => 'upsert',
                 'data'   => json_encode($payloadData),
