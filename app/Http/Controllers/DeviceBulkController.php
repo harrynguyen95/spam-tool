@@ -176,7 +176,8 @@ class DeviceBulkController extends Controller
         $deviceIds = $request->input('device_ids', []);
         $action = $request->input('action');
         session(['order_dir' => $request->input('order_dir')]);
-        session(['separate_status' => $request->input('separate_status')]);
+        session(['file_setting_status' => $request->input('file_setting_status')]);
+        session(['common_setting_status' => $request->input('common_setting_status')]);
         
         if (empty($deviceIds)) {
             return redirect()->route('device.index')->withError('Empty device.');
@@ -387,7 +388,8 @@ class DeviceBulkController extends Controller
     {
         $ids = $request->input('device_ids', []);
         session(['order_dir' => $request->input('order_dir')]);
-        session(['separate_status' => $request->input('separate_status')]);
+        session(['file_setting_status' => $request->input('file_setting_status')]);
+        session(['common_setting_status' => $request->input('common_setting_status')]);
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
 
@@ -395,10 +397,12 @@ class DeviceBulkController extends Controller
             'note' => $request->input('note'),
             'mail_suply' => $request->input('mail_suply'),
             'language' => $request->input('language'),
+            'account_region' => $request->input('account_region'),
         ]);
 
         LastConfig::latest()->first()->update([
-            'language'                  => $request->input('language') ?: 'ES',
+            'language'                  => $request->input('language') ?: 'EN',
+            'account_region'            => $request->input('account_region') ?: 'US',
             'mail_suply'                => $request->input('mail_suply') ?: '1',
             'proxy'                     => $request->input('proxy') ?: '',
             'hotmail_service_ids'       => $request->input('hotmail_service_ids') ?: '{2,6,1,3,5,59,60}',
@@ -428,7 +432,8 @@ class DeviceBulkController extends Controller
                 'username'                  => $device->username,
                 'device_name'               => $device->name,
                 'device'                    => $device->ip_address,
-                'language'                  => $request->input('language') ?: 'ES',
+                'language'                  => $request->input('language') ?: 'EN',
+                'account_region'            => $request->input('account_region') ?: 'US',
                 'mail_suply'                => $request->input('mail_suply') ?: '1',
                 'proxy'                     => $request->input('proxy') ?: '',
                 'hotmail_service_ids'       => $request->input('hotmail_service_ids') ?: '{2,6,1,3,5,59,60}',
@@ -515,7 +520,8 @@ class DeviceBulkController extends Controller
         try {
             $ids = $request->input('device_ids', []);
             session(['order_dir' => $request->input('order_dir')]);
-            session(['separate_status' => $request->input('separate_status')]);
+            session(['file_setting_status' => $request->input('file_setting_status')]);
+            session(['common_setting_status' => $request->input('common_setting_status')]);
 
             $sourceFilepath = $request->input('source_filepath');
             $separateItems = $request->input('separate_items');

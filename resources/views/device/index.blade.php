@@ -84,63 +84,7 @@
                             <input type="text" name="note" class="form-control" value="{{ $config->note }}" placeholder="note.." style="border-color: #f7630c" />
                         </div>
 
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="text-end">Xoainfo (0|1|2)</label>
-                            <input type="number" name="times_xoa_info" class="form-control" value="{{ $config->times_xoa_info }}" placeholder="2|3|4" />
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="text-end">Proxy Xoainfo</label>
-                            <input type="text" name="proxy" class="form-control" value="{{ $config->proxy }}" placeholder="123.123.123.123:10000" />
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="text-end" style="margin-right: 10px; width: 120px">Mail Suply</label>
-                            <select name="mail_suply" class="form-control">
-                                <option {{ $config->mail_suply == '1' ? 'selected' : '' }} value="1">DongvanFB</option>
-                                <option {{ $config->mail_suply == '2' ? 'selected' : '' }} value="2">Thuemails</option>
-                                <option {{ $config->mail_suply == '3' ? 'selected' : '' }} value="3">Yagisongs</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="text-end">API-key thuemails</label>
-                            <input type="text" name="api_key_thuemails" class="form-control" value="{{ $config->api_key_thuemails }}" placeholder="" />
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="text-end">API-key dongvanfb</label>
-                            <input type="text" name="api_key_dongvanfb" class="form-control" value="{{ $config->api_key_dongvanfb }}" placeholder="" />
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="text-end" style="margin-right: 10px; width: 120px">Dummy Reg</label>
-                            <select name="reg_phone_first" class="form-control">
-                                <option {{ $config->reg_phone_first == '0' ? 'selected' : '' }} value="0">Normal</option>
-                                <option {{ $config->reg_phone_first == '1' ? 'selected' : '' }} value="1">Phone</option>
-                                <option {{ $config->reg_phone_first == '2' ? 'selected' : '' }} value="2">Gmail</option>
-                                <option {{ $config->reg_phone_first == '3' ? 'selected' : '' }} value="3">Icloud</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="text-end" style="width: 240px">Hotmail service ids</label> 
-                            <input type="text" name="hotmail_service_ids" class="form-control" value="{{ $config->hotmail_service_ids }}" placeholder="{1,2,3,5,6,59,60}" />
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center" style="height: 34px;">
-                            <label class="text-end" style="margin-right: 10px;">Hotmail source in file</label>
-                            <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_yes" value="1" {{ $config->hot_mail_source_from_file == '1' ? 'checked' : '' }} >
-                                <label for="hot_mail_source_from_file_yes">Yes</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_no" value="0" {{ $config->hot_mail_source_from_file == '0' ? 'checked' : '' }} >
-                                <label for="hot_mail_source_from_file_no">No</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center" style="height: 34px;">
+                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end" style="margin-right: 10px;">Tool Language</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="language" id="language_yes" value="ES" {{ $config->language == 'ES' ? 'checked' : '' }} >
@@ -152,19 +96,55 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 d-flex align-items-center" style="height: 34px;">
-                            <label class="text-end" style="margin-right: 10px;">Enter verify code</label>
+                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px;">Account Region</label>
                             <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_yes" value="1" {{ $config->enter_verify_code == '1' ? 'checked' : '' }} >
-                                <label for="enter_verify_code_yes">Yes</label>
+                                <input class="form-check-input" type="radio" name="account_region" id="account_region_vn" value="VN" {{ $config->account_region == 'VN' ? 'checked' : '' }} >
+                                <label for="account_region_vn">VN</label>
                             </div>
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_no" value="0" {{ $config->enter_verify_code == '0' ? 'checked' : '' }} >
-                                <label for="enter_verify_code_no">No</label>
+                                <input class="form-check-input" type="radio" name="account_region" id="account_region_us" value="US" {{ $config->account_region == 'US' ? 'checked' : '' }} >
+                                <label for="account_region_us">US</label>
                             </div>
                         </div>
 
-                        <div class="col-md-4 d-flex align-items-center" style="height: 34px;">
+                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px; width: 120px">Mail Suply</label>
+                            <select name="mail_suply" class="form-control">
+                                <option {{ $config->mail_suply == '1' ? 'selected' : '' }} value="1">DongvanFB</option>
+                                <option {{ $config->mail_suply == '2' ? 'selected' : '' }} value="2">Thuemails</option>
+                                <option {{ $config->mail_suply == '3' ? 'selected' : '' }} value="3">Yagisongs</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px;">Hotmail source in file</label>
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_yes" value="1" {{ $config->hot_mail_source_from_file == '1' ? 'checked' : '' }} >
+                                <label for="hot_mail_source_from_file_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_no" value="0" {{ $config->hot_mail_source_from_file == '0' ? 'checked' : '' }} >
+                                <label for="hot_mail_source_from_file_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="width: 240px">Hotmail service ids</label> 
+                            <input type="text" name="hotmail_service_ids" class="form-control" value="{{ $config->hotmail_service_ids }}" placeholder="{1,2,3,5,6,59,60}" />
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px; width: 120px">Dummy Reg</label>
+                            <select name="reg_phone_first" class="form-control">
+                                <option {{ $config->reg_phone_first == '0' ? 'selected' : '' }} value="0">Normal</option>
+                                <option {{ $config->reg_phone_first == '1' ? 'selected' : '' }} value="1">Phone</option>
+                                <option {{ $config->reg_phone_first == '2' ? 'selected' : '' }} value="2">Gmail</option>
+                                <option {{ $config->reg_phone_first == '3' ? 'selected' : '' }} value="3">Icloud</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end" style="margin-right: 10px;">Login With Code</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_yes" value="1" {{ $config->login_with_code == '1' ? 'checked' : '' }} >
@@ -173,6 +153,18 @@
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
                                 <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_no" value="0" {{ $config->login_with_code == '0' ? 'checked' : '' }} >
                                 <label for="login_with_code_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px;">Enter verify code</label>
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_yes" value="1" {{ $config->enter_verify_code == '1' ? 'checked' : '' }} >
+                                <label for="enter_verify_code_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_no" value="0" {{ $config->enter_verify_code == '0' ? 'checked' : '' }} >
+                                <label for="enter_verify_code_no">No</label>
                             </div>
                         </div>
 
@@ -233,10 +225,35 @@
                         </div>
 
                         <div class="col-md-12 text-right" style="margin: 5px 0 10px">
-                            <a style="color: #f7630c; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="separate-btn">Separate file</a>
+                            <a style="color: #f7630c; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="common-setting-btn">Common settings</a>
+                            |
+                            <a style="color: #f7630c; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="file-setting-btn">File settings</a>
                         </div>
                     </div>
-                    <div class="row mb-3" id="separate-div" style="display: none;">
+
+                    <div class="row mb-3" id="common-setting-div" style="display: none;">
+                        <div class="col-md-3 d-flex align-items-center">
+                            <label class="text-end">Xoainfo (0|1|2)</label>
+                            <input type="number" name="times_xoa_info" class="form-control" value="{{ $config->times_xoa_info }}" placeholder="2|3|4" />
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-center">
+                            <label class="text-end">Proxy Xoainfo</label>
+                            <input type="text" name="proxy" class="form-control" value="{{ $config->proxy }}" placeholder="123.123.123.123:10000" />
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-center">
+                            <label class="text-end">API-key thuemails</label>
+                            <input type="text" name="api_key_thuemails" class="form-control" value="{{ $config->api_key_thuemails }}" placeholder="" />
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-center">
+                            <label class="text-end">API-key dongvanfb</label>
+                            <input type="text" name="api_key_dongvanfb" class="form-control" value="{{ $config->api_key_dongvanfb }}" placeholder="" />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3" id="file-setting-div" style="display: none;">
                          <div class="col-md-3 d-flex align-items-center">
                             <label class="text-end">Local server</label>
                             <input type="text" name="local_server" class="form-control" value="{{ $config->local_server }}" placeholder="" />
@@ -266,7 +283,7 @@
                                 onclick="return confirm('Are you sure you want to CleanSourceFile in these items?');">Clean File</button>
                             <button type="submit" class="btn btn-md btn-danger" name="action" value="Separate"
                                 onclick="return confirm('Are you sure you want to Separate data to these items?');">Separate</button>
-                            <input type="hidden" id="separate-status" name="separate_status" value="0">
+                            <input type="hidden" id="file-setting-status" name="file_setting_status" value="0">
                         </div>
                     </div>
                 </div>
@@ -308,13 +325,13 @@
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #245c7c; border: 1px solid #245c7c; border-radius: 8px">
-                                                Spanish | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
+                                                {{ $row['account_region'] }} | Spanish | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
                                             </span>
                                         @elseif ($row['lang'] == 'EN')
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #007c43; border: 1px solid #007c43; border-radius: 8px">
-                                                English | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
+                                                {{ $row['account_region'] }} | English | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
                                             </span>
                                         @endif
                                         @if($row['count_line']) <span style="margin-left: 5px;">{{ $row['count_line'] . "L" }}</span>@endif
@@ -357,9 +374,10 @@
 
 @push('scripts')
     <script>
-        var orderDevice = "{{ session('order_dir') ?: env('ORDER_DEVICE', 'asc') }}";
-        var separateStatus = "{{ session('separate_status') ?? '' }}";
         var APIKEYthuemails = "{{ $config->api_key_thuemails ?? '' }}"
+        var orderDevice = "{{ session('order_dir') ?: env('ORDER_DEVICE', 'asc') }}";
+        var fileSettingStatus = "{{ session('file_setting_status') ?? '' }}";
+        var commonSettingStatus = "{{ session('file_setting_status') ?? '' }}";
 
         function fetchGmailCount() {
             $.getJSON("https://api.thuemails.com/api/count-gmail?api_key=" + APIKEYthuemails, function(data) {
@@ -372,11 +390,18 @@
         fetchGmailCount();
         setInterval(fetchGmailCount, 30000);
 
-        if (separateStatus && separateStatus != '' && separateStatus != 0) {
-            $('#separate-div').toggle();
+        if (fileSettingStatus && fileSettingStatus != '' && fileSettingStatus != 0) {
+            $('#file-setting-div').toggle();
 
-            const isVisible = $('#separate-div').is(':visible');
-            $('#separate-status').val(isVisible ? '1' : '0');
+            const isVisible = $('#file-setting-div').is(':visible');
+            $('#file-setting-status').val(isVisible ? '1' : '0');
+        }
+
+        if (commonSettingStatus && commonSettingStatus != '' && commonSettingStatus != 0) {
+            $('#file-setting-div').toggle();
+
+            const isVisible = $('#file-setting-div').is(':visible');
+            $('#file-setting-status').val(isVisible ? '1' : '0');
         }
 
         function updateCountSelected() {
@@ -504,13 +529,23 @@
             updateCountSelected()
         });
 
-        $('#separate-btn').on('click', function (e) {
+        $('#file-setting-btn').on('click', function (e) {
             e.preventDefault();
-            $('#separate-div').toggle();
+            $('#file-setting-div').toggle();
 
-            const isVisible = $('#separate-div').is(':visible');
-            $('#separate-status').val(isVisible ? '1' : '0');
+            const isVisible = $('#file-setting-div').is(':visible');
+            $('#file-setting-status').val(isVisible ? '1' : '0');
         });
+
+        $('#common-setting-btn').on('click', function (e) {
+            e.preventDefault();
+            $('#common-setting-div').toggle();
+
+            const isVisible = $('#common-setting-div').is(':visible');
+            $('#common-setting-status').val(isVisible ? '1' : '0');
+        });
+
+        
         
     </script>
 @endpush
