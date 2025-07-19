@@ -457,7 +457,7 @@ class DeviceBulkController extends Controller
         }
 
         try {
-            $apiUrl = 'http://42.96.4.180/reg_clone/device_config.php';
+            $apiUrl = url('/');
             $response = Http::asForm()->timeout(120)->post($apiUrl, [
                 'action' => 'upsert',
                 'data'   => json_encode($payloadData),

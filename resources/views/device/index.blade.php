@@ -145,18 +145,6 @@
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
-                            <label class="text-end" style="margin-right: 10px;">Login With Code</label>
-                            <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_yes" value="1" {{ $config->login_with_code == '1' ? 'checked' : '' }} >
-                                <label for="login_with_code_yes">Yes</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_no" value="0" {{ $config->login_with_code == '0' ? 'checked' : '' }} >
-                                <label for="login_with_code_no">No</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end" style="margin-right: 10px;">Enter verify code</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_yes" value="1" {{ $config->enter_verify_code == '1' ? 'checked' : '' }} >
@@ -165,6 +153,18 @@
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
                                 <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_no" value="0" {{ $config->enter_verify_code == '0' ? 'checked' : '' }} >
                                 <label for="enter_verify_code_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px;">Login With Code</label>
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_yes" value="1" {{ $config->login_with_code == '1' ? 'checked' : '' }} >
+                                <label for="login_with_code_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_no" value="0" {{ $config->login_with_code == '0' ? 'checked' : '' }} >
+                                <label for="login_with_code_no">No</label>
                             </div>
                         </div>
 
