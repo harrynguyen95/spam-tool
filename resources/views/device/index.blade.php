@@ -33,8 +33,10 @@
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="deleteSelected"
                             onclick="return confirm('Are you sure you want to Delete these items?');" style="color: #d73925">Delete Selected</button>
                         <button type="submit" class="btn btn-sm btn-warning" name="action" value="Respring">Respring</button>
-                        <button type="submit" class="btn btn-sm btn-default" name="action" value="Xoainfo"
-                            onclick="return confirm('Are you sure you want to execute Xoainfo?');" style="color: #367fa9">Execute Xoainfo</button>
+                        <!-- <button type="submit" class="btn btn-sm btn-default" name="action" value="Xoainfo"
+                            onclick="return confirm('Are you sure you want to execute Xoainfo?');" style="color: #367fa9">Execute Xoainfo</button> -->
+                        <button type="submit" class="btn btn-sm btn-default" name="action" value="OffShadowRocket" style="color: #367fa9">Off Rocket</button>
+                        <button type="submit" class="btn btn-sm btn-default" name="action" value="OnShadowRocket" style="color: #367fa9">On Rocket</button>
                         <button type="button" class="btn btn-sm btn-default" style="color: #ccc"> | </button>
                         <button type="submit" class="btn btn-sm btn-success" name="action" value="CheckInternet">Check Internet</button>
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="OpenScreen" style="color: #008d4c">Open Screen</button>
@@ -48,6 +50,8 @@
                             onclick="return confirm('Are you sure you want to set Device Spanish?');">Device <b>Spanish</b></button>
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="setupEN"
                             onclick="return confirm('Are you sure you want to set Device English?');">Device <b>English</b></button>
+                        <button type="submit" class="btn btn-sm btn-default" name="action" value="setupVN"
+                            onclick="return confirm('Are you sure you want to set Device Vietnamese?');">Device <b>Vietnamese</b></button>
                     </div>
                     <br> 
                     <div class="d-flex align-items-center" style="justify-content: space-between">
@@ -87,12 +91,16 @@
                         <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end" style="margin-right: 10px;">Tool Language</label>
                             <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="language" id="language_yes" value="ES" {{ $config->language == 'ES' ? 'checked' : '' }} >
-                                <label for="language_yes">Spanish</label>
+                                <input class="form-check-input" type="radio" name="language" id="language_es" value="ES" {{ $config->language == 'ES' ? 'checked' : '' }} >
+                                <label for="language_es">ES</label>
                             </div>
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="language" id="language_no" value="EN" {{ $config->language == 'EN' ? 'checked' : '' }} >
-                                <label for="language_no">English</label>
+                                <input class="form-check-input" type="radio" name="language" id="language_en" value="EN" {{ $config->language == 'EN' ? 'checked' : '' }} >
+                                <label for="language_en">EN</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="language" id="language_vn" value="EN" {{ $config->language == 'VN' ? 'checked' : '' }} >
+                                <label for="language_vn">VN</label>
                             </div>
                         </div>
 
@@ -333,6 +341,12 @@
                                                 padding: 3px 10px;
                                                 color: #007c43; border: 1px solid #007c43; border-radius: 8px">
                                                 {{ $row['account_region'] }} | English | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
+                                            </span>
+                                        @elseif ($row['lang'] == 'VN')
+                                            <span style="color: #fff;border-radius: 10px;
+                                                padding: 3px 10px;
+                                                color: #b18a37ff; border: 1px solid #b18a37ff; border-radius: 8px">
+                                                {{ $row['account_region'] }} | Vietnamese | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
                                             </span>
                                         @endif
                                         @if($row['count_line']) <span style="margin-left: 5px;">{{ $row['count_line'] . "L" }}</span>@endif

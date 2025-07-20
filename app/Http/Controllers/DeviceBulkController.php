@@ -197,6 +197,8 @@ class DeviceBulkController extends Controller
             return $this->setupLang($request, 'ES');
         } elseif ($action == 'setupEN') {
             return $this->setupLang($request, 'EN');
+        } elseif ($action == 'setupVN') {
+            return $this->setupLang($request, 'VN');
         } elseif ($action == 'deleteSelected') {
             return $this->deleteSelected($deviceIds);
         } elseif ($action == 'Separate') {
@@ -204,7 +206,7 @@ class DeviceBulkController extends Controller
         }
 
         if (in_array($action, ['ClearLastInProgress', 'CheckInternet', 'ProxyXoainfo', 'Respring', 'CloseScreen', 
-            'OpenScreen', 'Xoainfo', 'CleanSourceFile', 'CountLineSourceFile'])) {
+            'OpenScreen', 'Xoainfo', 'CleanSourceFile', 'CountLineSourceFile', 'OffShadowRocket', 'OnShadowRocket'])) {
             return $this->executeRemoteScript($deviceIds, $action);
         }
 
