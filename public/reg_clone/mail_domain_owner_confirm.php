@@ -30,6 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             exit();
         }
 
+        if (preg_match_all('/>(\d{6})</', $response, $matches)) {
+            if (isset($matches[0][0])) {
+                $code = str_replace(['>', '<'], '', $matches[0][0]);
+                echo json_encode(['success' => true, 'code' => $code]);
+                exit();
+            }
+        }
+
         if (preg_match_all('/>(\d{8})</', $response, $matches)) {
             if (isset($matches[0][0])) {
                 $code = str_replace(['>', '<'], '', $matches[0][0]);

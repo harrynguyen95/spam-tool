@@ -147,7 +147,7 @@
                         <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end" style="margin-right: 10px; width: 120px">Dummy Reg</label>
                             <select name="reg_phone_first" class="form-control">
-                                <option {{ $config->reg_phone_first == '0' ? 'selected' : '' }} value="0">Normal</option>
+                                <option {{ $config->reg_phone_first == '0' ? 'selected' : '' }} value="0">None</option>
                                 <option {{ $config->reg_phone_first == '1' ? 'selected' : '' }} value="1">Phone</option>
                                 <option {{ $config->reg_phone_first == '2' ? 'selected' : '' }} value="2">Gmail</option>
                                 <option {{ $config->reg_phone_first == '3' ? 'selected' : '' }} value="3">Icloud</option>
@@ -204,6 +204,16 @@
                             <input type="number" name="thue_lai_mail_thuemails" class="form-control" value="{{ $config->thue_lai_mail_thuemails }}" placeholder="0|1|2|3" />
                         </div>
 
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px; width: 120px">Add mail domain</label>
+                            <select name="add_mail_domain" class="form-control">
+                                <option {{ $config->add_mail_domain == '0' ? 'selected' : '' }} value="0">None</option>
+                                <option {{ $config->add_mail_domain == '1' ? 'selected' : '' }} value="1">Yagisongs</option>
+                                <option {{ $config->add_mail_domain == '2' ? 'selected' : '' }} value="2">Supermoney9x</option>
+                                <option {{ $config->add_mail_domain == '3' ? 'selected' : '' }} value="3">Mix</option>
+                            </select>
+                        </div>
+
                         <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end" style="margin-right: 10px;">Change VN info</label>
                             <div class="form-check form-check-inline me-3">
@@ -216,17 +226,6 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 d-flex align-items-center hidden">
-                            <label class="text-end" style="margin-right: 10px;">Add mail domain</label>
-                            <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="add_mail_domain" id="add_mail_domain_yes" value="1" disabled>
-                                <label for="add_mail_domain_yes">Yes</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="add_mail_domain" id="add_mail_domain_no" value="0" checked disabled>
-                                <label for="add_mail_domain_no">No</label>
-                            </div>
-                        </div>
                         <div class="col-md-4 d-flex align-items-center hidden">
                             <label class="text-end" style="margin-right: 10px;">Remove register mail</label>
                             <div class="form-check form-check-inline me-3">
