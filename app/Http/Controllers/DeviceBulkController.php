@@ -178,6 +178,7 @@ class DeviceBulkController extends Controller
         session(['order_dir' => $request->input('order_dir')]);
         session(['file_setting_status' => $request->input('file_setting_status')]);
         session(['common_setting_status' => $request->input('common_setting_status')]);
+        session(['account_setting_status' => $request->input('account_setting_status')]);
         
         if (empty($deviceIds)) {
             return redirect()->route('device.index')->withError('Empty device.');
@@ -205,7 +206,7 @@ class DeviceBulkController extends Controller
             return $this->separateFile($request);
         }
 
-        if (in_array($action, ['ClearLastInProgress', 'CheckInternet', 'ProxyXoainfo', 'Respring', 'CloseScreen', 
+        if (in_array($action, ['ClearLastInProgress', 'CheckInternet', 'ProxyXoainfo', 'Respring', 'CloseScreen', 'XoaPhotoImage',
             'OpenScreen', 'Xoainfo', 'CleanSourceFile', 'CountLineSourceFile', 'OffShadowRocket', 'OnShadowRocket'])) {
             return $this->executeRemoteScript($deviceIds, $action);
         }
@@ -392,6 +393,7 @@ class DeviceBulkController extends Controller
         session(['order_dir' => $request->input('order_dir')]);
         session(['file_setting_status' => $request->input('file_setting_status')]);
         session(['common_setting_status' => $request->input('common_setting_status')]);
+        session(['account_setting_status' => $request->input('account_setting_status')]);
 
         $devices = Device::whereIn('id', $ids)->orderBy('name', 'asc')->get();
 
@@ -419,6 +421,7 @@ class DeviceBulkController extends Controller
             'remove_register_mail'      => $request->input('remove_register_mail') ?: '0',
             'provider_mail_thuemails'   => $request->input('provider_mail_thuemails') ?: '1',
             'times_xoa_info'            => $request->input('times_xoa_info') ?: '0',
+            'change_info'               => $request->input('change_info') ?: '0',
             'note'                      => $request->input('note') ?: '',
             'local_server'              => $request->input('local_server') ?: '',
             'destination_filename'      => $request->input('destination_filename') ?: '',
@@ -450,6 +453,7 @@ class DeviceBulkController extends Controller
                 'remove_register_mail'      => $request->input('remove_register_mail') ?: '0',
                 'provider_mail_thuemails'   => $request->input('provider_mail_thuemails') ?: '1',
                 'times_xoa_info'            => $request->input('times_xoa_info') ?: '0',
+                'change_info'               => $request->input('change_info') ?: '0',
                 'note'                      => $request->input('note') ?: '',
                 'local_server'              => $request->input('local_server') ?: '',
                 'destination_filename'      => $request->input('destination_filename') ?: '',
@@ -524,6 +528,7 @@ class DeviceBulkController extends Controller
             session(['order_dir' => $request->input('order_dir')]);
             session(['file_setting_status' => $request->input('file_setting_status')]);
             session(['common_setting_status' => $request->input('common_setting_status')]);
+            session(['account_setting_status' => $request->input('account_setting_status')]);
 
             $sourceFilepath = $request->input('source_filepath');
             $separateItems = $request->input('separate_items');

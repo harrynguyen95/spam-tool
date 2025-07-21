@@ -45,6 +45,8 @@
                     <div class="mb-3">
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="ProxyXoainfo"
                             onclick="return confirm('Are you sure you want to change Proxy Xoainfo?');" style="color: #e08e0b">Proxy Xoainfo</button>
+                        <button type="submit" class="btn btn-sm btn-default" name="action" value="XoaPhotoImage"
+                            onclick="return confirm('Are you sure you want to Clean Photo Library?');">Clean Photo Library</button>
                         <button type="button" class="btn btn-sm btn-default" style="color: #ccc"> | </button>
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="setupES"
                             onclick="return confirm('Are you sure you want to set Device Spanish?');">Device <b>Spanish</b></button>
@@ -99,7 +101,7 @@
                                 <label for="language_en">EN</label>
                             </div>
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="language" id="language_vn" value="EN" {{ $config->language == 'VN' ? 'checked' : '' }} >
+                                <input class="form-check-input" type="radio" name="language" id="language_vn" value="VN" {{ $config->language == 'VN' ? 'checked' : '' }} >
                                 <label for="language_vn">VN</label>
                             </div>
                         </div>
@@ -175,6 +177,44 @@
                                 <label for="login_with_code_no">No</label>
                             </div>
                         </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <p style="color: #d73925; font-weight: 700"><span class="count-selected">0</span> devices.</p>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        
+                        <div class="col-md-4 text-right">
+                            <button type="submit" class="btn btn-md btn-primary" name="action" value="config">Config</button>
+                        </div>
+
+                        <div class="col-md-12 text-right" style="margin: 5px 0 10px">
+                            <a style="color: #f7630c; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="account-setting-btn">Account settings</a>
+                            |
+                            <a style="color: #f7630c; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="common-setting-btn">Common settings</a>
+                            |
+                            <a style="color: #f7630c; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="file-setting-btn">File settings</a>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3" id="account-setting-div" style="display: none;">
+                        <div class="col-md-3 d-flex align-items-center">
+                            <label class="text-end">Re-rent thuemails</label>
+                            <input type="number" name="thue_lai_mail_thuemails" class="form-control" value="{{ $config->thue_lai_mail_thuemails }}" placeholder="0|1|2|3" />
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px;">Change VN info</label>
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input" type="radio" name="change_info" id="change_info_yes" value="1" {{ $config->change_info == '1' ? 'checked' : '' }}>
+                                <label for="change_info_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="change_info" id="change_info_no" value="0" {{ $config->change_info == '0' ? 'checked' : '' }} >
+                                <label for="change_info_no">No</label>
+                            </div>
+                        </div>
 
                         <div class="col-md-4 d-flex align-items-center hidden">
                             <label class="text-end" style="margin-right: 10px;">Add mail domain</label>
@@ -199,17 +239,6 @@
                             </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-center hidden">
-                            <label class="text-end" style="margin-right: 10px;">Re-rent thuemails</label>
-                            <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="thue_lai_mail_thuemails" id="thue_lai_mail_thuemails_yes" value="1" disabled>
-                                <label for="thue_lai_mail_thuemails_yes">Yes</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="thue_lai_mail_thuemails" id="thue_lai_mail_thuemails_no" value="0" checked disabled>
-                                <label for="thue_lai_mail_thuemails_no">No</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-flex align-items-center hidden">
                             <label class="text-end" style="margin-right: 10px;">Provider thuemails</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="provider_mail_thuemails" id="provider_mail_thuemails_yes" value="1" checked>
@@ -220,23 +249,7 @@
                                 <label for="provider_mail_thuemails_no">Icloud</label>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <p style="color: #d73925; font-weight: 700"><span class="count-selected">0</span> devices.</p>
-                        </div>
-                        <div class="col-md-4">
-                        </div>
-                        
-                        <div class="col-md-4 text-right">
-                            <button type="submit" class="btn btn-md btn-primary" name="action" value="config">Config</button>
-                        </div>
-
-                        <div class="col-md-12 text-right" style="margin: 5px 0 10px">
-                            <a style="color: #f7630c; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="common-setting-btn">Common settings</a>
-                            |
-                            <a style="color: #f7630c; font-weight: 700; text-decoration: underline" href="javascript:void(0);" id="file-setting-btn">File settings</a>
-                        </div>
+                        <input type="hidden" id="account-setting-status" name="account_setting_status" value="0">
                     </div>
 
                     <div class="row mb-3" id="common-setting-div" style="display: none;">
@@ -393,6 +406,7 @@
         var orderDevice = "{{ session('order_dir') ?: env('ORDER_DEVICE', 'asc') }}";
         var fileSettingStatus = "{{ session('file_setting_status') ?? '' }}";
         var commonSettingStatus = "{{ session('common_setting_status') ?? '' }}";
+        var accountSettingStatus = "{{ session('account_setting_status') ?? '' }}";
 
         function fetchGmailCount() {
             $.getJSON("https://api.thuemails.com/api/count-gmail?api_key=" + APIKEYthuemails, function(data) {
@@ -417,6 +431,13 @@
 
             const isVisible = $('#common-setting-div').is(':visible');
             $('#common-setting-status').val(isVisible ? '1' : '0');
+        }
+
+        if (accountSettingStatus && accountSettingStatus != '' && accountSettingStatus != 0) {
+            $('#account-setting-div').toggle();
+
+            const isVisible = $('#account-setting-div').is(':visible');
+            $('#account-setting-status').val(isVisible ? '1' : '0');
         }
 
         function updateCountSelected() {
@@ -551,13 +572,19 @@
             const isVisible = $('#file-setting-div').is(':visible');
             $('#file-setting-status').val(isVisible ? '1' : '0');
         });
-
         $('#common-setting-btn').on('click', function (e) {
             e.preventDefault();
             $('#common-setting-div').toggle();
 
             const isVisible = $('#common-setting-div').is(':visible');
             $('#common-setting-status').val(isVisible ? '1' : '0');
+        });
+        $('#account-setting-btn').on('click', function (e) {
+            e.preventDefault();
+            $('#account-setting-div').toggle();
+
+            const isVisible = $('#account-setting-div').is(':visible');
+            $('#account-setting-status').val(isVisible ? '1' : '0');
         });
         
     </script>

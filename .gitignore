@@ -2,6 +2,7 @@
 /node_modules
 /public/build
 /public/hot
+/public/reg_clone/avatars
 /public/storage
 /storage/*.key
 /vendor

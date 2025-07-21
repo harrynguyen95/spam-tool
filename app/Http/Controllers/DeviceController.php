@@ -6,7 +6,6 @@ use App\Models\Device;
 use App\Models\LastConfig;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Storage;
 
 class DeviceController extends Controller
 {

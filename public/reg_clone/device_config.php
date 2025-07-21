@@ -72,7 +72,7 @@ if ($action === 'upsert') {
                 'provider_mail_thuemails', 'times_xoa_info',
                 'note', 'api_key_thuemails', 'api_key_dongvanfb',
                 'login_with_code', 'separate_items', 'destination_filename',
-                'local_server', 'source_filepath'
+                'local_server', 'source_filepath', 'change_info'
             ];
 
             // Build data array để bind vào PDO
