@@ -438,7 +438,7 @@ class DeviceBulkController extends Controller
                 'device_name'               => $device->name,
                 'device'                    => $device->ip_address,
                 'language'                  => $request->input('language') ?: 'EN',
-                'account_region'            => $request->input('account_region') ?: 'US',
+                'account_region'            => $request->input('account_region') ?: 'VN',
                 'mail_suply'                => $request->input('mail_suply') ?: '1',
                 'proxy'                     => $request->input('proxy') ?: '',
                 'hotmail_service_ids'       => $request->input('hotmail_service_ids') ?: '{2,6,1,3,5,59,60}',
