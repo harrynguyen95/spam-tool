@@ -427,6 +427,7 @@ class DeviceBulkController extends Controller
             'destination_filename'      => $request->input('destination_filename') ?: '',
             'source_filepath'           => $request->input('source_filepath') ?: '',
             'separate_items'            => $request->input('separate_items') ?: '',
+            'ip_rotate_mode'            => $request->input('ip_rotate_mode') ?: '1',
         ]);
 
 
@@ -459,6 +460,7 @@ class DeviceBulkController extends Controller
                 'destination_filename'      => $request->input('destination_filename') ?: '',
                 'source_filepath'           => $request->input('source_filepath') ?: '',
                 'separate_items'            => $request->input('separate_items') ?: '',
+                'ip_rotate_mode'            => $request->input('ip_rotate_mode') ?: '1',
             ];
         }
 

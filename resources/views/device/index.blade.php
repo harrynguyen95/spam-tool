@@ -214,8 +214,16 @@
                             </select>
                         </div>
 
-                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
-                            <label class="text-end" style="margin-right: 10px;">Change VN info</label>
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px; width: 120px">IP rotate mode</label>
+                            <select name="ip_rotate_mode" class="form-control">
+                                <option {{ $config->ip_rotate_mode == '1' ? 'selected' : '' }} value="1">Rocket</option>
+                                <option {{ $config->ip_rotate_mode == '2' ? 'selected' : '' }} value="2">Airplane</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px;">Change info (VN)</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="change_info" id="change_info_yes" value="1" {{ $config->change_info == '1' ? 'checked' : '' }}>
                                 <label for="change_info_yes">Yes</label>
