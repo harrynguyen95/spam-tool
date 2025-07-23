@@ -222,7 +222,7 @@
                             </select>
                         </div>
 
-                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
+                        <div class="col-md-3 d-flex align-items-center hidden" style="height: 45px;">
                             <label class="text-end" style="margin-right: 10px;">Change info (VN)</label>
                             <div class="form-check form-check-inline me-3">
                                 <input class="form-check-input" type="radio" name="change_info" id="change_info_yes" value="1" {{ $config->change_info == '1' ? 'checked' : '' }}>
