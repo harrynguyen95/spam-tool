@@ -45,8 +45,8 @@
                     <div class="mb-3">
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="ProxyXoainfo"
                             onclick="return confirm('Are you sure you want to change Proxy Xoainfo?');" style="color: #e08e0b">Proxy Xoainfo</button>
-                        <button type="submit" class="btn btn-sm btn-default" name="action" value="XoaPhotoImage"
-                            onclick="return confirm('Are you sure you want to Clean Photo Library?');">Clean Photo Library</button>
+                        <!-- <button type="submit" class="btn btn-sm btn-default" name="action" value="XoaPhotoImage"
+                            onclick="return confirm('Are you sure you want to Clean Photo Library?');">Clean Photo Library</button> -->
                         <button type="button" class="btn btn-sm btn-default" style="color: #ccc"> | </button>
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="setupES"
                             onclick="return confirm('Are you sure you want to set Device Spanish?');">Device <b>Spanish</b></button>
