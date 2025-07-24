@@ -41,6 +41,18 @@
                 <div class="help-block">@if($errors->has('note')) {{ $errors->first('note') }} @endif</div>
             </div>
 
+            <div class="form-group @if (count($errors->all())) {{$errors->has(['tsproxy_id']) ? 'has-error' : 'has-success'}} @endif" >
+                <label class="control-label">tsproxy ID</label>
+                <input type="text" class="form-control{{ $errors->has('tsproxy_id') ? ' has-error' : '' }}" name="tsproxy_id" value="{{ $device->tsproxy_id }}">
+                <div class="help-block">@if($errors->has('tsproxy_id')) {{ $errors->first('tsproxy_id') }} @endif</div>
+            </div>
+
+            <div class="form-group @if (count($errors->all())) {{$errors->has(['tsproxy_port']) ? 'has-error' : 'has-success'}} @endif" >
+                <label class="control-label">tsproxy Port</label>
+                <input type="text" class="form-control{{ $errors->has('tsproxy_port') ? ' has-error' : '' }}" name="tsproxy_port" value="{{ $device->tsproxy_port }}">
+                <div class="help-block">@if($errors->has('tsproxy_port')) {{ $errors->first('tsproxy_port') }} @endif</div>
+            </div>
+
             <br>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">{{ t('Save') }}</button>

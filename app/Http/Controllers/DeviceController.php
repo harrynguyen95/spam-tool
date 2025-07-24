@@ -6,6 +6,7 @@ use App\Models\Device;
 use App\Models\LastConfig;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Http;
 
 class DeviceController extends Controller
 {
@@ -49,6 +50,8 @@ class DeviceController extends Controller
                 'note' => $request->note,
                 'name' => $request->name,
                 'ip_address' => $request->ip_address,
+                'tsproxy_id' => $request->tsproxy_id,
+                'tsproxy_port' => $request->tsproxy_port,
             ]);
 
             return redirect()->route('device.index')->withSuccess('Create ok.');
@@ -72,6 +75,8 @@ class DeviceController extends Controller
                 Rule::in(['Hải', 'Nam', 'Hiến']),
             ],
             'name' => 'required|string',
+            'tsproxy_id' => 'sometimes|string',
+            'tsproxy_port' => 'sometimes|string',
             'ip_address' => [
                 'required',
                 'ipv4',
@@ -80,12 +85,34 @@ class DeviceController extends Controller
         ]);
         
         try {
+            $device = Device::find($request->id);
             Device::where('id', $request->id)->update([
                 'username' => $request->username,
                 'note' => $request->note,
                 'name' => $request->name,
                 'ip_address' => $request->ip_address,
+                'tsproxy_id' => $request->tsproxy_id,
+                'tsproxy_port' => $request->tsproxy_port,
             ]);
+
+            $payloadData = [];
+            $payloadData[] = [
+                'username'                  => $device->username,
+                'device'                    => $device->ip_address,
+                'tsproxy_id'                => $request->tsproxy_id,
+            ];
+
+            if (! empty($request->tsproxy_id)) {
+                try {
+                    $apiUrl = url('https://tuongtacthongminh.com/reg_clone/device_config.php');
+                    Http::asForm()->timeout(120)->post($apiUrl, [
+                        'action' => 'update',
+                        'data'   => json_encode($payloadData),
+                    ]);
+                } catch (\Exception $e) {
+                    logger()->error($e->getMessage());
+                }
+            }
 
             return redirect()->route('device.index')->withSuccess('Update ok.');
         } catch(\Exception $e) {

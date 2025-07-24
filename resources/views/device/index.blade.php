@@ -219,6 +219,7 @@
                             <select name="ip_rotate_mode" class="form-control">
                                 <option {{ $config->ip_rotate_mode == '1' ? 'selected' : '' }} value="1">Rocket</option>
                                 <option {{ $config->ip_rotate_mode == '2' ? 'selected' : '' }} value="2">Airplane</option>
+                                <option {{ $config->ip_rotate_mode == '3' ? 'selected' : '' }} value="3">LAN proxy</option>
                             </select>
                         </div>
 
@@ -327,6 +328,7 @@
                                 <th class="un-orderable-col">Id</th>
                                 <th class="un-orderable-col">Name</th>
                                 <th class="un-orderable-col">IP Address</th>
+                                <th class="un-orderable-col">tsproxy</th>
                                 <th class="un-orderable-col" style="min-width: 200px;">Note</th>
                                 <th class="un-orderable-col">Device Lang</th>
                                 <th class="un-orderable-col">Action</th>
@@ -347,6 +349,7 @@
                                         </div>
                                     </td>
                                     <td>{{ $row['ip_address'] }}</td>
+                                    <td>{{ $row['tsproxy_id'] ?? '-' }}|{{ $row['tsproxy_port'] ?? '-' }}</td>
                                     <!-- <td>{{ date_format(date_create($row['created_at']), 'Y-m-d H:i') }}</td> -->
                                     <td>{{ $row['note'] }}</td>
                                     <td style="vertical-align: middle;">
@@ -378,8 +381,8 @@
                                             <button type="button" class="btn btn-sm btn-primary" onclick="submitOneDevice('pullcode', {{ $row['id'] }})">Pull Code</button>
                                             <button type="button" class="btn btn-sm btn-warning" onclick="submitOneDevice('respring', {{ $row['id'] }})">Respring</button>
                                             <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('clear', {{ $row['id'] }})">Clear INPROGRESS</button>
-                                            <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('openscreen', {{ $row['id'] }})" style="color: #008d4c">Open Screen</button>
-                                            <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('closescreen', {{ $row['id'] }})" style="color: #008d4c">Close Screen</button>
+                                            <!-- <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('openscreen', {{ $row['id'] }})" style="color: #008d4c">Open Screen</button> -->
+                                            <!-- <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('closescreen', {{ $row['id'] }})" style="color: #008d4c">Close Screen</button> -->
                                             <button type="button" class="btn btn-sm btn-success" onclick="window.open('http://{{ $row['ip_address'] }}:8080', '_blank')">Open URL</button>
                                             <a href="{{ route("device.edit", $row['id']) }}" class="btn btn-sm btn-default">Update</a>
                                             <button type="button" class="btn btn-sm btn-default" onclick="submitOneDevice('delete', {{ $row['id'] }})">Delete</button>

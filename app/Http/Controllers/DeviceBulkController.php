@@ -461,6 +461,7 @@ class DeviceBulkController extends Controller
                 'source_filepath'           => $request->input('source_filepath') ?: '',
                 'separate_items'            => $request->input('separate_items') ?: '',
                 'ip_rotate_mode'            => $request->input('ip_rotate_mode') ?: '1',
+                'tsproxy_id'                => $device->tsproxy_id ?? '',
             ];
         }
 
@@ -498,7 +499,6 @@ class DeviceBulkController extends Controller
             $results[] = 'API exception: ' . $e->getMessage();
             $failedIds[] = $device->id;
         }
-
        
         return redirect()->route('device.index')->with('results', $results)->with('selected_device_ids', $ids)->with('failed_ids', $failedIds);
     }
