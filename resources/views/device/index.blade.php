@@ -199,18 +199,22 @@
                     </div>
 
                     <div class="row mb-3" id="account-setting-div" style="display: none;">
-                        <div class="col-md-3 d-flex align-items-center">
-                            <label class="text-end">Re-rent thuemails</label>
-                            <input type="number" name="thue_lai_mail_thuemails" class="form-control" value="{{ $config->thue_lai_mail_thuemails }}" placeholder="0|1|2|3" />
-                        </div>
-
+            
                         <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end" style="margin-right: 10px; width: 120px">Add mail domain</label>
                             <select name="add_mail_domain" class="form-control">
                                 <option {{ $config->add_mail_domain == '0' ? 'selected' : '' }} value="0">None</option>
-                                <option {{ $config->add_mail_domain == '1' ? 'selected' : '' }} value="1">Yagisongs</option>
-                                <option {{ $config->add_mail_domain == '2' ? 'selected' : '' }} value="2">Supermoney9x</option>
-                                <option {{ $config->add_mail_domain == '3' ? 'selected' : '' }} value="3">Mix</option>
+                                <option {{ $config->add_mail_domain == '1' ? 'selected' : '' }} value="1">In Dummy Reg</option>
+                                <option {{ $config->add_mail_domain == '2' ? 'selected' : '' }} value="2">In Setting</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px; width: 120px">Mail domain</label>
+                            <select name="mail_domain_type" class="form-control">
+                                <option {{ $config->mail_domain_type == '1' ? 'selected' : '' }} value="1">Yagisongs</option>
+                                <option {{ $config->mail_domain_type == '2' ? 'selected' : '' }} value="2">Supermoney9x</option>
+                                <option {{ $config->mail_domain_type == '3' ? 'selected' : '' }} value="3">Mix</option>
                             </select>
                         </div>
 
@@ -221,6 +225,11 @@
                                 <option {{ $config->ip_rotate_mode == '2' ? 'selected' : '' }} value="2">Airplane</option>
                                 <option {{ $config->ip_rotate_mode == '3' ? 'selected' : '' }} value="3">LAN proxy</option>
                             </select>
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-center">
+                            <label class="text-end">Re-rent thuemails</label>
+                            <input type="number" name="thue_lai_mail_thuemails" class="form-control" value="{{ $config->thue_lai_mail_thuemails }}" placeholder="0|1|2|3" />
                         </div>
 
                         <div class="col-md-3 d-flex align-items-center hidden" style="height: 45px;">
