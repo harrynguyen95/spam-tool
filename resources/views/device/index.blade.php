@@ -91,58 +91,14 @@
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
-                            <label class="text-end" style="margin-right: 10px;">Tool Language</label>
-                            <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="language" id="language_es" value="ES" {{ $config->language == 'ES' ? 'checked' : '' }} >
-                                <label for="language_es">ES</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="language" id="language_en" value="EN" {{ $config->language == 'EN' ? 'checked' : '' }} >
-                                <label for="language_en">EN</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="language" id="language_vn" value="VN" {{ $config->language == 'VN' ? 'checked' : '' }} >
-                                <label for="language_vn">VN</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
-                            <label class="text-end" style="margin-right: 10px;">Account Region</label>
-                            <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="account_region" id="account_region_vn" value="VN" {{ $config->account_region == 'VN' ? 'checked' : '' }} >
-                                <label for="account_region_vn">VN</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="account_region" id="account_region_us" value="US" {{ $config->account_region == 'US' ? 'checked' : '' }} >
-                                <label for="account_region_us">US</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end" style="margin-right: 10px; width: 120px">Mail Suply</label>
                             <select name="mail_suply" class="form-control">
                                 <option {{ $config->mail_suply == '1' ? 'selected' : '' }} value="1">DongvanFB</option>
                                 <option {{ $config->mail_suply == '2' ? 'selected' : '' }} value="2">Thuemails</option>
                                 <option {{ $config->mail_suply == '3' ? 'selected' : '' }} value="3">Yagisongs</option>
+                                <option {{ $config->mail_suply == '4' ? 'selected' : '' }} value="4">Gmail66</option>
                             </select>
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
-                            <label class="text-end" style="margin-right: 10px;">Hotmail source in file</label>
-                            <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_yes" value="1" {{ $config->hot_mail_source_from_file == '1' ? 'checked' : '' }} >
-                                <label for="hot_mail_source_from_file_yes">Yes</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_no" value="0" {{ $config->hot_mail_source_from_file == '0' ? 'checked' : '' }} >
-                                <label for="hot_mail_source_from_file_no">No</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
-                            <label class="text-end" style="width: 240px">Hotmail service ids</label> 
-                            <input type="text" name="hotmail_service_ids" class="form-control" value="{{ $config->hotmail_service_ids }}" placeholder="{1,2,3,5,6,59,60}" />
-                        </div>
+                        </div> 
 
                         <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end" style="margin-right: 10px; width: 120px">Dummy Reg</label>
@@ -153,29 +109,14 @@
                                 <option {{ $config->reg_phone_first == '3' ? 'selected' : '' }} value="3">Icloud</option>
                             </select>
                         </div>
-
+                        
                         <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
-                            <label class="text-end" style="margin-right: 10px;">Enter verify code</label>
-                            <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_yes" value="1" {{ $config->enter_verify_code == '1' ? 'checked' : '' }} >
-                                <label for="enter_verify_code_yes">Yes</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_no" value="0" {{ $config->enter_verify_code == '0' ? 'checked' : '' }} >
-                                <label for="enter_verify_code_no">No</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 d-flex align-items-center" style="height: 45px;">
-                            <label class="text-end" style="margin-right: 10px;">Login With Code</label>
-                            <div class="form-check form-check-inline me-3">
-                                <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_yes" value="1" {{ $config->login_with_code == '1' ? 'checked' : '' }} >
-                                <label for="login_with_code_yes">Yes</label>
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-left: 5px;">
-                                <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_no" value="0" {{ $config->login_with_code == '0' ? 'checked' : '' }} >
-                                <label for="login_with_code_no">No</label>
-                            </div>
+                            <label class="text-end" style="margin-right: 10px; width: 120px">IP rotate mode</label>
+                            <select name="ip_rotate_mode" class="form-control">
+                                <option {{ $config->ip_rotate_mode == '1' ? 'selected' : '' }} value="1">Rocket</option>
+                                <option {{ $config->ip_rotate_mode == '2' ? 'selected' : '' }} value="2">Airplane</option>
+                                <option {{ $config->ip_rotate_mode == '3' ? 'selected' : '' }} value="3">LAN proxy</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -218,17 +159,8 @@
                             </select>
                         </div>
 
-                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
-                            <label class="text-end" style="margin-right: 10px; width: 120px">IP rotate mode</label>
-                            <select name="ip_rotate_mode" class="form-control">
-                                <option {{ $config->ip_rotate_mode == '1' ? 'selected' : '' }} value="1">Rocket</option>
-                                <option {{ $config->ip_rotate_mode == '2' ? 'selected' : '' }} value="2">Airplane</option>
-                                <option {{ $config->ip_rotate_mode == '3' ? 'selected' : '' }} value="3">LAN proxy</option>
-                            </select>
-                        </div>
-
                         <div class="col-md-3 d-flex align-items-center">
-                            <label class="text-end">Re-rent thuemails</label>
+                            <label class="text-end">Re-rent gmail</label>
                             <input type="number" name="thue_lai_mail_thuemails" class="form-control" value="{{ $config->thue_lai_mail_thuemails }}" placeholder="0|1|2|3" />
                         </div>
 
@@ -241,6 +173,58 @@
                             <div class="form-check form-check-inline" style="margin-left: 5px;">
                                 <input class="form-check-input" type="radio" name="change_info" id="change_info_no" value="0" {{ $config->change_info == '0' ? 'checked' : '' }} >
                                 <label for="change_info_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px;">Enter verify code</label>
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_yes" value="1" {{ $config->enter_verify_code == '1' ? 'checked' : '' }} >
+                                <label for="enter_verify_code_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="enter_verify_code" id="enter_verify_code_no" value="0" {{ $config->enter_verify_code == '0' ? 'checked' : '' }} >
+                                <label for="enter_verify_code_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px;">Login With Code</label>
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_yes" value="1" {{ $config->login_with_code == '1' ? 'checked' : '' }} >
+                                <label for="login_with_code_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="login_with_code" id="login_with_code_no" value="0" {{ $config->login_with_code == '0' ? 'checked' : '' }} >
+                                <label for="login_with_code_no">No</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px;">Account Region</label>
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input" type="radio" name="account_region" id="account_region_vn" value="VN" {{ $config->account_region == 'VN' ? 'checked' : '' }} >
+                                <label for="account_region_vn">VN</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="account_region" id="account_region_us" value="US" {{ $config->account_region == 'US' ? 'checked' : '' }} >
+                                <label for="account_region_us">US</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px;">Tool Lang</label>
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input" type="radio" name="language" id="language_es" value="ES" {{ $config->language == 'ES' ? 'checked' : '' }} >
+                                <label for="language_es">ES</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="language" id="language_en" value="EN" {{ $config->language == 'EN' ? 'checked' : '' }} >
+                                <label for="language_en">EN</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="language" id="language_vn" value="VN" {{ $config->language == 'VN' ? 'checked' : '' }} >
+                                <label for="language_vn">VN</label>
                             </div>
                         </div>
 
@@ -289,32 +273,48 @@
                             <label class="text-end">API-key dongvanfb</label>
                             <input type="text" name="api_key_dongvanfb" class="form-control" value="{{ $config->api_key_dongvanfb }}" placeholder="" />
                         </div>
+
+                        <div class="col-md-3 d-flex align-items-center">
+                            <label class="text-end">API-key gmail66</label>
+                            <input type="text" name="api_key_gmail66" class="form-control" value="{{ $config->api_key_gmail66 }}" placeholder="" />
+                        </div>
                         <input type="hidden" id="common-setting-status" name="common_setting_status" value="0">
                     </div>
 
                     <div class="row mb-3" id="file-setting-div" style="display: none;">
-                         <div class="col-md-3 d-flex align-items-center">
+                         <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end">Local server</label>
                             <input type="text" name="local_server" class="form-control" value="{{ $config->local_server }}" placeholder="" />
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" style="height: 45px;">
                             <div class="d-flex align-items-center">
                                 <label class="text-end">Destination filename</label>
                                 <input type="text" name="destination_filename" class="form-control" value="{{ $config->destination_filename }}" placeholder="" />
                             </div>
-                            <p style="opacity: 0.5;">hotmail_source.txt|accounts_code.txt</p>
+                            <!-- <p style="opacity: 0.5;">hotmail_source.txt|accounts_code.txt</p> -->
                         </div>
-                        <div class="col-md-3 d-flex align-items-center">
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end">Source filepath</label>
                             <input type="text" name="source_filepath" class="form-control" value="{{ $config->source_filepath }}" placeholder="" />
                         </div>
-                        <div class="col-md-3 d-flex align-items-center">
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
                             <label class="text-end">Separate items</label>
                             <input type="text" name="separate_items" class="form-control" value="{{ $config->separate_items }}" placeholder="" />
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="margin-right: 10px;">Hotmail source file</label>
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_yes" value="1" {{ $config->hot_mail_source_from_file == '1' ? 'checked' : '' }} >
+                                <label for="hot_mail_source_from_file_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline" style="margin-left: 5px;">
+                                <input class="form-check-input" type="radio" name="hot_mail_source_from_file" id="hot_mail_source_from_file_no" value="0" {{ $config->hot_mail_source_from_file == '0' ? 'checked' : '' }} >
+                                <label for="hot_mail_source_from_file_no">No</label>
+                            </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 d-flex align-items-center" style="height: 45px;">
+                            <label class="text-end" style="width: 240px">Hotmail ids</label> 
+                            <input type="text" name="hotmail_service_ids" class="form-control" value="{{ $config->hotmail_service_ids }}" placeholder="{1,2,3,5,6,59,60}" />
                         </div>
                         <div class="col-md-6 text-right">
                             <button type="submit" class="btn btn-md btn-default" name="action" value="CountLineSourceFile">Count Line</button>
@@ -366,19 +366,19 @@
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #245c7c; border: 1px solid #245c7c; border-radius: 8px">
-                                                {{ $row['account_region'] }} | Spanish | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
+                                                {{ $row['account_region'] }} | Spanish | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}
                                             </span>
                                         @elseif ($row['lang'] == 'EN')
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #007c43; border: 1px solid #007c43; border-radius: 8px">
-                                                {{ $row['account_region'] }} | English | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
+                                                {{ $row['account_region'] }} | English | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}
                                             </span>
                                         @elseif ($row['lang'] == 'VN')
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #b18a37ff; border: 1px solid #b18a37ff; border-radius: 8px">
-                                                {{ $row['account_region'] }} | Vietnamese | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : '-' ) }}
+                                                {{ $row['account_region'] }} | Vietnamese | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}
                                             </span>
                                         @endif
                                         @if($row['count_line']) <span style="margin-left: 5px;">{{ $row['count_line'] . "L" }}</span>@endif
