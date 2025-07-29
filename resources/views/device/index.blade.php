@@ -366,19 +366,19 @@
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #245c7c; border: 1px solid #245c7c; border-radius: 8px">
-                                                {{ $row['account_region'] }} | Spanish | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}
+                                                {{ $row['language'] }} | <b>{{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}</b>
                                             </span>
                                         @elseif ($row['lang'] == 'EN')
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #007c43; border: 1px solid #007c43; border-radius: 8px">
-                                                {{ $row['account_region'] }} | English | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}
+                                                {{ $row['language'] }} | <b>{{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}</b>
                                             </span>
                                         @elseif ($row['lang'] == 'VN')
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #b18a37ff; border: 1px solid #b18a37ff; border-radius: 8px">
-                                                {{ $row['account_region'] }} | Vietnamese | {{ $row['language'] }} | {{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}
+                                                {{ $row['language'] }} | <b>{{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}</b>
                                             </span>
                                         @endif
                                         @if($row['count_line']) <span style="margin-left: 5px;">{{ $row['count_line'] . "L" }}</span>@endif
