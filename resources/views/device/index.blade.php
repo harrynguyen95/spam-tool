@@ -33,8 +33,6 @@
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="deleteSelected"
                             onclick="return confirm('Are you sure you want to Delete these items?');" style="color: #d73925">Delete Selected</button>
                         <button type="submit" class="btn btn-sm btn-warning" name="action" value="Respring">Respring</button>
-                        <!-- <button type="submit" class="btn btn-sm btn-default" name="action" value="Xoainfo"
-                            onclick="return confirm('Are you sure you want to execute Xoainfo?');" style="color: #367fa9">Execute Xoainfo</button> -->
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="OffShadowRocket" style="color: #367fa9">Off Rocket</button>
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="OnShadowRocket" style="color: #367fa9">On Rocket</button>
                         <button type="button" class="btn btn-sm btn-default" style="color: #ccc"> | </button>
@@ -43,8 +41,10 @@
                         <button type="submit" class="btn btn-sm btn-default" name="action" value="CloseScreen" style="color: #008d4c">Close Screen</button>
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-sm btn-default" name="action" value="ProxyXoainfo"
-                            onclick="return confirm('Are you sure you want to change Proxy Xoainfo?');" style="color: #e08e0b">Proxy Xoainfo</button>
+                        <!-- <button type="submit" class="btn btn-sm btn-default hidden" name="action" value="ProxyXoainfo"
+                            onclick="return confirm('Are you sure you want to change Proxy Xoainfo?');" style="color: #e08e0b">Proxy Xoainfo</button> -->
+                        <button type="submit" class="btn btn-sm btn-default" name="action" value="Xoainfo"
+                            onclick="return confirm('Are you sure you want to execute Xoainfo?');" style="color: #367fa9">Execute Xoainfo</button>
                         <!-- <button type="submit" class="btn btn-sm btn-default" name="action" value="XoaPhotoImage"
                             onclick="return confirm('Are you sure you want to Clean Photo Library?');">Clean Photo Library</button> -->
                         <button type="button" class="btn btn-sm btn-default" style="color: #ccc"> | </button>
@@ -97,6 +97,7 @@
                                 <option {{ $config->mail_suply == '2' ? 'selected' : '' }} value="2">Thuemails</option>
                                 <option {{ $config->mail_suply == '3' ? 'selected' : '' }} value="3">Yagisongs</option>
                                 <option {{ $config->mail_suply == '4' ? 'selected' : '' }} value="4">Gmail66</option>
+                                <option {{ $config->mail_suply == '5' ? 'selected' : '' }} value="5">IronSim</option>
                             </select>
                         </div> 
 
@@ -258,25 +259,25 @@
                             <label class="text-end">Xoainfo (0|1|2)</label>
                             <input type="number" name="times_xoa_info" class="form-control" value="{{ $config->times_xoa_info }}" placeholder="2|3|4" />
                         </div>
-
-                        <div class="col-md-3 d-flex align-items-center">
+                        <div class="col-md-3 d-flex align-items-center hidden">
                             <label class="text-end">Proxy Xoainfo</label>
                             <input type="text" name="proxy" class="form-control" value="{{ $config->proxy }}" placeholder="123.123.123.123:10000" />
                         </div>
-
                         <div class="col-md-3 d-flex align-items-center">
                             <label class="text-end">API-key thuemails</label>
                             <input type="text" name="api_key_thuemails" class="form-control" value="{{ $config->api_key_thuemails }}" placeholder="" />
                         </div>
-
                         <div class="col-md-3 d-flex align-items-center">
                             <label class="text-end">API-key dongvanfb</label>
                             <input type="text" name="api_key_dongvanfb" class="form-control" value="{{ $config->api_key_dongvanfb }}" placeholder="" />
                         </div>
-
                         <div class="col-md-3 d-flex align-items-center">
                             <label class="text-end">API-key gmail66</label>
                             <input type="text" name="api_key_gmail66" class="form-control" value="{{ $config->api_key_gmail66 }}" placeholder="" />
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center">
+                            <label class="text-end">API-key Ironsim</label>
+                            <input type="text" name="api_key_ironsim" class="form-control" value="{{ $config->api_key_ironsim }}" placeholder="" />
                         </div>
                         <input type="hidden" id="common-setting-status" name="common_setting_status" value="0">
                     </div>
@@ -362,23 +363,24 @@
                                     <!-- <td>{{ date_format(date_create($row['created_at']), 'Y-m-d H:i') }}</td> -->
                                     <td>{{ $row['note'] }}</td>
                                     <td style="vertical-align: middle;">
+                                        @php $mailSuply = $row['mail_suply'] == 1 ? 'DongvanFB' : ($row['mail_suply'] == 2 ? 'Thuemails' : ($row['mail_suply'] == 4 ? 'Gmail66' : ($row['mail_suply'] == 5 ? 'IronSim' : '-'))); @endphp
                                         @if ($row['lang'] == 'ES')
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #245c7c; border: 1px solid #245c7c; border-radius: 8px">
-                                                {{ $row['language'] }} | <b>{{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}</b>
+                                                {{ $row['language'] }} | <b>{{ $mailSuply }}</b>
                                             </span>
                                         @elseif ($row['lang'] == 'EN')
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #007c43; border: 1px solid #007c43; border-radius: 8px">
-                                                {{ $row['language'] }} | <b>{{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}</b>
+                                                {{ $row['language'] }} | <b>{{ $mailSuply }}</b>
                                             </span>
                                         @elseif ($row['lang'] == 'VN')
                                             <span style="color: #fff;border-radius: 10px;
                                                 padding: 3px 10px;
                                                 color: #b18a37ff; border: 1px solid #b18a37ff; border-radius: 8px">
-                                                {{ $row['language'] }} | <b>{{ $row['mail_suply'] == 1 ? 'dongvanFB' : ($row['mail_suply'] == 2 ? 'thuemails' : ($row['mail_suply'] == 4 ? 'gmail66' : '-')) }}</b>
+                                                {{ $row['language'] }} | <b>{{ $mailSuply }}</b>
                                             </span>
                                         @endif
                                         @if($row['count_line']) <span style="margin-left: 5px;">{{ $row['count_line'] . "L" }}</span>@endif
