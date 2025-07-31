@@ -297,6 +297,7 @@ class DeviceBulkController extends Controller
                 $url = 'http://' . $device->ip_address . ':8080/control/stop_playing?path=/Facebook/Main.lua';
                 $response = Http::timeout(3)->get($url);
                 if ($response->successful()) {
+                    Http::timeout(2)->get('http://' . $device->ip_address . ':8080/control/stop_playing?path=/Run.lua');
                     $res = $response->json(); 
                     if ($res['status'] == 'success') {
                         $results[] = $title . ': STOP success.';
