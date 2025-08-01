@@ -117,6 +117,7 @@
                                 <option {{ $config->ip_rotate_mode == '1' ? 'selected' : '' }} value="1">Rocket</option>
                                 <option {{ $config->ip_rotate_mode == '2' ? 'selected' : '' }} value="2">Airplane</option>
                                 <option {{ $config->ip_rotate_mode == '3' ? 'selected' : '' }} value="3">LAN proxy</option>
+                                <option {{ $config->ip_rotate_mode == '4' ? 'selected' : '' }} value="4">Text proxy</option>
                             </select>
                         </div>
                     </div>
